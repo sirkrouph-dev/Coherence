@@ -382,6 +382,7 @@ class NeuromorphicNetwork:
         downscale_factor: Optional[float] = None,
         normalize_incoming: bool = False,
         replay: Optional[Dict[str, np.ndarray]] = None,
+        noise_std: Optional[float] = None,
     ) -> None:
         """
         Execute an optional sleep/rest phase that can (a) replay activity and (b) apply
@@ -401,6 +402,8 @@ class NeuromorphicNetwork:
             - This method is opt-in and is never invoked automatically.
             - It preserves normal learning dynamics. STDP remains active during replay.
             - If duration <= 0 or no replay is provided, only consolidation ops are applied.
+            - If noise_std > 0, additive Gaussian current noise (mean 0, std noise_std)
+              is applied to each layer during sleep steps (biologically plausible background).
         """
         # Replay phase (optional)
         if duration > 0 and replay:
@@ -435,6 +438,17 @@ class NeuromorphicNetwork:
                             lc = layer_currents[layer_name]
                             for i in range(layer.size):
                                 lc[i] += float(ext_current[i])
+
+                # Additive Gaussian noise to all layers (optional)
+                if noise_std is not None and noise_std > 0.0:
+                    for lname, layer in self.layers.items():
+                        lc = layer_currents[lname]
+                        if lc:
+                            lc_arr = np.asarray(lc, dtype=float)
+                            lc_arr += np.random.normal(0.0, float(noise_std), size=layer.size)
+                            # write back
+                            for i in range(layer.size):
+                                lc[i] = float(lc_arr[i])
 
                 # Step all layers
                 layer_spikes: Dict[str, List[bool]] = {}
