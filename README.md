@@ -1,23 +1,34 @@
 # Neuromorphic Programming System
 # SPDX-License-Identifier: MIT
 
+[![CI](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/ci.yml)
+[![Tests](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/test.yml)
+[![Lint](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/sirkrouph-dev/NeuroMorph/actions/workflows/lint.yml)
+[![Coverage](https://codecov.io/gh/sirkrouph-dev/NeuroMorph/branch/main/graph/badge.svg)](https://codecov.io/gh/sirkrouph-dev/NeuroMorph)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.9%20|%203.10%20|%203.11%20|%203.12-blue.svg)](https://www.python.org/)
+[![OS](https://img.shields.io/badge/OS-Linux%20|%20Windows%20|%20macOS-informational.svg)](#)
+[![Benchmarks](https://img.shields.io/badge/Benchmarks-View%20Results-orange.svg)](docs/benchmarks.md)
+
 A comprehensive neuromorphic computing framework that bridges biological neuroscience and edge computing, featuring brain-inspired neural networks with realistic dynamics, plasticity, and neuromodulation.
+
+Why you’ll love it:
+- Biologically grounded learning (STDP, STP, neuromodulation) with clean, tested implementations
+- Optional sleep/rest phase (replay + consolidation) to stabilize learning
+- Clear examples, benchmarks with runtime caps, and CI across platforms
 
 ## 🚀 Quick Start
 
 ```python
-from engine import Network, Simulator
+from core.network import NeuromorphicNetwork
 
-# Create a simple spiking neural network
-network = Network("QuickStart")
-network.add_neuron_group("input", size=100, model="lif")
-network.add_neuron_group("output", size=10, model="izhikevich")
-network.connect("input", "output", model="stdp", connectivity=0.1)
+net = NeuromorphicNetwork()
+net.add_layer("input", 100, "lif")
+net.add_layer("output", 10, "lif")
+net.connect_layers("input", "output", "stdp", connection_probability=0.1)
 
-# Run simulation
-sim = Simulator(network)
-results = sim.run(duration=1000.0)
-print(f"Mean firing rate: {results['statistics']['global_statistics']['mean_firing_rate']:.2f} Hz")
+results = net.run_simulation(duration=100.0, dt=0.1)
+print("Layers:", results["layer_spike_times"].keys())
 ```
 
 [Full Getting Started Guide →](docs/tutorials/01_getting_started.md)
@@ -294,7 +305,15 @@ Shows:
 - Adaptive behavior patterns
 - Sensorimotor learning
 
-### 2. Advanced Training Demo
+### 2. Sleep Cycle Demo
+```bash
+python examples/sleep_cycle_demo.py
+```
+Shows:
+- Brief training → sleep (replay + SHY downscale + normalization + noise) → measurement
+- Before/after spike-count responses and weight summary
+
+### 3. Advanced Training Demo
 ```bash
 python demo/sensorimotor_training.py
 ```
@@ -304,7 +323,7 @@ Features:
 - Performance monitoring
 - Real-time adaptation
 
-### 3. Jetson Nano Demo
+### 4. Jetson Nano Demo
 ```bash
 python demo/jetson_demo.py
 ```
