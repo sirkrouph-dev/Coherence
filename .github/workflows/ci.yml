@@ -137,13 +137,14 @@ jobs:
           coverage.xml
     
     - name: Upload coverage to Codecov
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
       uses: codecov/codecov-action@v4
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         file: ./coverage.xml
         flags: unittests
         name: codecov-${{ matrix.os }}-${{ matrix.python-version }}
-        token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: false
 
   # Quality Gate 3: Documentation
