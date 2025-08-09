@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: Neuromorphic Programming System
+message: >
+  If you use this software, please cite it using the metadata below.
+authors:
+  - family-names: sirkrouph-dev
+    name: sirkrouph-dev
+license: MIT
+version: 0.1.0
+repository-code: https://github.com/sirkrouph-dev/NeuroMorph
+date-released: 2025-08-09
+keywords:
+  - neuromorphic computing
+  - spiking neural networks
+  - synaptic plasticity
+  - STDP
+  - sleep consolidation
+

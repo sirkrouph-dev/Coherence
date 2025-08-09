@@ -1,4 +1,5 @@
 # Neuromorphic Programming System
+# SPDX-License-Identifier: MIT
 
 A comprehensive neuromorphic computing framework that bridges biological neuroscience and edge computing, featuring brain-inspired neural networks with realistic dynamics, plasticity, and neuromodulation.
 
@@ -29,7 +30,7 @@ This system implements a biologically plausible neuromorphic computing framework
 - **Synaptic Plasticity**: STDP, Short-term plasticity, Reward-modulated learning, Structural plasticity
 - **Neuromodulatory Systems**: Dopamine, Serotonin, Acetylcholine, Norepinephrine
 - **Sensory Encoding**: Visual (retinal, DVS), Auditory (cochlear), Tactile (mechanoreceptor) processing
-- **Simulation Modes**: Time-step and event-driven simulation with GPU acceleration
+- **Simulation Modes**: Time-step and event-driven simulation
 - **Edge Deployment**: Optimized for NVIDIA Jetson Nano and embedded systems
 
 ## 🏗️ System Architecture
@@ -96,14 +97,15 @@ neuron/
 ### Prerequisites
 - Python 3.8+
 - NumPy, SciPy, Matplotlib
-- (Optional) CUDA for GPU acceleration
+- (Optional) PyTorch CUDA for GPU probes (core simulator is CPU/NumPy)
+- (Optional) CuPy for additional GPU experiments
 - (Optional) NVIDIA Jetson Nano for edge deployment
 
 ### Install as Package (Recommended)
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/sirkrouph-dev/NeuroMorph.git
 cd neuron
 
 # Create virtual environment
@@ -156,8 +158,7 @@ Each model offers different trade-offs between biological realism and computatio
 
 1. **Time-Step Mode** - Traditional fixed time-step integration
 2. **Event-Driven Mode** - Efficient processing of sparse activity
-3. **GPU Acceleration** - CUDA support for large-scale networks
-4. **Edge Optimization** - Specialized modes for embedded devices
+3. **Edge Optimization** - Specialized modes for embedded devices
 
 ## 🎯 Applications
 
@@ -261,6 +262,27 @@ print(f"Generated {len(spikes)} spikes")
 ```
 
 ## 🎮 Demonstrations
+### Sleep/Rest Phase (Replay + Consolidation)
+```python
+from core.network import NeuromorphicNetwork
+import numpy as np
+
+net = NeuromorphicNetwork()
+net.add_layer("input", 10, "lif")
+net.add_layer("output", 5, "lif")
+net.connect_layers("input", "output", "stdp", connection_probability=1.0)
+
+# Optional sleep with replay, SHY downscale, incoming normalization, and noise
+pattern = np.zeros(10); pattern[0:3] = 50.0
+net.run_sleep_phase(
+    duration=50.0, dt=0.1,
+    replay={"input": pattern},
+    downscale_factor=0.98,
+    normalize_incoming=True,
+    noise_std=0.05,
+)
+```
+
 
 ### 1. Basic Network Demo
 ```bash
