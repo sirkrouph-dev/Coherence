@@ -182,12 +182,13 @@ class STDP_Synapse(SynapseModel):
         self.current_time = spike_time
         # Decay traces to spike_time
         self._decay_traces(spike_time)
-        # LTD proportional to current post-trace (post-before-pre)
-        if self.post_trace > 0.0:
-            ltd = self.A_minus * self.post_trace
-            # Multiplicative LTD encourages competition among synapses
-            ltd *= max(self.weight - self.w_min, 0.0)
-            self.update_weight(-ltd)
+        # LTD only if post-before-pre within STDP window
+        if self.last_post_spike > -np.inf and (spike_time - self.last_post_spike) < self.tau_stdp:
+            if self.post_trace > 0.0:
+                ltd = self.A_minus * self.post_trace
+                # Multiplicative LTD encourages competition among synapses
+                ltd *= max(self.weight - self.w_min, 0.0)
+                self.update_weight(-ltd)
         # Increment pre-trace and record spike time
         self.pre_trace += 1.0
         self.last_pre_spike = spike_time
@@ -202,12 +203,13 @@ class STDP_Synapse(SynapseModel):
         self.current_time = spike_time
         # Decay traces to postsynaptic spike time
         self._decay_traces(spike_time)
-        # LTP proportional to current pre-trace (pre-before-post)
-        if self.pre_trace > 0.0:
-            ltp = self.A_plus * self.pre_trace
-            # Multiplicative LTP stabilizes growth and promotes selectivity
-            ltp *= max(self.w_max - self.weight, 0.0)
-            self.update_weight(ltp)
+        # LTP only if pre-before-post within STDP window
+        if self.last_pre_spike > -np.inf and (spike_time - self.last_pre_spike) < self.tau_stdp:
+            if self.pre_trace > 0.0:
+                ltp = self.A_plus * self.pre_trace
+                # Multiplicative LTP stabilizes growth and promotes selectivity
+                ltp *= max(self.w_max - self.weight, 0.0)
+                self.update_weight(ltp)
         # Increment post-trace and record spike time
         self.post_trace += 1.0
         self.last_post_spike = spike_time

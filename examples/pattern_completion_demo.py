@@ -528,4 +528,80 @@ def main():
 
 
 if __name__ == "__main__":
+    # Run the default memory demos
     main()
+
+    # --- Optional: quick sleep-cycle learning demo on a tiny SNN ---
+    try:
+        from core.network import NeuromorphicNetwork
+
+        def _build_snn(input_size: int = 10, output_size: int = 5) -> NeuromorphicNetwork:
+            net = NeuromorphicNetwork()
+            net.add_layer("input", input_size, "lif")
+            net.add_layer("output", output_size, "lif")
+            net.connect_layers("input", "output", "stdp", connection_probability=1.0)
+            return net
+
+        def _patterns(n: int):
+            p0 = np.zeros(n); p0[0:3] = 50.0
+            p1 = np.zeros(n); p1[3:6] = 50.0
+            p2 = np.zeros(n); p2[6:9] = 50.0
+            return [p0, p1, p2]
+
+        def _boost_input(net: NeuromorphicNetwork, pattern: np.ndarray, scale: float = 0.1):
+            layer = net.layers["input"].neuron_population
+            for i, neuron in enumerate(layer.neurons):
+                neuron.membrane_potential += float(pattern[i]) * scale
+
+        def _train_epoch(net: NeuromorphicNetwork, patterns, dt=0.1, present_ms=20.0):
+            steps = int(present_ms / dt)
+            for pattern in patterns:
+                net.layers["input"].reset(); net.layers["output"].reset()
+                for _ in range(steps):
+                    _boost_input(net, pattern, scale=0.1)
+                    net.step(dt)
+
+        def _measure(net: NeuromorphicNetwork, patterns, dt=0.1, present_ms=20.0):
+            steps = int(present_ms / dt)
+            responses = []
+            for pattern in patterns:
+                net.layers["input"].reset(); net.layers["output"].reset()
+                spike_counts = np.zeros(net.layers["output"].size)
+                for _ in range(steps):
+                    _boost_input(net, pattern, scale=0.1)
+                    net.step(dt)
+                    spikes = [n.is_spiking for n in net.layers["output"].neuron_population.neurons]
+                    spike_counts += np.array(spikes, dtype=float)
+                responses.append(spike_counts)
+            return responses
+
+        print("\n=== Sleep Cycle SNN Demo ===")
+        dt = 0.1
+        snn = _build_snn()
+        pats = _patterns(snn.layers["input"].size)
+
+        for _ in range(5):
+            _train_epoch(snn, pats, dt=dt, present_ms=20.0)
+
+        before = _measure(snn, pats, dt=dt, present_ms=20.0)
+        snn.run_sleep_phase(
+            duration=50.0,
+            dt=dt,
+            downscale_factor=0.98,
+            normalize_incoming=True,
+            replay={"input": pats[0]},
+            noise_std=0.05,
+        )
+        after = _measure(snn, pats, dt=dt, present_ms=20.0)
+
+        def _fmt(vec):
+            return ", ".join(f"{v:.0f}" for v in vec)
+        print("Responses before sleep:")
+        for i, r in enumerate(before):
+            print(f"  Pattern {i}: [{_fmt(r)}]")
+        print("Responses after sleep:")
+        for i, r in enumerate(after):
+            print(f"  Pattern {i}:  [{_fmt(r)}]")
+    except Exception as _e:
+        # Keep demo optional; ignore failures in this extra section
+        pass
