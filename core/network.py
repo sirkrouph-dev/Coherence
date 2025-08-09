@@ -373,6 +373,98 @@ class NeuromorphicNetwork:
 
         return info
 
+    # --- Sleep-inspired phase (optional, opt-in) ---
+    def run_sleep_phase(
+        self,
+        duration: float = 0.0,
+        dt: float = 0.1,
+        *,
+        downscale_factor: Optional[float] = None,
+        normalize_incoming: bool = False,
+        replay: Optional[Dict[str, np.ndarray]] = None,
+    ) -> None:
+        """
+        Execute an optional sleep/rest phase that can (a) replay activity and (b) apply
+        biologically inspired consolidation operations (global downscaling, normalization).
+
+        Args:
+            duration: Sleep duration in ms. If > 0 and replay provided, runs replay-driven spikes.
+            dt: Time step in ms for sleep stepping.
+            downscale_factor: If provided (e.g., 0.98), uniformly downscale all weights
+                per connection after the phase (SHY-like consolidation).
+            normalize_incoming: If True, normalize incoming weights per postsynaptic neuron
+                after the phase to stabilize representations.
+            replay: Optional map from layer name -> external current vector (length = layer size)
+                to apply during sleep at each step. This simulates offline replay.
+
+        Notes:
+            - This method is opt-in and is never invoked automatically.
+            - It preserves normal learning dynamics. STDP remains active during replay.
+            - If duration <= 0 or no replay is provided, only consolidation ops are applied.
+        """
+        # Replay phase (optional)
+        if duration > 0 and replay:
+            num_steps = int(max(1, duration / dt))
+            for _ in range(num_steps):
+                # Prepare zero currents per layer
+                layer_currents: Dict[str, List[float]] = {
+                    name: [0.0] * layer.size for name, layer in self.layers.items()
+                }
+
+                # Add synaptic currents based on previous spikes
+                for (pre_name, post_name), connection in self.connections.items():
+                    if connection.synapse_population is None:
+                        continue
+                    pre_layer = self.layers[pre_name]
+                    pre_spikes = [False] * pre_layer.size
+                    for i, neuron in enumerate(pre_layer.neuron_population.neurons):
+                        if hasattr(neuron, "is_spiking") and neuron.is_spiking:
+                            pre_spikes[i] = True
+                    currents = connection.get_synaptic_currents(pre_spikes, self.current_time)
+                    target = layer_currents[post_name]
+                    for i, c in enumerate(currents):
+                        if i < len(target):
+                            target[i] += c
+
+                # Add replay external currents
+                for layer_name, ext_current in replay.items():
+                    if layer_name in self.layers:
+                        # Ensure correct length
+                        layer = self.layers[layer_name]
+                        if len(ext_current) == layer.size:
+                            lc = layer_currents[layer_name]
+                            for i in range(layer.size):
+                                lc[i] += float(ext_current[i])
+
+                # Step all layers
+                layer_spikes: Dict[str, List[bool]] = {}
+                for layer_name, layer in self.layers.items():
+                    spikes = layer.step(dt, layer_currents[layer_name])
+                    layer_spikes[layer_name] = spikes
+
+                # Update weights via active plasticity (STDP) during replay
+                for (pre_name, post_name), connection in self.connections.items():
+                    if pre_name in layer_spikes and post_name in layer_spikes:
+                        connection.update_weights(
+                            layer_spikes[pre_name], layer_spikes[post_name], self.current_time
+                        )
+
+                # Advance time
+                for connection in self.connections.values():
+                    connection.step(dt)
+                self.current_time += dt
+
+        # Post-sleep consolidation ops (optional)
+        if downscale_factor is not None or normalize_incoming:
+            for connection in self.connections.values():
+                sp = connection.synapse_population
+                if sp is None:
+                    continue
+                if downscale_factor is not None and downscale_factor > 0:
+                    sp.scale_all_weights(downscale_factor)
+                if normalize_incoming:
+                    sp.normalize_incoming()
+
 
 class EventDrivenSimulator:
     """Event-driven simulation engine for spiking networks."""

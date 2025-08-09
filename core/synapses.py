@@ -809,3 +809,28 @@ class SynapsePopulation:
         for (pre_id, post_id), synapse in self.synapses.items():
             history[(pre_id, post_id)] = synapse.weight_history.copy()
         return history
+
+    # --- Sleep-inspired utilities ---
+    def scale_all_weights(self, factor: float) -> None:
+        """Uniformly scale all synaptic weights by a factor (e.g., SHY downscaling during sleep)."""
+        if factor <= 0:
+            return
+        for synapse in self.synapses.values():
+            synapse.weight = np.clip(synapse.weight * factor, synapse.w_min, synapse.w_max)
+
+    def normalize_incoming(self, target_sum: Optional[float] = None) -> None:
+        """Normalize incoming weights per postsynaptic neuron to a target sum (optional)."""
+        incoming_by_post: Dict[int, List[Tuple[int, int]]] = {}
+        for (pre_id, post_id) in self.synapses.keys():
+            incoming_by_post.setdefault(post_id, []).append((pre_id, post_id))
+        for post_id, keys in incoming_by_post.items():
+            if not keys:
+                continue
+            current_sum = float(sum(self.synapses[k].weight for k in keys))
+            if current_sum <= 0:
+                continue
+            desired = float(target_sum) if target_sum is not None else current_sum
+            scale = desired / current_sum
+            for k in keys:
+                syn = self.synapses[k]
+                syn.weight = np.clip(syn.weight * scale, syn.w_min, syn.w_max)
