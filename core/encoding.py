@@ -21,23 +21,77 @@ class RateEncoder:
         """
         self.max_rate = max_rate
 
-    def encode(self, input_values: np.ndarray) -> List[Tuple[int, float]]:
+    def encode(self, value: float, duration: float = 100.0, dt: float = 1.0) -> List[Tuple[int, float]]:
         """
-        Convert input values to spike rates.
+        Convert input value to spike times using rate encoding.
 
         Args:
-            input_values: Input values to encode
+            value: Input value to encode (0-1 range)
+            duration: Duration of encoding window in ms
+            dt: Time step in ms
 
         Returns:
             List of (neuron_id, spike_time) tuples
         """
+        # Clamp value to [0, 1]
+        value = np.clip(value, 0.0, 1.0)
+        
+        # Calculate spike rate
+        spike_rate = value * self.max_rate  # Hz
+        
+        # Generate spike times
         spikes = []
-        for i, value in enumerate(input_values.flatten()):
-            if value > 0:
-                rate = value * self.max_rate
-                spike_time = 1000.0 / (rate + 1e-6)  # Convert to ms
-                spikes.append((i, spike_time))
+        if spike_rate > 0:
+            # Inter-spike interval in ms
+            isi = 1000.0 / spike_rate
+            
+            # Generate spikes within duration
+            t = 0.0
+            neuron_id = 0
+            while t < duration:
+                # Add some jitter for biological realism
+                jitter = np.random.uniform(-0.1, 0.1) * isi
+                spike_time = t + jitter
+                
+                if 0 <= spike_time < duration:
+                    spikes.append((neuron_id, spike_time))
+                
+                t += isi
+        
         return spikes
+    
+    def encode_array(self, input_values: np.ndarray, duration: float = 100.0, dt: float = 1.0) -> List[Tuple[int, float]]:
+        """
+        Convert array of input values to spike times.
+
+        Args:
+            input_values: Array of input values to encode
+            duration: Duration of encoding window in ms  
+            dt: Time step in ms
+
+        Returns:
+            List of (neuron_id, spike_time) tuples for all neurons
+        """
+        all_spikes = []
+        
+        for neuron_id, value in enumerate(input_values.flatten()):
+            if value > 0:
+                # Clamp value to [0, 1]
+                value = np.clip(value, 0.0, 1.0)
+                spike_rate = value * self.max_rate
+                
+                if spike_rate > 0:
+                    isi = 1000.0 / spike_rate
+                    t = np.random.uniform(0, isi)  # Random phase
+                    
+                    while t < duration:
+                        if 0 <= t < duration:
+                            all_spikes.append((neuron_id, t))
+                        t += isi
+        
+        # Sort by spike time
+        all_spikes.sort(key=lambda x: x[1])
+        return all_spikes
 
 
 class RetinalEncoder:

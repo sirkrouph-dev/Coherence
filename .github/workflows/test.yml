@@ -1,0 +1,140 @@
+name: Test and Coverage
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        exclude:
+          # Exclude some combinations to save CI time
+          - os: macos-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.9'
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+    
+    - name: Run linting
+      run: |
+        black --check core api tests
+        isort --check-only core api tests
+        flake8 core api tests --max-line-length=88 --extend-ignore=E203,W503
+    
+    - name: Run type checking
+      run: |
+        mypy core api
+    
+    - name: Run unit tests with coverage
+      run: |
+        pytest tests/test_neurons.py tests/test_synapses.py tests/test_learning.py -v --cov=core --cov-report=xml --cov-report=term
+    
+    - name: Run integration tests
+      run: |
+        pytest tests/test_integration.py -v -m "not slow" --cov=core --cov-append --cov-report=xml --cov-report=term
+    
+    - name: Check coverage threshold
+      run: |
+        coverage report --fail-under=90
+    
+    - name: Upload coverage to Codecov
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: true
+
+  test-gpu:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev,gpu]"
+    
+    - name: Run GPU tests
+      run: |
+        pytest tests/ -v -m "gpu" --cov=core --cov-report=xml || true
+    
+    - name: Upload GPU test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: gpu-test-results
+        path: |
+          coverage.xml
+          htmlcov/
+
+  coverage-report:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+    
+    - name: Generate full test report
+      run: |
+        pytest --cov=core --cov=api --cov-report=html --cov-report=term --cov-fail-under=90
+      continue-on-error: true
+    
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: htmlcov/
+    
+    - name: Comment PR with coverage
+      if: github.event_name == 'pull_request'
+      uses: py-cov-action/python-coverage-comment-action@v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MINIMUM_GREEN: 90
+        MINIMUM_ORANGE: 80

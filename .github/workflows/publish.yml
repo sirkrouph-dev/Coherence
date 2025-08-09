@@ -1,0 +1,195 @@
+name: Build and Publish
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags
+  pull_request:
+    branches: [ main ]  # Also build (but don't publish) on PRs to main
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  build-wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.11']  # Use a single Python version for building
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch all history for proper versioning
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build wheel setuptools twine
+
+    - name: Build wheel and source distribution
+      run: |
+        python -m build
+
+    - name: Check dist contents
+      run: |
+        ls -la dist/
+      shell: bash
+
+    - name: Check wheel contents
+      run: |
+        python -m zipfile -l dist/*.whl | head -20
+      shell: bash
+      continue-on-error: true
+
+    - name: Validate wheel
+      run: |
+        twine check dist/*
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist-${{ matrix.os }}
+        path: dist/
+
+  test-wheels:
+    name: Test wheels on ${{ matrix.os }} Python ${{ matrix.python-version }}
+    needs: build-wheels
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-${{ matrix.os }}
+        path: dist/
+
+    - name: Install wheel
+      run: |
+        python -m pip install --upgrade pip
+        pip install dist/*.whl
+      shell: bash
+
+    - name: Test import
+      run: |
+        python -c "import core; import api; print('Successfully imported core and api modules')"
+
+    - name: Run basic tests
+      run: |
+        pip install pytest
+        python -m pytest tests/test_neurons.py::TestNeuron::test_neuron_initialization -v
+      continue-on-error: true
+
+  publish-testpypi:
+    name: Publish to TestPyPI
+    needs: [build-wheels, test-wheels]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')  # Only publish on version tags
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/neuromorphic-system
+
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist/
+        merge-multiple: true
+
+    - name: List distribution files
+      run: |
+        ls -la dist/
+
+    - name: Publish to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        skip-existing: true
+        verbose: true
+
+  publish-pypi:
+    name: Publish to PyPI (Manual Approval Required)
+    needs: [build-wheels, test-wheels, publish-testpypi]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')  # Only publish on version tags
+    environment:
+      name: pypi
+      url: https://pypi.org/p/neuromorphic-system
+
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist/
+        merge-multiple: true
+
+    - name: List distribution files
+      run: |
+        ls -la dist/
+
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        skip-existing: true
+        verbose: true
+
+  create-release:
+    name: Create GitHub Release
+    needs: [build-wheels, test-wheels]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist/
+        merge-multiple: true
+
+    - name: Extract version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "dist/*"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
+        prerelease: ${{ contains(steps.get_version.outputs.VERSION, 'rc') || contains(steps.get_version.outputs.VERSION, 'alpha') || contains(steps.get_version.outputs.VERSION, 'beta') }}
+        generateReleaseNotes: true
+        body: |
+          ## 🚀 Release ${{ steps.get_version.outputs.VERSION }}
+          
+          ### Installation
+          ```bash
+          pip install neuromorphic-system==${{ steps.get_version.outputs.VERSION }}
+          ```
+          
+          ### What's Changed
+          See the full changelog below for details.
+          
+          ---
+          **Full Changelog**: https://github.com/${{ github.repository }}/compare/...v${{ steps.get_version.outputs.VERSION }}

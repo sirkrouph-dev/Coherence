@@ -1,0 +1,767 @@
+{
+  "test_memory_subsystem:test_memory_subsystem": {
+    "import": "ok"
+  },
+  "verify_installation:check_module": {
+    "import": "ok"
+  },
+  "verify_installation:check_data_files": {
+    "import": "ok"
+  },
+  "verify_installation:main": {
+    "import": "ok"
+  },
+  "api.neuromorphic_api:NeuromorphicAPI": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "api.neuromorphic_api:NeuromorphicVisualizer": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "api.neuromorphic_api:SensorimotorSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "api.neuromorphic_system:NeuromorphicSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "archive.prototypes.analyze_dependencies:analyze_imports": {
+    "import": "ok"
+  },
+  "archive.prototypes.analyze_dependencies:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.analyze_type_hints_docs:TypeHintAndDocAnalyzer": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"TypeHintAndDocAnalyzer.__init__() missing 1 required positional argument: 'filepath'\")"
+  },
+  "archive.prototypes.analyze_type_hints_docs:analyze_file": {
+    "import": "ok"
+  },
+  "archive.prototypes.analyze_type_hints_docs:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.check_classes:get_classes": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_baseline:test_import": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_baseline:run_test": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_baseline:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_enhanced_logging": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_task_complexity": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_enhanced_encoding": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_robustness_testing": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_comprehensive_demo": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:test_file_generation": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_enhanced_system:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_gpu_neurons:test_basic_scaling": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_gpu_neurons:test_million_neurons": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_gpu_neurons:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:TestResult": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"TestResult.__init__() missing 1 required positional argument: 'test_name'\")"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:test_neuromodulation_implementation": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:test_encoders_correctness": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:test_encoder_performance": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:test_integration": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_neuromodulation_encoding:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:test_gpu_memory_leak": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:test_stdp_weight_boundaries": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:test_network_input_validation": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:test_security_manager": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:test_event_driven_input_validation": {
+    "import": "ok"
+  },
+  "archive.prototypes.test_security_fixes:main": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:print_header": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:test_imports": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:test_cuda": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:test_system_info": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:test_neuromorphic_imports": {
+    "import": "ok"
+  },
+  "archive.prototypes.verify_environment:main": {
+    "import": "ok"
+  },
+  "benchmarks.generate_report:generate_markdown_report": {
+    "import": "ok"
+  },
+  "benchmarks.generate_report:main": {
+    "import": "ok"
+  },
+  "benchmarks.performance_benchmarks:BenchmarkConfig": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"BenchmarkConfig.__init__() missing 9 required positional arguments: 'network_size', 'simulation_time', 'dt', 'connection_probability', 'platform', 'num_layers', 'neurons_per_layer', 'synapse_type', and 'neuron_type'\")"
+  },
+  "benchmarks.performance_benchmarks:BenchmarkResult": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"BenchmarkResult.__init__() missing 13 required positional arguments: 'config', 'wall_clock_time', 'memory_peak', 'memory_average', 'total_spikes', 'spike_rate', 'spike_throughput', 'simulation_steps', 'step_time_mean', 'step_time_std', 'platform_info', 'timestamp', and 'success'\")"
+  },
+  "benchmarks.performance_benchmarks:NetworkBenchmark": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NetworkBenchmark.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "benchmarks.performance_benchmarks:CPUBenchmark": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"CPUBenchmark.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "benchmarks.performance_benchmarks:GPUBenchmark": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"GPUBenchmark.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "benchmarks.performance_benchmarks:BenchmarkRunner": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "benchmarks.performance_benchmarks:run_timeit_microbenchmarks": {
+    "import": "ok"
+  },
+  "benchmarks.performance_benchmarks:main": {
+    "import": "ok"
+  },
+  "benchmarks.pytest_benchmarks:network_size": {
+    "import": "ok"
+  },
+  "benchmarks.pytest_benchmarks:neuron_model": {
+    "import": "ok"
+  },
+  "benchmarks.pytest_benchmarks:small_network": {
+    "import": "ok"
+  },
+  "benchmarks.pytest_benchmarks:large_network": {
+    "import": "ok"
+  },
+  "benchmarks.pytest_benchmarks:TestStepThroughput": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "benchmarks.pytest_benchmarks:TestMemoryFootprint": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "benchmarks.pytest_benchmarks:TestConvergenceSpeed": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "benchmarks.pytest_benchmarks:TestSystemPerformance": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "benchmarks.pytest_benchmarks:pytest_configure": {
+    "import": "ok"
+  },
+  "benchmarks.quick_benchmark:run_network_benchmark": {
+    "import": "ok"
+  },
+  "benchmarks.quick_benchmark:main": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:run_pytest_benchmarks": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:run_quick_benchmarks": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:analyze_results": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:generate_badge": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:generate_markdown_report": {
+    "import": "ok"
+  },
+  "benchmarks.run_benchmarks:main": {
+    "import": "ok"
+  },
+  "benchmarks.visualize_benchmarks:load_benchmark_results": {
+    "import": "ok"
+  },
+  "benchmarks.visualize_benchmarks:create_performance_plots": {
+    "import": "ok"
+  },
+  "benchmarks.visualize_benchmarks:create_summary_table": {
+    "import": "ok"
+  },
+  "benchmarks.visualize_benchmarks:main": {
+    "import": "ok"
+  },
+  "core.encoding:RateEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:RetinalEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:CochlearEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:SomatosensoryEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:MultiModalEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:TemporalEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.encoding:PopulationEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_encoding:ModalityType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.enhanced_encoding:SensoryFeature": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"SensoryFeature.__init__() missing 6 required positional arguments: 'modality', 'feature_type', 'feature_vector', 'confidence', 'timestamp', and 'metadata'\")"
+  },
+  "core.enhanced_encoding:EncodedSpikes": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EncodedSpikes.__init__() missing 6 required positional arguments: 'modality', 'spike_times', 'spike_neurons', 'encoding_quality', 'temporal_resolution', and 'metadata'\")"
+  },
+  "core.enhanced_encoding:VisualEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_encoding:AuditoryEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_encoding:TactileEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_encoding:MultiModalFusion": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_encoding:EnhancedSensoryEncoder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.enhanced_logging:SpikeEvent": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"SpikeEvent.__init__() missing 6 required positional arguments: 'neuron_id', 'layer_name', 'spike_time', 'membrane_potential', 'synaptic_inputs', and 'neuromodulator_levels'\")"
+  },
+  "core.enhanced_logging:MembranePotentialEvent": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"MembranePotentialEvent.__init__() missing 7 required positional arguments: 'neuron_id', 'layer_name', 'time_step', 'membrane_potential', 'synaptic_current', 'adaptation_current', and 'refractory_time'\")"
+  },
+  "core.enhanced_logging:SynapticWeightEvent": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"SynapticWeightEvent.__init__() missing 8 required positional arguments: 'synapse_id', 'pre_neuron_id', 'post_neuron_id', 'old_weight', 'new_weight', 'weight_change', 'learning_rule', and 'time_step'\")"
+  },
+  "core.enhanced_logging:NetworkStateEvent": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NetworkStateEvent.__init__() missing 7 required positional arguments: 'time_step', 'layer_name', 'active_neurons', 'total_neurons', 'firing_rate', 'average_membrane_potential', and 'spike_count'\")"
+  },
+  "core.enhanced_logging:EnhancedNeuromorphicLogger": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:NeuromorphicError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:NetworkError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:NeuronError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:SynapseError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:SimulationError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:ResourceError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:ValidationError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:GPUError": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:ErrorHandler": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:safe_execution": {
+    "import": "ok"
+  },
+  "core.error_handling:validate_numeric": {
+    "import": "ok"
+  },
+  "core.error_handling:validate_shape": {
+    "import": "ok"
+  },
+  "core.error_handling:NumericalStabilizer": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:RecoveryStrategies": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.error_handling:setup_error_handling": {
+    "import": "ok"
+  },
+  "core.gpu_neurons:GPUMetrics": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"GPUMetrics.__init__() got an unexpected keyword argument 'neuron_id'\")"
+  },
+  "core.gpu_neurons:GPUNeuronPool": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"GPUNeuronPool.__init__() got an unexpected keyword argument 'neuron_id'\")"
+  },
+  "core.gpu_neurons:MultiGPUNeuronSystem": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"MultiGPUNeuronSystem.__init__() got an unexpected keyword argument 'neuron_id'\")"
+  },
+  "core.gpu_neurons:analyze_gpu_performance": {
+    "import": "ok"
+  },
+  "core.learning:PlasticityType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.learning:PlasticityConfig": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.learning:PlasticityRule": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"Can't instantiate abstract class PlasticityRule with abstract method compute_weight_change\")"
+  },
+  "core.learning:STDPRule": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"STDPRule.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:HebbianRule": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"PlasticityRule.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:BCMRule": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"BCMRule.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:RewardModulatedSTDP": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"RewardModulatedSTDP.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:TripletSTDP": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"TripletSTDP.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:HomeostaticPlasticity": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"HomeostaticPlasticity.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:CustomPlasticityRule": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"CustomPlasticityRule.__init__() missing 1 required positional argument: 'config'\")"
+  },
+  "core.learning:PlasticityManager": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.learning:example_custom_rule": {
+    "import": "ok"
+  },
+  "core.logging_utils:NeuromorphicLogger": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.logging_utils:TrainingTracker": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.logging_utils:trace_function": {
+    "import": "ok"
+  },
+  "core.memory:MemoryType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.memory:MemoryTrace": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"MemoryTrace.__init__() missing 3 required positional arguments: 'pattern', 'timestamp', and 'strength'\")"
+  },
+  "core.memory:RecurrentMemoryNetwork": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.memory:WeightConsolidation": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.memory:ShortTermMemory": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.memory:LongTermMemory": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.memory:IntegratedMemorySystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.network:NetworkLayer": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NetworkLayer.__init__() missing 2 required positional arguments: 'name' and 'size'\")"
+  },
+  "core.network:NetworkConnection": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NetworkConnection.__init__() missing 2 required positional arguments: 'pre_layer' and 'post_layer'\")"
+  },
+  "core.network:NeuromorphicNetwork": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.network:EventDrivenSimulator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.network:NetworkBuilder": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:NeuromodulatorType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.neuromodulation:NeuromodulatorySystem": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NeuromodulatorySystem.__init__() missing 1 required positional argument: 'modulator_type'\")"
+  },
+  "core.neuromodulation:DopaminergicSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:SerotonergicSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:CholinergicSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:NoradrenergicSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:NeuromodulatoryController": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:HomeostaticRegulator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:RewardSystem": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neuromodulation:AdaptiveLearningController": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neurons:NeuronModel": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neurons:AdaptiveExponentialIntegrateAndFire": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neurons:HodgkinHuxleyNeuron": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neurons:LeakyIntegrateAndFire": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.neurons:NeuronFactory": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError('NeuronFactory() takes no arguments')"
+  },
+  "core.neurons:NeuronPopulation": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"NeuronPopulation.__init__() missing 1 required positional argument: 'size'\")"
+  },
+  "core.robustness_testing:TestType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.robustness_testing:TestResult": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"TestResult.__init__() missing 8 required positional arguments: 'test_type', 'test_parameters', 'performance_before', 'performance_after', 'degradation_metrics', 'recovery_time', 'robustness_score', and 'metadata'\")"
+  },
+  "core.robustness_testing:NoiseGenerator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.robustness_testing:AdversarialAttacker": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.robustness_testing:NetworkDamageSimulator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.robustness_testing:RobustnessTester": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.security_manager:SecurityManager": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.security_manager:ResourceLimiter": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.security_manager:RateLimiter": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:SynapseType": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() got an unexpected keyword argument 'synapse_id'\")"
+  },
+  "core.synapses:SynapseModel": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:STDP_Synapse": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:ShortTermPlasticitySynapse": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:NeuromodulatorySynapse": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:RSTDP_Synapse": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.synapses:SynapseFactory": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError('SynapseFactory() takes no arguments')"
+  },
+  "core.synapses:SynapsePopulation": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"SynapsePopulation.__init__() missing 2 required positional arguments: 'pre_population_size' and 'post_population_size'\")"
+  },
+  "core.task_complexity:TaskLevel": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"EnumMeta.__call__() missing 1 required positional argument: 'value'\")"
+  },
+  "core.task_complexity:TaskParameters": {
+    "import": "ok",
+    "instantiate": "fail",
+    "error": "TypeError(\"TaskParameters.__init__() missing 1 required positional argument: 'level'\")"
+  },
+  "core.task_complexity:PatternGenerator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.task_complexity:NoiseGenerator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.task_complexity:AdversarialGenerator": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "core.task_complexity:TaskComplexityManager": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "demo.enhanced_comprehensive_demo:EnhancedNeuromorphicDemo": {
+    "import": "ok",
+    "instantiate": "ok"
+  },
+  "demo.enhanced_comprehensive_demo:main": {
+    "import": "ok"
+  },
+  "demo.gpu_analysis_demo:GPUPerformanceAnalyzer": {
+    "import": "fail",
+    "error": "UnicodeEncodeError('charmap', '\u26a0 GPUtil not available, limited GPU monitoring', 0, 1, 'character maps to <undefined>')"
+  },
+  "demo.gpu_analysis_demo:main": {
+    "import": "fail",
+    "error": "UnicodeEncodeError('charmap', '\u26a0 GPUtil not available, limited GPU monitoring', 0, 1, 'character maps to <undefined>')"
+  },
+  "demo.gpu_large_scale_demo:test_gpu_system_capacity": {
+    "import": "ok"
+  },
+  "demo.gpu_large_scale_demo:run_large_scale_demo": {
+    "import": "ok"
+  },
+  "demo.gpu_large_scale_demo:benchmark_different_sizes": {
+    "import": "ok"
+  },
+  "demo.gpu_large_scale_demo:plot_performance_comparison": {
+    "import": "ok"
+  },
+  "demo.gpu_large_scale_demo:main": {
+    "import": "ok"
+  },
+  "demo.jetson_demo:demonstrate_jetson_system_info": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:demonstrate_jetson_optimization": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:demonstrate_jetson_inference": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:demonstrate_jetson_learning": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:demonstrate_jetson_performance_monitoring": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:plot_jetson_performance": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.jetson_demo:main": {
+    "import": "fail",
+    "error": "ModuleNotFoundError(\"No module named 'jetson_optimization'\")"
+  },
+  "demo.sensorimotor_demo:create_training_data": {
+    "import": "ok"
+  },
+  "demo.sensorimotor_demo:create_visual_input": {
+    "import": "ok"
+  },
+  "demo.sensorimotor_demo:create_auditory_input": {
+    "import": "ok"
+  }
+}

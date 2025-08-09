@@ -1,0 +1,73 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11']  # Use a single Python version for linting
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-lint-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-lint-
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ruff black flake8 isort mypy
+
+    - name: Run Ruff
+      run: |
+        ruff check core api tests benchmarks scripts --output-format=github
+      continue-on-error: true
+
+    - name: Check code formatting with Black
+      run: |
+        black --check --diff core api tests benchmarks scripts
+
+    - name: Run Flake8
+      run: |
+        flake8 core api tests benchmarks scripts --max-line-length=88 --extend-ignore=E203,W503
+      continue-on-error: false
+
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only --diff core api tests benchmarks scripts
+
+    - name: Run type checking with mypy
+      run: |
+        mypy core api --ignore-missing-imports
+      continue-on-error: true
+
+    - name: Lint report summary
+      if: always()
+      run: |
+        echo "## Linting Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ Linting checks completed" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Tools used:" >> $GITHUB_STEP_SUMMARY
+        echo "- Ruff (fast Python linter)" >> $GITHUB_STEP_SUMMARY
+        echo "- Black (code formatter)" >> $GITHUB_STEP_SUMMARY
+        echo "- Flake8 (style guide enforcement)" >> $GITHUB_STEP_SUMMARY
+        echo "- isort (import sorting)" >> $GITHUB_STEP_SUMMARY
+        echo "- mypy (type checking)" >> $GITHUB_STEP_SUMMARY

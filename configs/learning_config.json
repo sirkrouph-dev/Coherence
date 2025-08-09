@@ -1,0 +1,30 @@
+{
+  "learning_rate": 0.01,
+  "weight_min": 0.0,
+  "weight_max": 10.0,
+  "enabled": true,
+  "tau_plus": 20.0,
+  "tau_minus": 20.0,
+  "A_plus": 0.01,
+  "A_minus": 0.012,
+  "hebbian_threshold": 0.5,
+  "hebbian_decay": 0.99,
+  "bcm_threshold": 0.5,
+  "bcm_time_constant": 1000.0,
+  "reward_decay": 0.9,
+  "reward_sensitivity": 1.0,
+  "dopamine_time_constant": 200.0,
+  "tau_x": 5.0,
+  "tau_y": 10.0,
+  "A2_plus": 0.01,
+  "A3_plus": 0.001,
+  "A2_minus": 0.01,
+  "A3_minus": 0.001,
+  "target_rate": 5.0,
+  "homeostatic_time_constant": 10000.0,
+  "custom_params": {
+    "voltage_threshold": -50.0,
+    "calcium_decay": 0.95,
+    "protein_synthesis_rate": 0.001
+  }
+}

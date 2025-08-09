@@ -1,0 +1,179 @@
+# Pre-commit hooks for code quality and consistency
+# Install with: pip install pre-commit
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # General file fixes
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '^docs/'
+      - id: end-of-file-fixer
+        exclude: '^docs/'
+      - id: check-yaml
+        args: ['--unsafe']
+      - id: check-json
+      - id: check-toml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: name-tests-test
+        args: ['--pytest-test-first']
+      - id: requirements-txt-fixer
+      - id: fix-byte-order-marker
+      - id: check-builtin-literals
+      - id: check-ast
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+
+  # Python code formatting with Black
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+        args: ['--line-length=88']
+
+  # Import sorting with isort
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ['--profile', 'black', '--line-length', '88']
+
+  # Linting with flake8
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=88', '--extend-ignore=E203,E266,E501,W503']
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-simplify
+
+  # Type checking with mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        args: ['--ignore-missing-imports', '--no-strict-optional']
+        additional_dependencies:
+          - types-requests
+          - types-PyYAML
+          - numpy
+
+  # Security checks with bandit
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.6
+    hooks:
+      - id: bandit
+        args: ['-ll', '--skip', 'B101,B601']
+        exclude: '^tests/'
+
+  # Docstring coverage
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        exclude: '^(tests/|setup\.py|archive/)'
+        args: ['--ignore=D100,D101,D102,D103,D104,D105,D106,D107,D203,D213']
+
+  # YAML formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        types_or: [yaml, markdown, json]
+        exclude: '^docs/'
+
+  # Spell checking
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        args: ['--skip=*.ipynb,venv*,.venv*,*.svg', '--ignore-words-list=nd,reacher,thru,hist']
+        exclude: '^(archive/|\.git/)'
+
+  # Markdown linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.38.0
+    hooks:
+      - id: markdownlint
+        args: ['--disable', 'MD013', 'MD033', 'MD041']
+
+  # Shell script checking
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.6
+    hooks:
+      - id: shellcheck
+
+  # Upgrade Python syntax
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        args: ['--py38-plus']
+
+  # Remove unused imports
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+      - id: autoflake
+        args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variables']
+
+  # Local hooks for test coverage enforcement
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
+        args: 
+          - 'tests/test_neurons.py'
+          - 'tests/test_synapses.py'
+          - 'tests/test_learning.py'
+          - '--quiet'
+          - '--cov=core'
+          - '--cov-fail-under=90'
+        stages: [commit]
+
+      - id: coverage-check
+        name: coverage-check
+        entry: coverage
+        language: system
+        pass_filenames: false
+        always_run: true
+        args: ['report', '--fail-under=90']
+        stages: [push]
+
+# Configuration for specific hooks
+default_language_version:
+  python: python3.8
+
+# Files to exclude globally
+exclude: |
+  (?x)^(
+    venv*/.*|
+    \.venv*/.*|
+    venv_neuron/.*|
+    archive/.*|
+    \.git/.*|
+    \.mypy_cache/.*|
+    \.pytest_cache/.*|
+    \.tox/.*|
+    build/.*|
+    dist/.*|
+    .*\.egg-info/.*|
+    __pycache__/.*|
+    \.ipynb_checkpoints/.*
+  )$

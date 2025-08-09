@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from core.encoding import MultiModalEncoder, SensoryEncoder
+from core.encoding import MultiModalEncoder
 from core.network import (EventDrivenSimulator, NetworkBuilder,
                           NeuromorphicNetwork)
 from core.neuromodulation import (AdaptiveLearningController,
@@ -21,7 +21,7 @@ class NeuromorphicSystem:
 
     def __init__(self, backend="time_driven"):
         self.network = NeuromorphicNetwork()
-        self.encoder = MultiModalEncoder({})
+        self.encoder = MultiModalEncoder()
         self.modulatory_controller = AdaptiveLearningController()
         self.homeostatic_regulator = HomeostaticRegulator()
         self.reward_system = RewardSystem()
@@ -32,9 +32,8 @@ class NeuromorphicSystem:
         self.current_time = 0.0
         self.simulation_history = []
 
-    def add_sensory_encoder(self, modality: str, encoder: SensoryEncoder):
-        """Add sensory encoder for specific modality"""
-        self.encoder.encoders[modality] = encoder
+    # Note: MultiModalEncoder doesn't support dynamic encoder addition
+    # This functionality would need to be implemented in the encoder class
 
     def build_network(self, network_config: Dict[str, Any]):
         """Build network from configuration"""
@@ -77,9 +76,10 @@ class NeuromorphicSystem:
 
     def encode_input(
         self, inputs: Dict[str, Any], time_window: float = 100.0
-    ) -> List[Tuple[int, float]]:
+    ) -> Dict[str, Any]:
         """Encode multimodal sensory inputs"""
-        return self.encoder.encode(inputs, time_window)
+        # MultiModalEncoder.encode only takes inputs, not time_window
+        return self.encoder.encode(inputs)
 
     def run_simulation(
         self, duration: float, dt: float = 0.1, inputs: Optional[Dict[str, Any]] = None

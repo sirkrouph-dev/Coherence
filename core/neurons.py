@@ -19,6 +19,16 @@ class NeuronModel:
         self.spike_times: List[float] = []
         self.membrane_potential: float = -65.0  # mV
         self.is_spiking: bool = False
+    
+    @property
+    def v(self) -> float:
+        """Membrane potential alias for compatibility."""
+        return self.membrane_potential
+    
+    @v.setter
+    def v(self, value: float):
+        """Set membrane potential."""
+        self.membrane_potential = value
 
     def step(self, dt: float, I_syn: float) -> bool:
         """Advance neuron state by one time step.
@@ -96,10 +106,22 @@ class AdaptiveExponentialIntegrateAndFire(NeuronModel):
         self.adaptation_current = 0.0
         self.refractory_time = 0.0
         self.current_time = 0.0
+    
+    @property
+    def w(self) -> float:
+        """Adaptation current alias for compatibility."""
+        return self.adaptation_current
+    
+    @w.setter
+    def w(self, value: float):
+        """Set adaptation current."""
+        self.adaptation_current = value
 
     def step(self, dt: float, I_syn: float) -> bool:
         """Advance AdEx neuron by one time step."""
         self.current_time += dt
+        # Clear spike flag at the start of the step
+        self.is_spiking = False
 
         # Handle refractory period
         if self.refractory_time > 0:
@@ -330,6 +352,8 @@ class LeakyIntegrateAndFire(NeuronModel):
     def step(self, dt: float, I_syn: float) -> bool:
         """Advance LIF neuron by one time step."""
         self.current_time += dt
+        # Clear spike flag at the start of the step
+        self.is_spiking = False
 
         # Handle refractory period
         if self.refractory_time > 0:
@@ -380,7 +404,7 @@ class NeuronFactory:
         """
         if neuron_type.lower() == "adex":
             return AdaptiveExponentialIntegrateAndFire(neuron_id, **kwargs)
-        elif neuron_type.lower() == "hh":
+        elif neuron_type.lower() in ["hh", "hodgkin_huxley"]:
             return HodgkinHuxleyNeuron(neuron_id, **kwargs)
         elif neuron_type.lower() == "lif":
             return LeakyIntegrateAndFire(neuron_id, **kwargs)
@@ -406,7 +430,18 @@ class NeuronPopulation:
 
         # Create neurons
         for i in range(size):
-            neuron = NeuronFactory.create_neuron(neuron_type, i, **kwargs)
+            per_neuron_kwargs = dict(kwargs)
+            # Introduce slight parameter heterogeneity to break symmetry in populations
+            if neuron_type.lower() == "lif" and "v_thresh" not in per_neuron_kwargs:
+                # Restore modest deterministic heterogeneity without lowering thresholds
+                jitter = (-0.5 + (i % 5) * 0.25)  # values: -0.5, -0.25, 0.0, 0.25, 0.5
+                per_neuron_kwargs["v_thresh"] = -55.0 + jitter
+            if neuron_type.lower() == "lif" and "tau_m" not in per_neuron_kwargs:
+                # Slightly faster membrane to support spiking in short windows (temporal integration)
+                tau_base = 12.0
+                tau_jitter = 1.0 + 0.1 * (((i * 13) % 3) - 1)  # ~±10%
+                per_neuron_kwargs["tau_m"] = max(1.0, tau_base * tau_jitter)
+            neuron = NeuronFactory.create_neuron(neuron_type, i, **per_neuron_kwargs)
             self.neurons.append(neuron)
 
     def step(self, dt: float, I_syn: List[float]) -> List[bool]:
@@ -420,6 +455,9 @@ class NeuronPopulation:
         Returns:
             List of boolean values indicating which neurons spiked
         """
+        if len(I_syn) != self.size:
+            raise ValueError(f"Expected {self.size} synaptic currents, got {len(I_syn)}")
+        
         spikes = []
         for neuron, I in zip(self.neurons, I_syn):
             spiked = neuron.step(dt, I)

@@ -1,0 +1,45 @@
+# Learning and Plasticity Configuration
+# Example configuration file for neuromorphic learning mechanisms
+
+# Common parameters for all rules
+learning_rate: 0.01
+weight_min: 0.0
+weight_max: 10.0
+enabled: true
+
+# STDP (Spike-Timing-Dependent Plasticity) parameters
+tau_plus: 20.0  # LTP time constant in milliseconds
+tau_minus: 20.0  # LTD time constant in milliseconds
+A_plus: 0.01  # LTP amplitude
+A_minus: 0.012  # LTD amplitude (slightly higher for stability)
+
+# Hebbian learning parameters
+hebbian_threshold: 0.5  # Correlation threshold for potentiation
+hebbian_decay: 0.99  # Weight decay factor
+
+# BCM (Bienenstock-Cooper-Munro) parameters
+bcm_threshold: 0.5  # Initial sliding threshold
+bcm_time_constant: 1000.0  # Adaptation time constant
+
+# Reward modulation parameters
+reward_decay: 0.9  # Eligibility trace decay
+reward_sensitivity: 1.0  # Sensitivity to reward signals
+dopamine_time_constant: 200.0  # Dopamine trace decay time constant
+
+# Triplet STDP parameters
+tau_x: 5.0  # Fast presynaptic trace
+tau_y: 10.0  # Fast postsynaptic trace
+A2_plus: 0.01  # Pair-based LTP
+A3_plus: 0.001  # Triplet-based LTP
+A2_minus: 0.01  # Pair-based LTD
+A3_minus: 0.001  # Triplet-based LTD
+
+# Homeostatic plasticity parameters
+target_rate: 5.0  # Target firing rate in Hz
+homeostatic_time_constant: 10000.0  # Slow adaptation
+
+# Custom rule parameters (user-defined)
+custom_params:
+  voltage_threshold: -50.0
+  calcium_decay: 0.95
+  protein_synthesis_rate: 0.001

@@ -1,0 +1,70 @@
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "your-github-username"  # Replace with actual username
+    assignees:
+      - "your-github-username"  # Replace with actual username
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "-"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "ruff"
+          - "flake8*"
+          - "mypy"
+          - "isort"
+        update-types:
+          - "minor"
+          - "patch"
+      documentation:
+        patterns:
+          - "sphinx*"
+          - "myst-parser"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Don't update major versions automatically
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "your-github-username"  # Replace with actual username
+    assignees:
+      - "your-github-username"  # Replace with actual username
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "-"

@@ -1,0 +1,10 @@
+network_size,platform,simulation_time_ms,wall_clock_time_s,memory_peak_mb,memory_average_mb,total_spikes,spike_rate_hz,spike_throughput,simulation_steps,step_time_mean_ms,step_time_std_ms,success,error_message
+1000,cpu,1000.0,44.11943699995754,438.71484375,413.5201214028777,0,0.0,0.0,1000,44.118168600136414,1.7274706387865528,True,
+1000,gpu_torch,1000.0,43.59138120000716,439.12890625,414.46501317771083,0,0.0,0.0,1000,43.590193600044586,1.4654217764779933,True,
+1000,gpu_cupy,1000.0,43.75270950002596,439.21875,414.6962096291866,0,0.0,0.0,1000,43.751478500664234,1.5118974383281765,True,
+10000,cpu,500.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range
+10000,gpu_torch,500.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range
+10000,gpu_cupy,500.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range
+50000,cpu,200.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range
+50000,gpu_torch,200.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range
+50000,gpu_cupy,200.0,0.0,0.0,0.0,0,0.0,0.0,0,0.0,0.0,False,list index out of range

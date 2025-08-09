@@ -1,0 +1,10 @@
+{
+  "import": "ok",
+  "methods": [
+    "plot_learning_curves",
+    "plot_network_activity",
+    "plot_neuromodulator_levels",
+    "plot_spike_raster",
+    "plot_weight_evolution"
+  ]
+}

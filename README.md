@@ -1,172 +1,185 @@
 # Neuromorphic Programming System
 
-A comprehensive proof-of-concept neuromorphic programming system grounded in biological neuroscience, designed for edge computing applications including NVIDIA Jetson Nano deployment.
+A comprehensive neuromorphic computing framework that bridges biological neuroscience and edge computing, featuring brain-inspired neural networks with realistic dynamics, plasticity, and neuromodulation.
+
+## 🚀 Quick Start
+
+```python
+from engine import Network, Simulator
+
+# Create a simple spiking neural network
+network = Network("QuickStart")
+network.add_neuron_group("input", size=100, model="lif")
+network.add_neuron_group("output", size=10, model="izhikevich")
+network.connect("input", "output", model="stdp", connectivity=0.1)
+
+# Run simulation
+sim = Simulator(network)
+results = sim.run(duration=1000.0)
+print(f"Mean firing rate: {results['statistics']['global_statistics']['mean_firing_rate']:.2f} Hz")
+```
+
+[Full Getting Started Guide →](docs/tutorials/01_getting_started.md)
 
 ## 🧠 Overview
 
 This system implements a biologically plausible neuromorphic computing framework that moves beyond classical artificial neural networks to embrace the temporal, structural, and plastic complexity of real brains. It provides a complete neuromorphic programming environment with:
 
-- **Biological Neuron Models**: AdEx, Hodgkin-Huxley, Leaky Integrate-and-Fire
-- **Synaptic Plasticity**: STDP, Short-term plasticity, Reward-modulated learning
+- **Biological Neuron Models**: AdEx, Hodgkin-Huxley, Izhikevich, Leaky Integrate-and-Fire
+- **Synaptic Plasticity**: STDP, Short-term plasticity, Reward-modulated learning, Structural plasticity
 - **Neuromodulatory Systems**: Dopamine, Serotonin, Acetylcholine, Norepinephrine
-- **Sensory Encoding**: Visual, Auditory, Tactile processing
-- **Event-Driven Simulation**: Asynchronous, energy-efficient computation
-- **Edge Deployment**: Optimized for Jetson Nano and embedded systems
+- **Sensory Encoding**: Visual (retinal, DVS), Auditory (cochlear), Tactile (mechanoreceptor) processing
+- **Simulation Modes**: Time-step and event-driven simulation with GPU acceleration
+- **Edge Deployment**: Optimized for NVIDIA Jetson Nano and embedded systems
 
 ## 🏗️ System Architecture
 
 ```
 neuron/
+├── engine/                  # Neural simulation engine
+│   ├── network.py          # High-level network construction
+│   ├── neuron_group.py     # Neuron population management
+│   ├── synapse_group.py    # Synaptic connection management
+│   ├── neuron_models.py    # LIF, Izhikevich, AdEx, HH models
+│   ├── synapse_models.py   # Static, STDP, STP, neuromodulatory
+│   └── simulator.py        # Time-step and event-driven simulation
 ├── core/                    # Core neuromorphic components
-│   ├── neurons.py          # Neuron models and populations
-│   ├── synapses.py         # Synapse models and plasticity
-│   ├── network.py          # Network architecture and simulation
+│   ├── neurons.py          # Legacy neuron models
+│   ├── synapses.py         # Legacy synapse models
+│   ├── network.py          # Legacy network architecture
 │   ├── encoding.py         # Sensory input encoding
-│   └── neuromodulation.py  # Neuromodulatory systems
+│   ├── enhanced_encoding.py # Advanced encoding (DVS, cochlear)
+│   ├── neuromodulation.py  # Neuromodulatory systems
+│   ├── learning.py         # Plasticity mechanisms
+│   ├── memory.py           # Memory subsystems
+│   └── gpu_neurons.py      # GPU-accelerated neurons
 ├── api/                    # High-level programming interface
 │   ├── neuromorphic_api.py # Main API for system interaction
 │   └── neuromorphic_system.py # Unified system class
 ├── demo/                   # Demonstration scripts
-│   ├── sensorimotor_demo.py # Main demonstration
+│   ├── sensorimotor_demo.py # Basic sensorimotor demo
 │   ├── sensorimotor_training.py # Advanced training demo
-│   └── jetson_demo.py      # Jetson-specific demo
+│   ├── jetson_demo.py      # Jetson Nano deployment
+│   ├── gpu_large_scale_demo.py # GPU acceleration demo
+│   └── enhanced_comprehensive_demo.py # Full feature showcase
+├── examples/               # Example applications
+│   ├── engine_demo.py      # Engine usage examples
+│   ├── pattern_completion_demo.py # Pattern completion
+│   └── sequence_learning_demo.py # Sequence learning
+├── benchmarks/             # Performance benchmarking
+│   ├── performance_benchmarks.py # Core benchmarks
+│   ├── pytest_benchmarks.py # Test benchmarks
+│   └── visualize_benchmarks.py # Benchmark visualization
 ├── tests/                  # Testing and validation
-│   └── test_system.py      # System functionality tests
+│   ├── test_neurons.py     # Neuron model tests
+│   ├── test_synapses.py    # Synapse model tests
+│   ├── test_learning.py    # Learning mechanism tests
+│   └── test_integration.py # Integration tests
 ├── docs/                   # Documentation
-├── jetson_optimization.py  # Jetson Nano optimization
-├── requirements.txt        # Python dependencies
-├── requirements_jetson.txt # Jetson-specific dependencies
-└── JETSON_DEPLOYMENT.md   # Jetson deployment guide
+│   ├── tutorials/          # Step-by-step tutorials
+│   │   ├── 01_getting_started.md
+│   │   ├── 02_sensory_encoding.md
+│   │   ├── 03_learning_plasticity.md
+│   │   └── 05_edge_deployment.md
+│   ├── API_REFERENCE.md    # API documentation
+│   ├── ARCHITECTURE.md     # System architecture
+│   └── benchmarks.md       # Performance metrics
+├── scripts/                # Utility scripts
+│   ├── jetson_optimization.py # Jetson optimization
+│   ├── gpu_optimization.py # GPU optimization
+│   └── check_quality.py    # Code quality checks
+└── setup.py                # Package installation
 ```
 
-## 🚀 Quick Start
+## 📦 Installation
 
-### Installation
+### Prerequisites
+- Python 3.8+
+- NumPy, SciPy, Matplotlib
+- (Optional) CUDA for GPU acceleration
+- (Optional) NVIDIA Jetson Nano for edge deployment
+
+### Install as Package (Recommended)
 
 ```bash
 # Clone the repository
 git clone <repository-url>
 cd neuron
 
-# Install dependencies
-pip install -r requirements.txt
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Run basic test
-python tests/test_system.py
-
-# Run main demonstration
-python demo/sensorimotor_demo.py
+# Install with desired features
+pip install -e .              # Basic installation
+pip install -e ".[dev]"       # With development tools
+pip install -e ".[gpu]"       # With GPU support
+pip install -e ".[jetson]"    # For Jetson Nano
+pip install -e ".[all]"       # Everything
 ```
 
-### Basic Usage
+### Verify Installation
 
-```python
-from api.neuromorphic_api import NeuromorphicAPI
+```bash
+# Run verification script
+python verify_installation.py
 
-# Create and configure network
-api = NeuromorphicAPI()
-api.create_network()
-api.add_sensory_layer("input", 50, "rate")
-api.add_processing_layer("hidden", 25, "adex")
-api.add_motor_layer("output", 10)
+# Run tests
+python -m pytest tests/
 
-# Connect layers with STDP learning
-api.connect_layers("input", "hidden", "feedforward", synapse_type="stdp")
-api.connect_layers("hidden", "output", "feedforward", synapse_type="stdp")
-
-# Run simulation
-results = api.run_simulation(100.0)
-print(f"Simulation completed with {len(results['layer_spike_times'])} layers")
+# Run example
+python examples/engine_demo.py
 ```
 
-## 🧬 Biological Foundations
+## 🧬 Key Features
 
 ### Neuron Models
 
-The system implements three biologically plausible neuron models:
+The system implements multiple biologically plausible neuron models:
 
-1. **Adaptive Exponential Integrate-and-Fire (AdEx)**
-   - Captures spike frequency adaptation
-   - Includes subthreshold oscillations
-   - Models refractory period dynamics
+1. **Leaky Integrate-and-Fire (LIF)** - Simple, computationally efficient
+2. **Izhikevich** - Rich dynamics with low computational cost
+3. **Adaptive Exponential (AdEx)** - Spike frequency adaptation
+4. **Hodgkin-Huxley** - Detailed biophysical model with ion channels
 
-2. **Hodgkin-Huxley (HH)**
-   - Full ion channel dynamics
-   - Realistic action potential shape
-   - Voltage-dependent conductances
-
-3. **Leaky Integrate-and-Fire (LIF)**
-   - Simplified but efficient model
-   - Suitable for large-scale simulations
-   - Good baseline for comparison
+Each model offers different trade-offs between biological realism and computational efficiency.
 
 ### Synaptic Plasticity
 
-1. **Spike-Timing-Dependent Plasticity (STDP)**
-   - Hebbian learning based on spike timing
-   - Long-term potentiation (LTP) and depression (LTD)
-   - Configurable timing windows
+1. **STDP** - Spike-timing dependent plasticity for Hebbian learning
+2. **STP** - Short-term plasticity with depression/facilitation
+3. **Reward-Modulated** - Three-factor learning with neuromodulation
+4. **Homeostatic** - Synaptic scaling and intrinsic plasticity
+5. **Structural** - Dynamic synapse formation and elimination
 
-2. **Short-Term Plasticity (STP)**
-   - Synaptic depression and facilitation
-   - Dynamic neurotransmitter release
-   - Rapid adaptation to input patterns
+### Simulation Modes
 
-3. **Reward-Modulated STDP (RSTDP)**
-   - Combines timing-based and reward-based learning
-   - Neuromodulatory influences
-   - Reinforcement learning capabilities
+1. **Time-Step Mode** - Traditional fixed time-step integration
+2. **Event-Driven Mode** - Efficient processing of sparse activity
+3. **GPU Acceleration** - CUDA support for large-scale networks
+4. **Edge Optimization** - Specialized modes for embedded devices
 
-### Neuromodulatory Systems
+## 🎯 Applications
 
-The system includes four major neuromodulatory systems:
+### Robotics
+- Sensorimotor control
+- Navigation and path planning
+- Object recognition and manipulation
 
-1. **Dopaminergic System**
-   - Reward prediction and learning
-   - Motivation and goal-directed behavior
-   - Error-driven learning
+### Edge AI
+- Real-time pattern recognition
+- Anomaly detection
+- Low-power inference
 
-2. **Serotonergic System**
-   - Mood regulation and emotional processing
-   - Impulse control and decision making
-   - Sleep-wake cycle modulation
+### Neuroscience Research
+- Brain circuit modeling
+- Learning mechanism studies
+- Neural dynamics exploration
 
-3. **Cholinergic System**
-   - Attention and arousal
-   - Memory formation and consolidation
-   - Sensory processing enhancement
-
-4. **Noradrenergic System**
-   - Stress response and vigilance
-   - Cognitive flexibility
-   - Arousal and alertness
-
-## 🎯 Key Features
-
-### 1. Biological Plausibility
-- Grounded in real neuroscience
-- Implements actual neural mechanisms
-- Maintains temporal dynamics
-
-### 2. Scalability
-- Modular architecture
-- Configurable network sizes
-- Efficient memory management
-
-### 3. Learning Capabilities
-- Multiple learning paradigms
-- Adaptive behavior
-- Real-time learning
-
-### 4. Edge Computing Ready
-- Jetson Nano optimization
-- Resource-constrained operation
-- Real-time performance
-
-### 5. Programming Interface
-- High-level API
-- Python-based development
-- Comprehensive documentation
+### IoT and Embedded Systems
+- Smart sensors
+- Adaptive control systems
+- Energy-efficient processing
 
 ## 🔬 Core Components
 
@@ -373,19 +386,24 @@ SYNAPSE_CONFIG = {
 
 ## 📚 Documentation
 
-### Core Documentation
-- `neuromorphic_system_poc.md`: Complete system specification
-- `JETSON_DEPLOYMENT.md`: Jetson Nano deployment guide
-- `docs/`: Additional documentation
+### Tutorials
+Step-by-step guides for getting started:
 
-### API Reference
-- `api/neuromorphic_api.py`: Main programming interface
-- `api/neuromorphic_system.py`: Unified system class
-- `core/`: Core component documentation
+- [**Getting Started**](docs/tutorials/01_getting_started.md) - Installation, first network, basic concepts
+- [**Sensory Encoding**](docs/tutorials/02_sensory_encoding.md) - Converting real-world data to spikes
+- [**Learning & Plasticity**](docs/tutorials/03_learning_plasticity.md) - STDP, homeostasis, reinforcement learning
+- [**Edge Deployment**](docs/tutorials/05_edge_deployment.md) - Jetson Nano and embedded systems
+
+### Core Documentation
+- [API Reference](docs/API_REFERENCE.md) - Complete API documentation
+- [System Architecture](docs/ARCHITECTURE.md) - Technical architecture details
+- [Performance Benchmarks](docs/benchmarks.md) - Speed and efficiency metrics
+- [Jetson Deployment](JETSON_DEPLOYMENT.md) - Detailed Jetson Nano guide
 
 ### Examples
-- `demo/`: Complete demonstration scripts
-- `tests/`: Testing and validation examples
+- `examples/` - Working code examples
+- `demo/` - Full demonstration applications
+- `benchmarks/` - Performance testing scripts
 
 ## 🤝 Contributing
 

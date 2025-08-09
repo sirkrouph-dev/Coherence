@@ -1,0 +1,16 @@
+{
+  "environment": {
+    "python": "3.10.0",
+    "platform": "win32"
+  },
+  "cpu_micro": {
+    "duration_ms": 50.0,
+    "wall_s": 0.17870521545410156,
+    "speed_x_real_time": 0.28,
+    "spikes_recorded": 85
+  },
+  "gpu": {
+    "cupy": false,
+    "torch": true
+  }
+}

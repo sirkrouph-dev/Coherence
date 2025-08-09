@@ -1,0 +1,2578 @@
+[
+  {
+    "path": "test_memory_subsystem.py",
+    "module": "test_memory_subsystem",
+    "symbol_type": "function",
+    "name": "test_memory_subsystem",
+    "doc": "Test basic functionality of the memory subsystem."
+  },
+  {
+    "path": "verify_installation.py",
+    "module": "verify_installation",
+    "symbol_type": "function",
+    "name": "check_module",
+    "doc": "Check if a module can be imported successfully."
+  },
+  {
+    "path": "verify_installation.py",
+    "module": "verify_installation",
+    "symbol_type": "function",
+    "name": "check_data_files",
+    "doc": "Check if package data files are accessible."
+  },
+  {
+    "path": "verify_installation.py",
+    "module": "verify_installation",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all verification checks for the neuromorphic system installation."
+  },
+  {
+    "path": "api\\neuromorphic_api.py",
+    "module": "api.neuromorphic_api",
+    "symbol_type": "class",
+    "name": "NeuromorphicAPI",
+    "doc": "High-level API for neuromorphic programming."
+  },
+  {
+    "path": "api\\neuromorphic_api.py",
+    "module": "api.neuromorphic_api",
+    "symbol_type": "class",
+    "name": "NeuromorphicVisualizer",
+    "doc": "Visualization tools for neuromorphic networks."
+  },
+  {
+    "path": "api\\neuromorphic_api.py",
+    "module": "api.neuromorphic_api",
+    "symbol_type": "class",
+    "name": "SensorimotorSystem",
+    "doc": "Complete sensorimotor control system."
+  },
+  {
+    "path": "api\\neuromorphic_system.py",
+    "module": "api.neuromorphic_system",
+    "symbol_type": "class",
+    "name": "NeuromorphicSystem",
+    "doc": "Complete neuromorphic programming system with integrated components."
+  },
+  {
+    "path": "archive\\prototypes\\analyze_dependencies.py",
+    "module": "archive.prototypes.analyze_dependencies",
+    "symbol_type": "function",
+    "name": "analyze_imports",
+    "doc": "Extract imports from a Python file."
+  },
+  {
+    "path": "archive\\prototypes\\analyze_dependencies.py",
+    "module": "archive.prototypes.analyze_dependencies",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": ""
+  },
+  {
+    "path": "archive\\prototypes\\analyze_type_hints_docs.py",
+    "module": "archive.prototypes.analyze_type_hints_docs",
+    "symbol_type": "class",
+    "name": "TypeHintAndDocAnalyzer",
+    "doc": "Analyze Python code for missing type hints and docstrings."
+  },
+  {
+    "path": "archive\\prototypes\\analyze_type_hints_docs.py",
+    "module": "archive.prototypes.analyze_type_hints_docs",
+    "symbol_type": "function",
+    "name": "analyze_file",
+    "doc": "Analyze a single Python file."
+  },
+  {
+    "path": "archive\\prototypes\\analyze_type_hints_docs.py",
+    "module": "archive.prototypes.analyze_type_hints_docs",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main analysis function."
+  },
+  {
+    "path": "archive\\prototypes\\check_classes.py",
+    "module": "archive.prototypes.check_classes",
+    "symbol_type": "function",
+    "name": "get_classes",
+    "doc": ""
+  },
+  {
+    "path": "archive\\prototypes\\test_baseline.py",
+    "module": "archive.prototypes.test_baseline",
+    "symbol_type": "function",
+    "name": "test_import",
+    "doc": "Test if a module/class can be imported"
+  },
+  {
+    "path": "archive\\prototypes\\test_baseline.py",
+    "module": "archive.prototypes.test_baseline",
+    "symbol_type": "function",
+    "name": "run_test",
+    "doc": "Run a test function and capture results"
+  },
+  {
+    "path": "archive\\prototypes\\test_baseline.py",
+    "module": "archive.prototypes.test_baseline",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": ""
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_enhanced_logging",
+    "doc": "Test enhanced logging system."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_task_complexity",
+    "doc": "Test task complexity system."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_enhanced_encoding",
+    "doc": "Test enhanced sensory encoding system."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_robustness_testing",
+    "doc": "Test robustness testing framework."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_comprehensive_demo",
+    "doc": "Test the comprehensive demo system."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "test_file_generation",
+    "doc": "Test that required files are generated."
+  },
+  {
+    "path": "archive\\prototypes\\test_enhanced_system.py",
+    "module": "archive.prototypes.test_enhanced_system",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all tests."
+  },
+  {
+    "path": "archive\\prototypes\\test_gpu_neurons.py",
+    "module": "archive.prototypes.test_gpu_neurons",
+    "symbol_type": "function",
+    "name": "test_basic_scaling",
+    "doc": "Test basic GPU neuron scaling."
+  },
+  {
+    "path": "archive\\prototypes\\test_gpu_neurons.py",
+    "module": "archive.prototypes.test_gpu_neurons",
+    "symbol_type": "function",
+    "name": "test_million_neurons",
+    "doc": "Test million neuron simulation."
+  },
+  {
+    "path": "archive\\prototypes\\test_gpu_neurons.py",
+    "module": "archive.prototypes.test_gpu_neurons",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main test function."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "class",
+    "name": "TestResult",
+    "doc": "Store test results for reporting."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "function",
+    "name": "test_neuromodulation_implementation",
+    "doc": "Test if neuromodulators are algorithmically implemented or stubbed."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "function",
+    "name": "test_encoders_correctness",
+    "doc": "Test encoder correctness and edge cases."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "function",
+    "name": "test_encoder_performance",
+    "doc": "Test encoder performance and efficiency."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "function",
+    "name": "test_integration",
+    "doc": "Test integration between neuromodulation and encoding."
+  },
+  {
+    "path": "archive\\prototypes\\test_neuromodulation_encoding.py",
+    "module": "archive.prototypes.test_neuromodulation_encoding",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all tests and generate report."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "test_gpu_memory_leak",
+    "doc": "Test that GPU memory leak has been fixed."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "test_stdp_weight_boundaries",
+    "doc": "Test that STDP weights are properly bounded."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "test_network_input_validation",
+    "doc": "Test network input validation and resource limits."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "test_security_manager",
+    "doc": "Test security manager input validation."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "test_event_driven_input_validation",
+    "doc": "Test external input validation in EventDrivenSimulator."
+  },
+  {
+    "path": "archive\\prototypes\\test_security_fixes.py",
+    "module": "archive.prototypes.test_security_fixes",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all security and robustness tests."
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "print_header",
+    "doc": ""
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "test_imports",
+    "doc": "Test all critical imports"
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "test_cuda",
+    "doc": "Test CUDA availability"
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "test_system_info",
+    "doc": "Display system information"
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "test_neuromorphic_imports",
+    "doc": "Test local neuromorphic module imports"
+  },
+  {
+    "path": "archive\\prototypes\\verify_environment.py",
+    "module": "archive.prototypes.verify_environment",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": ""
+  },
+  {
+    "path": "benchmarks\\generate_report.py",
+    "module": "benchmarks.generate_report",
+    "symbol_type": "function",
+    "name": "generate_markdown_report",
+    "doc": "Generate markdown report with badges."
+  },
+  {
+    "path": "benchmarks\\generate_report.py",
+    "module": "benchmarks.generate_report",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to generate report."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "BenchmarkConfig",
+    "doc": "Configuration for a benchmark run."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "BenchmarkResult",
+    "doc": "Results from a benchmark run."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "NetworkBenchmark",
+    "doc": "Base class for network benchmarks."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "CPUBenchmark",
+    "doc": "CPU-based network benchmark."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "GPUBenchmark",
+    "doc": "GPU-based network benchmark using PyTorch or CuPy."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "class",
+    "name": "BenchmarkRunner",
+    "doc": "Main benchmark runner with automated testing and result storage."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "function",
+    "name": "run_timeit_microbenchmarks",
+    "doc": "Run additional micro-benchmarks using timeit for specific operations."
+  },
+  {
+    "path": "benchmarks\\performance_benchmarks.py",
+    "module": "benchmarks.performance_benchmarks",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main entry point for benchmarking."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "function",
+    "name": "network_size",
+    "doc": "Network size parameter for benchmarks."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "function",
+    "name": "neuron_model",
+    "doc": "Neuron model type for benchmarks."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "function",
+    "name": "small_network",
+    "doc": "Create a small test network."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "function",
+    "name": "large_network",
+    "doc": "Create a large test network."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "class",
+    "name": "TestStepThroughput",
+    "doc": "Benchmarks measuring neuron processing throughput."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "class",
+    "name": "TestMemoryFootprint",
+    "doc": "Benchmarks measuring memory usage."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "class",
+    "name": "TestConvergenceSpeed",
+    "doc": "Benchmarks measuring learning and convergence speed."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "class",
+    "name": "TestSystemPerformance",
+    "doc": "Comprehensive system-level benchmarks."
+  },
+  {
+    "path": "benchmarks\\pytest_benchmarks.py",
+    "module": "benchmarks.pytest_benchmarks",
+    "symbol_type": "function",
+    "name": "pytest_configure",
+    "doc": "Configure pytest with custom markers."
+  },
+  {
+    "path": "benchmarks\\quick_benchmark.py",
+    "module": "benchmarks.quick_benchmark",
+    "symbol_type": "function",
+    "name": "run_network_benchmark",
+    "doc": "Run a simple network benchmark."
+  },
+  {
+    "path": "benchmarks\\quick_benchmark.py",
+    "module": "benchmarks.quick_benchmark",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run quick benchmarks."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "run_pytest_benchmarks",
+    "doc": "Run pytest-benchmark tests and capture results."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "run_quick_benchmarks",
+    "doc": "Run quick benchmarks for basic metrics."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "analyze_results",
+    "doc": "Analyze benchmark results and extract key metrics."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "generate_badge",
+    "doc": "Generate a shield.io badge URL."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "generate_markdown_report",
+    "doc": "Generate markdown report with badges."
+  },
+  {
+    "path": "benchmarks\\run_benchmarks.py",
+    "module": "benchmarks.run_benchmarks",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to run all benchmarks and generate report."
+  },
+  {
+    "path": "benchmarks\\visualize_benchmarks.py",
+    "module": "benchmarks.visualize_benchmarks",
+    "symbol_type": "function",
+    "name": "load_benchmark_results",
+    "doc": "Load all benchmark results from CSV files."
+  },
+  {
+    "path": "benchmarks\\visualize_benchmarks.py",
+    "module": "benchmarks.visualize_benchmarks",
+    "symbol_type": "function",
+    "name": "create_performance_plots",
+    "doc": "Create comprehensive performance plots."
+  },
+  {
+    "path": "benchmarks\\visualize_benchmarks.py",
+    "module": "benchmarks.visualize_benchmarks",
+    "symbol_type": "function",
+    "name": "create_summary_table",
+    "doc": "Create a summary table of benchmark results."
+  },
+  {
+    "path": "benchmarks\\visualize_benchmarks.py",
+    "module": "benchmarks.visualize_benchmarks",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main entry point for visualization."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "RateEncoder",
+    "doc": "Basic rate encoding for neural inputs."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "RetinalEncoder",
+    "doc": "Retinal encoding for visual inputs."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "CochlearEncoder",
+    "doc": "Cochlear encoding for auditory inputs."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "SomatosensoryEncoder",
+    "doc": "Somatosensory encoding for tactile inputs."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "MultiModalEncoder",
+    "doc": "Multi-modal encoder for combining different sensory inputs."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "TemporalEncoder",
+    "doc": "Temporal encoding for time-series data."
+  },
+  {
+    "path": "core\\encoding.py",
+    "module": "core.encoding",
+    "symbol_type": "class",
+    "name": "PopulationEncoder",
+    "doc": "Population encoding using multiple neurons per value."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "ModalityType",
+    "doc": "Sensory modality types."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "SensoryFeature",
+    "doc": "Data structure for sensory features."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "EncodedSpikes",
+    "doc": "Data structure for encoded spike patterns."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "VisualEncoder",
+    "doc": "Enhanced visual encoding with feature extraction."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "AuditoryEncoder",
+    "doc": "Enhanced auditory encoding with frequency analysis."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "TactileEncoder",
+    "doc": "Enhanced tactile encoding with pressure and vibration analysis."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "MultiModalFusion",
+    "doc": "Multi-modal sensory fusion system."
+  },
+  {
+    "path": "core\\enhanced_encoding.py",
+    "module": "core.enhanced_encoding",
+    "symbol_type": "class",
+    "name": "EnhancedSensoryEncoder",
+    "doc": "Main sensory encoding system."
+  },
+  {
+    "path": "core\\enhanced_logging.py",
+    "module": "core.enhanced_logging",
+    "symbol_type": "class",
+    "name": "SpikeEvent",
+    "doc": "Data structure for spike events."
+  },
+  {
+    "path": "core\\enhanced_logging.py",
+    "module": "core.enhanced_logging",
+    "symbol_type": "class",
+    "name": "MembranePotentialEvent",
+    "doc": "Data structure for membrane potential changes."
+  },
+  {
+    "path": "core\\enhanced_logging.py",
+    "module": "core.enhanced_logging",
+    "symbol_type": "class",
+    "name": "SynapticWeightEvent",
+    "doc": "Data structure for synaptic weight changes."
+  },
+  {
+    "path": "core\\enhanced_logging.py",
+    "module": "core.enhanced_logging",
+    "symbol_type": "class",
+    "name": "NetworkStateEvent",
+    "doc": "Data structure for network state snapshots."
+  },
+  {
+    "path": "core\\enhanced_logging.py",
+    "module": "core.enhanced_logging",
+    "symbol_type": "class",
+    "name": "EnhancedNeuromorphicLogger",
+    "doc": "Enhanced logger with comprehensive neural dynamics tracking."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "NeuromorphicError",
+    "doc": "Base exception for neuromorphic system errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "NetworkError",
+    "doc": "Network-related errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "NeuronError",
+    "doc": "Neuron model errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "SynapseError",
+    "doc": "Synapse model errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "SimulationError",
+    "doc": "Simulation execution errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "ResourceError",
+    "doc": "Resource limitation errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "ValidationError",
+    "doc": "Input validation errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "GPUError",
+    "doc": "GPU-related errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "ErrorHandler",
+    "doc": "Centralized error handling and recovery."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "function",
+    "name": "safe_execution",
+    "doc": "Decorator for safe function execution with error handling."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "function",
+    "name": "validate_numeric",
+    "doc": "Validate numeric values with comprehensive checks."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "function",
+    "name": "validate_shape",
+    "doc": "Validate array shape."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "NumericalStabilizer",
+    "doc": "Utilities for numerical stability."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "class",
+    "name": "RecoveryStrategies",
+    "doc": "Common recovery strategies for errors."
+  },
+  {
+    "path": "core\\error_handling.py",
+    "module": "core.error_handling",
+    "symbol_type": "function",
+    "name": "setup_error_handling",
+    "doc": "Setup global error handling for the neuromorphic system."
+  },
+  {
+    "path": "core\\gpu_neurons.py",
+    "module": "core.gpu_neurons",
+    "symbol_type": "class",
+    "name": "GPUMetrics",
+    "doc": "Container for GPU performance metrics."
+  },
+  {
+    "path": "core\\gpu_neurons.py",
+    "module": "core.gpu_neurons",
+    "symbol_type": "class",
+    "name": "GPUNeuronPool",
+    "doc": "Manages large pools of neurons on GPU with efficient batch processing."
+  },
+  {
+    "path": "core\\gpu_neurons.py",
+    "module": "core.gpu_neurons",
+    "symbol_type": "class",
+    "name": "MultiGPUNeuronSystem",
+    "doc": "Manages multiple GPU neuron pools for massive scale simulations."
+  },
+  {
+    "path": "core\\gpu_neurons.py",
+    "module": "core.gpu_neurons",
+    "symbol_type": "function",
+    "name": "analyze_gpu_performance",
+    "doc": "Analyze GPU performance across different scales."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "PlasticityType",
+    "doc": "Types of plasticity mechanisms."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "PlasticityConfig",
+    "doc": "Configuration for plasticity mechanisms."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "PlasticityRule",
+    "doc": "Abstract base class for plasticity rules."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "STDPRule",
+    "doc": "Spike-Timing-Dependent Plasticity rule."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "HebbianRule",
+    "doc": "Classical Hebbian learning rule: 'Cells that fire together, wire together'."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "BCMRule",
+    "doc": "Bienenstock-Cooper-Munro (BCM) learning rule with sliding threshold."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "RewardModulatedSTDP",
+    "doc": "Reward-modulated STDP for reinforcement learning."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "TripletSTDP",
+    "doc": "Triplet-based STDP rule for more accurate modeling of experimental data."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "HomeostaticPlasticity",
+    "doc": "Homeostatic plasticity to maintain stable firing rates."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "CustomPlasticityRule",
+    "doc": "Custom user-defined plasticity rule."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "class",
+    "name": "PlasticityManager",
+    "doc": "Manager for multiple plasticity mechanisms."
+  },
+  {
+    "path": "core\\learning.py",
+    "module": "core.learning",
+    "symbol_type": "function",
+    "name": "example_custom_rule",
+    "doc": "Example custom plasticity rule."
+  },
+  {
+    "path": "core\\logging_utils.py",
+    "module": "core.logging_utils",
+    "symbol_type": "class",
+    "name": "NeuromorphicLogger",
+    "doc": "Basic neuromorphic logger for system components."
+  },
+  {
+    "path": "core\\logging_utils.py",
+    "module": "core.logging_utils",
+    "symbol_type": "class",
+    "name": "TrainingTracker",
+    "doc": "Tracks training progress and metrics."
+  },
+  {
+    "path": "core\\logging_utils.py",
+    "module": "core.logging_utils",
+    "symbol_type": "function",
+    "name": "trace_function",
+    "doc": "Decorator to trace function calls."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "MemoryType",
+    "doc": "Types of memory systems."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "MemoryTrace",
+    "doc": "Represents a memory trace in the system."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "RecurrentMemoryNetwork",
+    "doc": "Recurrent neural network for memory storage and retrieval."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "WeightConsolidation",
+    "doc": "Implements synaptic weight consolidation for long-term memory."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "ShortTermMemory",
+    "doc": "Short-term (working) memory implementation."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "LongTermMemory",
+    "doc": "Long-term memory implementation."
+  },
+  {
+    "path": "core\\memory.py",
+    "module": "core.memory",
+    "symbol_type": "class",
+    "name": "IntegratedMemorySystem",
+    "doc": "Integrated memory system combining STM and LTM."
+  },
+  {
+    "path": "core\\network.py",
+    "module": "core.network",
+    "symbol_type": "class",
+    "name": "NetworkLayer",
+    "doc": "A layer in the neuromorphic network."
+  },
+  {
+    "path": "core\\network.py",
+    "module": "core.network",
+    "symbol_type": "class",
+    "name": "NetworkConnection",
+    "doc": "Connection between two network layers."
+  },
+  {
+    "path": "core\\network.py",
+    "module": "core.network",
+    "symbol_type": "class",
+    "name": "NeuromorphicNetwork",
+    "doc": "Complete neuromorphic network with layers and connections."
+  },
+  {
+    "path": "core\\network.py",
+    "module": "core.network",
+    "symbol_type": "class",
+    "name": "EventDrivenSimulator",
+    "doc": "Event-driven simulation engine for spiking networks."
+  },
+  {
+    "path": "core\\network.py",
+    "module": "core.network",
+    "symbol_type": "class",
+    "name": "NetworkBuilder",
+    "doc": "Helper class for building neuromorphic networks."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "NeuromodulatorType",
+    "doc": "Types of neuromodulators."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "NeuromodulatorySystem",
+    "doc": "Base class for neuromodulatory systems."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "DopaminergicSystem",
+    "doc": "Dopaminergic system for reward prediction error."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "SerotonergicSystem",
+    "doc": "Serotonergic system for mood and behavioral state regulation."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "CholinergicSystem",
+    "doc": "Cholinergic system for attention and learning rate modulation."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "NoradrenergicSystem",
+    "doc": "Noradrenergic system for arousal and vigilance."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "NeuromodulatoryController",
+    "doc": "Central controller for all neuromodulatory systems."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "HomeostaticRegulator",
+    "doc": "Homeostatic regulation system for network stability."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "RewardSystem",
+    "doc": "Reward system for reinforcement learning."
+  },
+  {
+    "path": "core\\neuromodulation.py",
+    "module": "core.neuromodulation",
+    "symbol_type": "class",
+    "name": "AdaptiveLearningController",
+    "doc": "Extended neuromodulatory controller with adaptive learning rules."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "NeuronModel",
+    "doc": "Base class for all neuron models."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "AdaptiveExponentialIntegrateAndFire",
+    "doc": "Adaptive Exponential Integrate-and-Fire neuron model."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "HodgkinHuxleyNeuron",
+    "doc": "Hodgkin-Huxley neuron model."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "LeakyIntegrateAndFire",
+    "doc": "Leaky Integrate-and-Fire neuron model."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "NeuronFactory",
+    "doc": "Factory for creating different types of neurons."
+  },
+  {
+    "path": "core\\neurons.py",
+    "module": "core.neurons",
+    "symbol_type": "class",
+    "name": "NeuronPopulation",
+    "doc": "Collection of neurons of the same type."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "TestType",
+    "doc": "Types of robustness tests."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "TestResult",
+    "doc": "Data structure for test results."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "NoiseGenerator",
+    "doc": "Advanced noise generation for robustness testing."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "AdversarialAttacker",
+    "doc": "Advanced adversarial attack methods."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "NetworkDamageSimulator",
+    "doc": "Simulates various types of network damage."
+  },
+  {
+    "path": "core\\robustness_testing.py",
+    "module": "core.robustness_testing",
+    "symbol_type": "class",
+    "name": "RobustnessTester",
+    "doc": "Main robustness testing framework."
+  },
+  {
+    "path": "core\\security_manager.py",
+    "module": "core.security_manager",
+    "symbol_type": "class",
+    "name": "SecurityManager",
+    "doc": "Security utilities for neuromorphic system."
+  },
+  {
+    "path": "core\\security_manager.py",
+    "module": "core.security_manager",
+    "symbol_type": "class",
+    "name": "ResourceLimiter",
+    "doc": "Resource usage limiter for preventing DoS attacks."
+  },
+  {
+    "path": "core\\security_manager.py",
+    "module": "core.security_manager",
+    "symbol_type": "class",
+    "name": "RateLimiter",
+    "doc": "Rate limiter for preventing abuse of operations."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "SynapseType",
+    "doc": "Types of synapses."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "SynapseModel",
+    "doc": "Base class for all synapse models."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "STDP_Synapse",
+    "doc": "Spike-Timing-Dependent Plasticity synapse."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "ShortTermPlasticitySynapse",
+    "doc": "Synapse with short-term plasticity (STP)."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "NeuromodulatorySynapse",
+    "doc": "Synapse with neuromodulatory learning."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "RSTDP_Synapse",
+    "doc": "Reward-modulated STDP synapse combining timing-based and reward-based plasticity."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "SynapseFactory",
+    "doc": "Factory for creating different types of synapses."
+  },
+  {
+    "path": "core\\synapses.py",
+    "module": "core.synapses",
+    "symbol_type": "class",
+    "name": "SynapsePopulation",
+    "doc": "Collection of synapses between neuron populations."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "TaskLevel",
+    "doc": "Task complexity levels."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "TaskParameters",
+    "doc": "Parameters for task generation."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "PatternGenerator",
+    "doc": "Generates complex patterns for testing."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "NoiseGenerator",
+    "doc": "Generates various types of noise for robustness testing."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "AdversarialGenerator",
+    "doc": "Generates adversarial examples for robustness testing."
+  },
+  {
+    "path": "core\\task_complexity.py",
+    "module": "core.task_complexity",
+    "symbol_type": "class",
+    "name": "TaskComplexityManager",
+    "doc": "Manages task complexity and generates appropriate challenges."
+  },
+  {
+    "path": "demo\\enhanced_comprehensive_demo.py",
+    "module": "demo.enhanced_comprehensive_demo",
+    "symbol_type": "class",
+    "name": "EnhancedNeuromorphicDemo",
+    "doc": "Comprehensive demo of enhanced neuromorphic system capabilities."
+  },
+  {
+    "path": "demo\\enhanced_comprehensive_demo.py",
+    "module": "demo.enhanced_comprehensive_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to run the enhanced neuromorphic system demo."
+  },
+  {
+    "path": "demo\\gpu_analysis_demo.py",
+    "module": "demo.gpu_analysis_demo",
+    "symbol_type": "class",
+    "name": "GPUPerformanceAnalyzer",
+    "doc": "Comprehensive GPU performance analysis for neuromorphic systems."
+  },
+  {
+    "path": "demo\\gpu_analysis_demo.py",
+    "module": "demo.gpu_analysis_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main demonstration function."
+  },
+  {
+    "path": "demo\\gpu_large_scale_demo.py",
+    "module": "demo.gpu_large_scale_demo",
+    "symbol_type": "function",
+    "name": "test_gpu_system_capacity",
+    "doc": "Test GPU system capacity for large-scale networks."
+  },
+  {
+    "path": "demo\\gpu_large_scale_demo.py",
+    "module": "demo.gpu_large_scale_demo",
+    "symbol_type": "function",
+    "name": "run_large_scale_demo",
+    "doc": "Run large-scale neuromorphic demo on GPU."
+  },
+  {
+    "path": "demo\\gpu_large_scale_demo.py",
+    "module": "demo.gpu_large_scale_demo",
+    "symbol_type": "function",
+    "name": "benchmark_different_sizes",
+    "doc": "Benchmark performance with different network sizes."
+  },
+  {
+    "path": "demo\\gpu_large_scale_demo.py",
+    "module": "demo.gpu_large_scale_demo",
+    "symbol_type": "function",
+    "name": "plot_performance_comparison",
+    "doc": "Plot performance comparison for different network sizes."
+  },
+  {
+    "path": "demo\\gpu_large_scale_demo.py",
+    "module": "demo.gpu_large_scale_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main demo function."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_jetson_system_info",
+    "doc": "Demonstrate Jetson Nano system information."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_jetson_optimization",
+    "doc": "Demonstrate Jetson optimization capabilities."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_jetson_inference",
+    "doc": "Demonstrate real-time inference on Jetson Nano."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_jetson_learning",
+    "doc": "Demonstrate learning capabilities on Jetson Nano."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_jetson_performance_monitoring",
+    "doc": "Demonstrate performance monitoring on Jetson Nano."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "plot_jetson_performance",
+    "doc": "Plot Jetson performance data."
+  },
+  {
+    "path": "demo\\jetson_demo.py",
+    "module": "demo.jetson_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run Jetson Nano neuromorphic system demonstration."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "create_training_data",
+    "doc": "Create synthetic training data for sensorimotor learning."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "create_visual_input",
+    "doc": "Create synthetic visual input (32x32 image)."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "create_auditory_input",
+    "doc": "Create synthetic auditory input (1 second of audio)."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "create_tactile_input",
+    "doc": "Create synthetic tactile input (16x16 pressure map)."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_basic_network",
+    "doc": "Demonstrate basic network functionality."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "class",
+    "name": "SensorimotorSystem",
+    "doc": "Complete sensorimotor control system."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_sensorimotor_learning",
+    "doc": "Demonstrate sensorimotor learning."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_sensory_encoding",
+    "doc": "Demonstrate sensory encoding."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "demonstrate_adaptive_behavior",
+    "doc": "Demonstrate adaptive behavior with changing inputs."
+  },
+  {
+    "path": "demo\\sensorimotor_demo.py",
+    "module": "demo.sensorimotor_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all demonstrations."
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "create_sensorimotor_system",
+    "doc": "Create a simplified sensorimotor system for faster training"
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "train_sensorimotor_system",
+    "doc": "Train the sensorimotor system with simplified parameters"
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "determine_action",
+    "doc": "Determine action from motor layer spiking pattern"
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "calculate_reward",
+    "doc": "Calculate reward based on action accuracy"
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "create_training_data",
+    "doc": "Generate simplified training data with smaller inputs"
+  },
+  {
+    "path": "demo\\sensorimotor_training.py",
+    "module": "demo.sensorimotor_training",
+    "symbol_type": "function",
+    "name": "demonstrate_adaptive_learning",
+    "doc": "Demonstrate the adaptive sensorimotor learning system"
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "create_sample_image",
+    "doc": "Create a sample image with simple patterns for testing."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "encode_image",
+    "doc": "Encode an image using retinal encoding."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "convert_to_spike_trains",
+    "doc": "Convert encoded image to spike trains."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "create_visual_network",
+    "doc": "Create a simple visual processing network."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "inject_spikes_to_network",
+    "doc": "Inject spike trains into the network's input layer."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "run_simulation",
+    "doc": "Run the network simulation with input."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "visualize_results",
+    "doc": "Visualize the encoding and simulation results."
+  },
+  {
+    "path": "docs\\examples\\image_encoding_example.py",
+    "module": "docs.examples.image_encoding_example",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to run the complete example."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "create_spike_protocol",
+    "doc": "Create pre and post spike times with specific timing differences."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "simulate_stdp_protocol",
+    "doc": "Simulate STDP with given spike protocol."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "measure_stdp_window",
+    "doc": "Measure the STDP learning window."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "test_hebbian_learning",
+    "doc": "Test Hebbian learning with correlated activity."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "test_reward_modulated_stdp",
+    "doc": "Test reward-modulated STDP."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "visualize_stdp_window",
+    "doc": "Visualize the STDP learning window."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "visualize_spike_protocol",
+    "doc": "Visualize a spike protocol and weight evolution."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "run_comprehensive_stdp_test",
+    "doc": "Run a comprehensive test of STDP with various timing protocols."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "test_plasticity_manager",
+    "doc": "Test the PlasticityManager with multiple rules."
+  },
+  {
+    "path": "docs\\examples\\stdp_learning_example.py",
+    "module": "docs.examples.stdp_learning_example",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to run all examples."
+  },
+  {
+    "path": "engine\\network.py",
+    "module": "engine.network",
+    "symbol_type": "class",
+    "name": "Network",
+    "doc": "Manages a complete neural network with neuron groups and connections."
+  },
+  {
+    "path": "engine\\neuron_group.py",
+    "module": "engine.neuron_group",
+    "symbol_type": "class",
+    "name": "NeuronGroup",
+    "doc": "Manages a group of neurons of the same type."
+  },
+  {
+    "path": "engine\\neuron_models.py",
+    "module": "engine.neuron_models",
+    "symbol_type": "class",
+    "name": "NeuronModel",
+    "doc": "Abstract base class for all neuron models."
+  },
+  {
+    "path": "engine\\neuron_models.py",
+    "module": "engine.neuron_models",
+    "symbol_type": "class",
+    "name": "LeakyIntegrateAndFire",
+    "doc": "Leaky Integrate-and-Fire (LIF) neuron model."
+  },
+  {
+    "path": "engine\\neuron_models.py",
+    "module": "engine.neuron_models",
+    "symbol_type": "class",
+    "name": "Izhikevich",
+    "doc": "Izhikevich neuron model."
+  },
+  {
+    "path": "engine\\neuron_models.py",
+    "module": "engine.neuron_models",
+    "symbol_type": "class",
+    "name": "AdaptiveExponential",
+    "doc": "Adaptive Exponential Integrate-and-Fire (AdEx) neuron model."
+  },
+  {
+    "path": "engine\\neuron_models.py",
+    "module": "engine.neuron_models",
+    "symbol_type": "class",
+    "name": "HodgkinHuxley",
+    "doc": "Hodgkin-Huxley neuron model."
+  },
+  {
+    "path": "engine\\simulator.py",
+    "module": "engine.simulator",
+    "symbol_type": "class",
+    "name": "SimulationMode",
+    "doc": "Simulation mode enumeration."
+  },
+  {
+    "path": "engine\\simulator.py",
+    "module": "engine.simulator",
+    "symbol_type": "class",
+    "name": "Event",
+    "doc": "Represents a simulation event."
+  },
+  {
+    "path": "engine\\simulator.py",
+    "module": "engine.simulator",
+    "symbol_type": "class",
+    "name": "Simulator",
+    "doc": "Main simulation engine for neural networks."
+  },
+  {
+    "path": "engine\\synapse_group.py",
+    "module": "engine.synapse_group",
+    "symbol_type": "class",
+    "name": "SynapseGroup",
+    "doc": "Manages a group of synapses between neuron populations."
+  },
+  {
+    "path": "engine\\synapse_models.py",
+    "module": "engine.synapse_models",
+    "symbol_type": "class",
+    "name": "SynapseModel",
+    "doc": "Abstract base class for all synapse models."
+  },
+  {
+    "path": "engine\\synapse_models.py",
+    "module": "engine.synapse_models",
+    "symbol_type": "class",
+    "name": "StaticSynapse",
+    "doc": "Static synapse with fixed weight."
+  },
+  {
+    "path": "engine\\synapse_models.py",
+    "module": "engine.synapse_models",
+    "symbol_type": "class",
+    "name": "STDPSynapse",
+    "doc": "Spike-Timing-Dependent Plasticity synapse."
+  },
+  {
+    "path": "engine\\synapse_models.py",
+    "module": "engine.synapse_models",
+    "symbol_type": "class",
+    "name": "STPSynapse",
+    "doc": "Short-Term Plasticity synapse."
+  },
+  {
+    "path": "engine\\synapse_models.py",
+    "module": "engine.synapse_models",
+    "symbol_type": "class",
+    "name": "NeuromodulatorySynapse",
+    "doc": "Neuromodulatory synapse with reward-modulated plasticity."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "demo_basic_network",
+    "doc": "Demonstrate basic network construction and simulation."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "demo_event_driven",
+    "doc": "Demonstrate event-driven simulation."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "demo_plasticity",
+    "doc": "Demonstrate synaptic plasticity."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "demo_neuron_models",
+    "doc": "Demonstrate different neuron models."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "visualize_results",
+    "doc": "Visualize simulation results."
+  },
+  {
+    "path": "examples\\engine_demo.py",
+    "module": "examples.engine_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all demonstrations."
+  },
+  {
+    "path": "examples\\pattern_completion_demo.py",
+    "module": "examples.pattern_completion_demo",
+    "symbol_type": "class",
+    "name": "PatternCompletionTask",
+    "doc": "Pattern completion task for testing memory systems."
+  },
+  {
+    "path": "examples\\pattern_completion_demo.py",
+    "module": "examples.pattern_completion_demo",
+    "symbol_type": "function",
+    "name": "test_pattern_completion",
+    "doc": "Test pattern completion with the memory system."
+  },
+  {
+    "path": "examples\\pattern_completion_demo.py",
+    "module": "examples.pattern_completion_demo",
+    "symbol_type": "function",
+    "name": "test_memory_capacity",
+    "doc": "Test memory capacity limits and degradation."
+  },
+  {
+    "path": "examples\\pattern_completion_demo.py",
+    "module": "examples.pattern_completion_demo",
+    "symbol_type": "function",
+    "name": "test_recurrent_dynamics",
+    "doc": "Test recurrent network dynamics for sustained activity."
+  },
+  {
+    "path": "examples\\pattern_completion_demo.py",
+    "module": "examples.pattern_completion_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all pattern completion demonstrations."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "class",
+    "name": "SequenceLearningTask",
+    "doc": "Sequence learning task for testing temporal dynamics."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "class",
+    "name": "TemporalMemoryNetwork",
+    "doc": "Specialized network for learning temporal sequences."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "function",
+    "name": "test_sequence_learning",
+    "doc": "Test sequence learning with the memory system."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "function",
+    "name": "test_temporal_learning_dynamics",
+    "doc": "Test temporal learning dynamics with specialized network."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "function",
+    "name": "test_consolidation_dynamics",
+    "doc": "Test the dynamics of memory consolidation from STM to LTM."
+  },
+  {
+    "path": "examples\\sequence_learning_demo.py",
+    "module": "examples.sequence_learning_demo",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all sequence learning demonstrations."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_stdp_learning",
+    "doc": "Test STDP learning with different spike timing patterns."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_hebbian_learning",
+    "doc": "Test Hebbian learning with correlated activity."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_reward_modulated_learning",
+    "doc": "Test reward-modulated STDP learning."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_bcm_learning",
+    "doc": "Test BCM learning with sliding threshold."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_custom_plasticity",
+    "doc": "Test custom user-defined plasticity rule."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_config_loading",
+    "doc": "Test loading and saving configuration files."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "test_multiple_rules",
+    "doc": "Test combining multiple plasticity rules."
+  },
+  {
+    "path": "examples\\test_learning.py",
+    "module": "examples.test_learning",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Run all tests."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "load_audit_report",
+    "doc": "Load the JSON audit report containing docstring issues."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "analyze_by_module",
+    "doc": "Group and analyze documentation issues by module or directory."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "get_critical_files",
+    "doc": "Identify files with the most critical documentation issues."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "generate_summary_report",
+    "doc": "Generate a comprehensive summary report of documentation issues."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "export_prioritized_list",
+    "doc": "Export a prioritized list of symbols needing documentation."
+  },
+  {
+    "path": "scripts\\analyze_audit_results.py",
+    "module": "scripts.analyze_audit_results",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to analyze docstring audit results."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "class",
+    "name": "DocstringIssue",
+    "doc": "Represents a documentation issue found in the code."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "class",
+    "name": "DocstringParser",
+    "doc": "Parse docstrings to extract parameter and return information."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "class",
+    "name": "DocstringAuditor",
+    "doc": "AST visitor to audit docstrings in Python code."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "function",
+    "name": "audit_file",
+    "doc": "Audit a single Python file for docstring issues."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "function",
+    "name": "find_python_files",
+    "doc": "Find all Python files in the directory tree."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "function",
+    "name": "generate_report",
+    "doc": "Generate a report of all docstring issues."
+  },
+  {
+    "path": "scripts\\audit_docstrings.py",
+    "module": "scripts.audit_docstrings",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function to run the docstring audit."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "load_report",
+    "doc": "Load the JSON audit report."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "filter_issues",
+    "doc": "Filter issues based on criteria."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "display_issue",
+    "doc": "Display a single issue in a readable format."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "generate_docstring_template",
+    "doc": "Generate a docstring template for fixing the issue."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "interactive_mode",
+    "doc": "Interactive mode for browsing issues."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "show_statistics",
+    "doc": "Show statistics about the issues."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "show_critical_files",
+    "doc": "Show files with the most issues."
+  },
+  {
+    "path": "scripts\\browse_docstring_issues.py",
+    "module": "scripts.browse_docstring_issues",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main function for the issue browser."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "run_command",
+    "doc": "Run a command and return its exit code and output."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "print_section",
+    "doc": "Print a section header."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "print_result",
+    "doc": "Print the result of a check."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_ruff",
+    "doc": "Run Ruff linter."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_black",
+    "doc": "Run Black formatter."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_isort",
+    "doc": "Run isort import sorter."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_flake8",
+    "doc": "Run Flake8 linter."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_mypy",
+    "doc": "Run mypy type checker."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "run_tests",
+    "doc": "Run pytest tests."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "check_all",
+    "doc": "Run all quality checks."
+  },
+  {
+    "path": "scripts\\check_quality.py",
+    "module": "scripts.check_quality",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main entry point."
+  },
+  {
+    "path": "scripts\\compare_capabilities.py",
+    "module": "scripts.compare_capabilities",
+    "symbol_type": "function",
+    "name": "compare_system_capabilities",
+    "doc": "Compare Jetson Nano vs Desktop GPU capabilities."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "class",
+    "name": "GPUOptimizer",
+    "doc": "Optimization utilities for desktop GPU deployment."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "class",
+    "name": "GPUNeuromorphicNetwork",
+    "doc": "GPU-optimized neuromorphic network for desktop systems."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "class",
+    "name": "GPUPerformanceMonitor",
+    "doc": "Monitor performance on desktop GPU."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "class",
+    "name": "GPUSensorimotorSystem",
+    "doc": "GPU-optimized sensorimotor system for large-scale networks."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "function",
+    "name": "demonstrate_gpu_capabilities",
+    "doc": "Demonstrate GPU capabilities for large-scale neuromorphic computing."
+  },
+  {
+    "path": "scripts\\gpu_optimization.py",
+    "module": "scripts.gpu_optimization",
+    "symbol_type": "function",
+    "name": "run_gpu_demo",
+    "doc": "Run GPU demonstration with large-scale network."
+  },
+  {
+    "path": "scripts\\jetson_optimization.py",
+    "module": "scripts.jetson_optimization",
+    "symbol_type": "class",
+    "name": "JetsonOptimizer",
+    "doc": "Optimization utilities for Jetson Nano deployment."
+  },
+  {
+    "path": "scripts\\jetson_optimization.py",
+    "module": "scripts.jetson_optimization",
+    "symbol_type": "class",
+    "name": "JetsonNeuromorphicNetwork",
+    "doc": "Jetson-optimized neuromorphic network."
+  },
+  {
+    "path": "scripts\\jetson_optimization.py",
+    "module": "scripts.jetson_optimization",
+    "symbol_type": "class",
+    "name": "JetsonPerformanceMonitor",
+    "doc": "Monitor performance on Jetson Nano."
+  },
+  {
+    "path": "scripts\\jetson_optimization.py",
+    "module": "scripts.jetson_optimization",
+    "symbol_type": "class",
+    "name": "JetsonSensorimotorSystem",
+    "doc": "Jetson-optimized sensorimotor system."
+  },
+  {
+    "path": "scripts\\jetson_optimization.py",
+    "module": "scripts.jetson_optimization",
+    "symbol_type": "function",
+    "name": "create_jetson_deployment_script",
+    "doc": "Create deployment script for Jetson Nano."
+  },
+  {
+    "path": "scripts\\run_tests.py",
+    "module": "scripts.run_tests",
+    "symbol_type": "function",
+    "name": "run_command",
+    "doc": "Run a shell command and return the result."
+  },
+  {
+    "path": "scripts\\run_tests.py",
+    "module": "scripts.run_tests",
+    "symbol_type": "function",
+    "name": "run_tests",
+    "doc": "Run tests with coverage enforcement."
+  },
+  {
+    "path": "scripts\\run_tests.py",
+    "module": "scripts.run_tests",
+    "symbol_type": "function",
+    "name": "run_linting",
+    "doc": "Run code quality checks."
+  },
+  {
+    "path": "scripts\\run_tests.py",
+    "module": "scripts.run_tests",
+    "symbol_type": "function",
+    "name": "generate_coverage_report",
+    "doc": "Generate detailed coverage report."
+  },
+  {
+    "path": "scripts\\run_tests.py",
+    "module": "scripts.run_tests",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": "Main entry point."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestPatternLearning",
+    "doc": "Test pattern learning capabilities."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestSequenceLearning",
+    "doc": "Test sequence learning capabilities."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestRewardModulatedLearning",
+    "doc": "Test reward-modulated learning."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestMultiLayerLearning",
+    "doc": "Test learning in multi-layer networks."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestHomeostaticRegulation",
+    "doc": "Test homeostatic plasticity and stability."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestSynapticScaling",
+    "doc": "Test synaptic scaling and weight normalization."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestLearningPerformance",
+    "doc": "Test performance and efficiency of learning algorithms."
+  },
+  {
+    "path": "tests\\test_integration.py",
+    "module": "tests.test_integration",
+    "symbol_type": "class",
+    "name": "TestLearningRobustness",
+    "doc": "Test robustness of learning to various conditions."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestPlasticityConfig",
+    "doc": "Test PlasticityConfig functionality."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestSTDPRule",
+    "doc": "Test STDP plasticity rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestHebbianRule",
+    "doc": "Test Hebbian plasticity rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestBCMRule",
+    "doc": "Test BCM plasticity rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestRewardModulatedSTDP",
+    "doc": "Test reward-modulated STDP rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestTripletSTDP",
+    "doc": "Test triplet STDP rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestHomeostaticPlasticity",
+    "doc": "Test homeostatic plasticity rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestCustomPlasticityRule",
+    "doc": "Test custom plasticity rule."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestPlasticityManager",
+    "doc": "Test plasticity manager."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestPlasticityIntegration",
+    "doc": "Integration tests for plasticity mechanisms."
+  },
+  {
+    "path": "tests\\test_learning.py",
+    "module": "tests.test_learning",
+    "symbol_type": "class",
+    "name": "TestEdgeCases",
+    "doc": "Test edge cases and error handling."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestNeuronModel",
+    "doc": "Test base neuron model functionality."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestAdaptiveExponentialIntegrateAndFire",
+    "doc": "Test AdEx neuron model."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestHodgkinHuxley",
+    "doc": "Test Hodgkin-Huxley neuron model."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestLeakyIntegrateAndFire",
+    "doc": "Test LIF neuron model."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestNeuronPopulation",
+    "doc": "Test neuron population functionality."
+  },
+  {
+    "path": "tests\\test_neurons.py",
+    "module": "tests.test_neurons",
+    "symbol_type": "class",
+    "name": "TestNumericalStability",
+    "doc": "Test numerical stability of neuron models."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestSynapseModel",
+    "doc": "Test base synapse model functionality."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestSTDPSynapse",
+    "doc": "Test STDP synapse functionality."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestShortTermPlasticitySynapse",
+    "doc": "Test STP synapse functionality."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestNeuromodulatorySynapse",
+    "doc": "Test neuromodulatory synapse functionality."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestRSTDPSynapse",
+    "doc": "Test reward-modulated STDP synapse."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestSynapseFactory",
+    "doc": "Test synapse factory."
+  },
+  {
+    "path": "tests\\test_synapses.py",
+    "module": "tests.test_synapses",
+    "symbol_type": "class",
+    "name": "TestSynapsePopulation",
+    "doc": "Test synapse population functionality."
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "class",
+    "name": "Claim",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "class",
+    "name": "Symbol",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "class",
+    "name": "MatchResult",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "read_text_lines",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "detect_area",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "scan_marketing_claims",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "inventory_symbols",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "heuristic_match",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "cross_check_claims",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "dynamic_smoke_tests",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "quick_benchmarks",
+    "doc": "Run small CPU benchmark; detect GPU availability; skip heavy runs."
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "visualization_check",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "api_docs_review",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "dump_json",
+    "doc": ""
+  },
+  {
+    "path": "tools\\analysis\\claims_audit.py",
+    "module": "tools.analysis.claims_audit",
+    "symbol_type": "function",
+    "name": "main",
+    "doc": ""
+  }
+]

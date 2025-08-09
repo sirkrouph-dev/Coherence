@@ -121,16 +121,42 @@ class NeuromorphicAPI:
         """
         Connect layers with specified pattern and plasticity rules.
 
+        Creates synaptic connections between two layers with configurable
+        connection patterns and learning rules. Connection probability is
+        automatically adjusted based on connection type.
+
         Args:
-            pre_layer: Name of presynaptic layer
-            post_layer: Name of postsynaptic layer
-            connection_type: Type of connection ("random", "feedforward", "lateral", "feedback")
-            synapse_type: Type of synapses ("stdp", "stp", "neuromodulatory")
-            connection_probability: Probability of connection between neurons
-            **kwargs: Additional parameters for synapse models
+            pre_layer: Name of presynaptic layer.
+            post_layer: Name of postsynaptic layer.
+            connection_type: Type of connection pattern. Options:
+                - "random": Random connections with specified probability
+                - "feedforward": Dense forward connections (0.3 probability)
+                - "lateral": Sparse lateral connections (0.1 probability)
+                - "feedback": Feedback connections (0.2 probability)
+            synapse_type: Type of synaptic plasticity. Options:
+                - "stdp": Spike-Timing Dependent Plasticity
+                - "stp": Short-Term Plasticity
+                - "neuromodulatory": Neuromodulator-dependent plasticity
+            connection_probability: Base probability of connection between neurons.
+                May be overridden by connection_type.
+            **kwargs: Additional parameters for synapse models, such as:
+                - weight_init: Initial synaptic weight
+                - tau_pre: Presynaptic trace time constant
+                - tau_post: Postsynaptic trace time constant
+                - learning_rate: Plasticity learning rate
 
         Returns:
-            Self for method chaining
+            Self for method chaining.
+
+        Raises:
+            ValueError: If no network has been created.
+
+        Example:
+            >>> api = NeuromorphicAPI()
+            >>> api.create_network()
+            >>> api.add_sensory_layer("visual", 100)
+            >>> api.add_processing_layer("v1", 50)
+            >>> api.connect_layers("visual", "v1", "feedforward", "stdp")
         """
         if self.network is None:
             raise ValueError("No network created. Call create_network() first.")
@@ -424,17 +450,84 @@ class NeuromorphicAPI:
         self.homeostatic_regulator.reset()
         self.reward_system.reset()
 
-    def visualize_network(self, results: Dict[str, Any]):
-        """Visualize network activity and results."""
+    def visualize_network(self, results: Dict[str, Any]) -> None:
+        """Visualize network activity and simulation results.
+        
+        Creates visualization plots showing network activity patterns,
+        spike rasters, and other relevant metrics from simulation results.
+        
+        Args:
+            results: Dictionary containing simulation results with keys:
+                - 'layer_spike_times': Spike times for each layer
+                - 'duration': Simulation duration in milliseconds
+                - 'weight_history': Optional synaptic weight evolution
+                - 'neuromodulator_levels': Optional neuromodulator data
+        
+        Returns:
+            None
+        
+        Example:
+            >>> api = NeuromorphicAPI()
+            >>> # ... build and configure network ...
+            >>> results = api.run_simulation(duration=1000)
+            >>> api.visualize_network(results)
+        """
         self.visualization_tools.plot_network_activity(results)
 
-    def save_network(self, filename: str):
-        """Save network configuration to file."""
+    def save_network(self, filename: str) -> None:
+        """Save network configuration to file.
+        
+        Serializes the current network state, including layer configurations,
+        connections, and parameters to a file for later restoration.
+        
+        Args:
+            filename: Path to the file where network will be saved.
+                Should use .json or .pkl extension.
+        
+        Returns:
+            None
+        
+        Raises:
+            ValueError: If no network exists to save.
+            IOError: If unable to write to the specified file.
+        
+        Example:
+            >>> api = NeuromorphicAPI()
+            >>> # ... build and configure network ...
+            >>> api.save_network("my_network.json")
+        
+        Note:
+            This method is currently a placeholder for future implementation.
+        """
         # Implementation for saving network state
         pass
 
-    def load_network(self, filename: str):
-        """Load network configuration from file."""
+    def load_network(self, filename: str) -> None:
+        """Load network configuration from file.
+        
+        Restores a previously saved network state, including all layers,
+        connections, and parameters from a serialized file.
+        
+        Args:
+            filename: Path to the file containing saved network.
+                Should match the format used by save_network().
+        
+        Returns:
+            None
+        
+        Raises:
+            FileNotFoundError: If the specified file doesn't exist.
+            ValueError: If the file contains invalid network data.
+            IOError: If unable to read from the specified file.
+        
+        Example:
+            >>> api = NeuromorphicAPI()
+            >>> api.load_network("my_network.json")
+            >>> # Network is now restored and ready for simulation
+        
+        Note:
+            This method is currently a placeholder for future implementation.
+        """
         # Implementation for loading network state
         pass
 
@@ -451,8 +544,26 @@ class NeuromorphicVisualizer:
         spike_data: Dict[str, List[List[float]]],
         title: str = "Spike Raster",
         figsize: Tuple[int, int] = (12, 8),
-    ):
-        """Plot spike raster from simulation data."""
+    ) -> None:
+        """Plot spike raster from simulation data.
+        
+        Creates a raster plot showing spike times for all neurons across layers.
+        Each dot represents a single spike event.
+        
+        Args:
+            spike_data: Dictionary mapping layer names to lists of spike times.
+                Each inner list contains spike times for one neuron.
+            title: Title for the plot (default: "Spike Raster").
+            figsize: Figure size as (width, height) in inches (default: (12, 8)).
+        
+        Returns:
+            None
+        
+        Example:
+            >>> visualizer = NeuromorphicVisualizer()
+            >>> spike_data = {"layer1": [[10.5, 20.3], [15.2, 30.1]]}
+            >>> visualizer.plot_spike_raster(spike_data)
+        """
         plt.figure(figsize=figsize)
 
         neuron_offset = 0
@@ -479,8 +590,26 @@ class NeuromorphicVisualizer:
         weight_history: Dict[Tuple[int, int], List[float]],
         title: str = "Synaptic Weight Evolution",
         figsize: Tuple[int, int] = (12, 6),
-    ):
-        """Plot evolution of synaptic weights over time."""
+    ) -> None:
+        """Plot evolution of synaptic weights over time.
+        
+        Visualizes how synaptic weights change during simulation or training,
+        showing plasticity effects from learning rules like STDP.
+        
+        Args:
+            weight_history: Dictionary mapping synapse IDs (pre, post) to lists
+                of weight values over time.
+            title: Title for the plot (default: "Synaptic Weight Evolution").
+            figsize: Figure size as (width, height) in inches (default: (12, 6)).
+        
+        Returns:
+            None
+        
+        Example:
+            >>> visualizer = NeuromorphicVisualizer()
+            >>> history = {(0, 1): [0.5, 0.52, 0.54], (1, 2): [0.3, 0.28, 0.25]}
+            >>> visualizer.plot_weight_evolution(history)
+        """
         plt.figure(figsize=figsize)
 
         for synapse_id, weights in weight_history.items():
@@ -498,8 +627,28 @@ class NeuromorphicVisualizer:
         results: Dict[str, Any],
         title: str = "Network Activity",
         figsize: Tuple[int, int] = (10, 8),
-    ):
-        """Plot network activity heatmap."""
+    ) -> None:
+        """Plot network activity heatmap.
+        
+        Creates a heatmap visualization showing firing rate patterns across
+        all neurons over time, useful for identifying network states and
+        activity propagation.
+        
+        Args:
+            results: Simulation results dictionary containing:
+                - 'layer_spike_times': Spike times for each layer
+                - 'duration': Total simulation duration in ms
+            title: Title for the plot (default: "Network Activity").
+            figsize: Figure size as (width, height) in inches (default: (10, 8)).
+        
+        Returns:
+            None
+        
+        Example:
+            >>> visualizer = NeuromorphicVisualizer()
+            >>> results = {"layer_spike_times": {...}, "duration": 1000}
+            >>> visualizer.plot_network_activity(results)
+        """
         # Extract spike data
         spike_times = results.get("layer_spike_times", {})
 
@@ -547,8 +696,27 @@ class NeuromorphicVisualizer:
         neuromodulator_data: List[Dict[str, Any]],
         title: str = "Neuromodulator Levels",
         figsize: Tuple[int, int] = (12, 6),
-    ):
-        """Plot neuromodulator levels over time."""
+    ) -> None:
+        """Plot neuromodulator levels over time.
+        
+        Visualizes the dynamics of neuromodulatory systems (dopamine, serotonin,
+        acetylcholine, norepinephrine) during training or simulation.
+        
+        Args:
+            neuromodulator_data: List of dictionaries containing:
+                - 'epoch': Training epoch number
+                - 'neuromodulator_levels': Dict mapping modulator names to levels
+            title: Title for the plot (default: "Neuromodulator Levels").
+            figsize: Figure size as (width, height) in inches (default: (12, 6)).
+        
+        Returns:
+            None
+        
+        Example:
+            >>> visualizer = NeuromorphicVisualizer()
+            >>> data = [{"epoch": 0, "neuromodulator_levels": {"dopamine": 0.5}}]
+            >>> visualizer.plot_neuromodulator_levels(data)
+        """
         if not neuromodulator_data:
             return
 
@@ -576,8 +744,28 @@ class NeuromorphicVisualizer:
         training_history: List[Dict[str, Any]],
         title: str = "Learning Curves",
         figsize: Tuple[int, int] = (12, 6),
-    ):
-        """Plot learning curves from training history."""
+    ) -> None:
+        """Plot learning curves from training history.
+        
+        Visualizes training progress over epochs, showing how average rewards
+        evolve during the learning process.
+        
+        Args:
+            training_history: List of dictionaries containing:
+                - 'epoch': Training epoch number
+                - 'average_reward': Mean reward for that epoch
+            title: Title for the plot (default: "Learning Curves").
+            figsize: Figure size as (width, height) in inches (default: (12, 6)).
+        
+        Returns:
+            None
+        
+        Example:
+            >>> visualizer = NeuromorphicVisualizer()
+            >>> history = [{"epoch": 0, "average_reward": 0.1}, 
+            ...            {"epoch": 1, "average_reward": 0.15}]
+            >>> visualizer.plot_learning_curves(history)
+        """
         if not training_history:
             return
 
@@ -643,15 +831,77 @@ class SensorimotorSystem:
     def train(
         self, training_data: List[Dict[str, Any]], epochs: int = 100
     ) -> Dict[str, Any]:
-        """Train the sensorimotor system."""
+        """Train the sensorimotor system.
+        
+        Executes supervised training of the sensorimotor network using
+        provided sensory-motor data pairs with reward-based learning.
+        
+        Args:
+            training_data: List of training trials, each containing:
+                - Sensory inputs (visual, auditory, tactile data)
+                - Target motor outputs
+                - Expected outcomes for reward computation
+            epochs: Number of training epochs to run (default: 100).
+        
+        Returns:
+            Dictionary containing:
+            - 'training_history': List of epoch statistics
+            - 'final_network_state': Network configuration after training
+            - 'training_summary': Overall training metrics
+        
+        Example:
+            >>> system = SensorimotorSystem()
+            >>> data = [{"visual": image_data, "target": motor_command}]
+            >>> results = system.train(data, epochs=50)
+            >>> print(f"Final reward: {results['training_history'][-1]['average_reward']}")
+        """
         return self.api.train_sensorimotor_system(training_data, epochs)
 
     def run_trial(
         self, sensory_inputs: Dict[str, Any], duration: float = 100.0
     ) -> Dict[str, Any]:
-        """Run a single trial."""
+        """Run a single trial with specified sensory inputs.
+        
+        Executes one simulation trial, processing sensory inputs through
+        the network to generate motor outputs.
+        
+        Args:
+            sensory_inputs: Dictionary mapping sensory modalities to input data:
+                - 'visual': Visual input data (images, patterns)
+                - 'auditory': Audio input data (sounds, frequencies)
+                - 'tactile': Touch/pressure sensor data
+            duration: Trial duration in milliseconds (default: 100.0).
+        
+        Returns:
+            Dictionary containing:
+            - 'layer_spike_times': Spike activity for all layers
+            - 'motor_output': Generated motor commands
+            - 'duration': Actual simulation duration
+        
+        Example:
+            >>> system = SensorimotorSystem()
+            >>> inputs = {"visual": retinal_pattern, "auditory": sound_wave}
+            >>> results = system.run_trial(inputs, duration=200)
+            >>> motor_output = results['motor_output']
+        """
         return self.api.run_simulation(duration, external_inputs=sensory_inputs)
 
     def get_network_info(self) -> Dict[str, Any]:
-        """Get network information."""
+        """Get network information and statistics.
+        
+        Retrieves comprehensive information about the current network state,
+        including layer configurations, connection statistics, and parameters.
+        
+        Returns:
+            Dictionary containing:
+            - 'layers': Information about each layer (size, neuron types)
+            - 'connections': Connection statistics between layers
+            - 'total_neurons': Total number of neurons in the network
+            - 'total_synapses': Total number of synaptic connections
+        
+        Example:
+            >>> system = SensorimotorSystem()
+            >>> info = system.get_network_info()
+            >>> print(f"Network has {info['total_neurons']} neurons")
+        """
         return self.api.get_network_info()

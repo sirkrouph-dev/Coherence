@@ -134,6 +134,13 @@ class NetworkConnection:
 
 class NeuromorphicNetwork:
     """Complete neuromorphic network with layers and connections."""
+    
+    # Resource limits to prevent memory exhaustion
+    MAX_NEURONS = 1_000_000
+    MAX_SYNAPSES = 100_000_000
+    MAX_LAYERS = 1000
+    MAX_SIMULATION_STEPS = 1_000_000
+    MAX_INPUT_STRENGTH = 1000.0
 
     def __init__(self):
         """Initialize neuromorphic network."""
@@ -141,10 +148,12 @@ class NeuromorphicNetwork:
         self.connections: Dict[Tuple[str, str], NetworkConnection] = {}
         self.current_time = 0.0
         self.simulation_history = []
+        self.total_neurons = 0
+        self.total_synapses = 0
 
     def add_layer(self, name: str, size: int, neuron_type: str = "adex", **kwargs):
         """
-        Add a layer to the network.
+        Add a layer to the network with validation.
 
         Args:
             name: Layer name
@@ -152,8 +161,30 @@ class NeuromorphicNetwork:
             neuron_type: Type of neurons to create
             **kwargs: Parameters for neuron models
         """
+        # Input validation
+        if not isinstance(name, str) or not name:
+            raise ValueError("Layer name must be a non-empty string")
+        
+        if not isinstance(size, int) or size <= 0:
+            raise ValueError(f"Layer size must be a positive integer, got {size}")
+        
+        if size > self.MAX_NEURONS:
+            raise ValueError(f"Layer size {size} exceeds maximum allowed neurons {self.MAX_NEURONS}")
+        
+        if len(self.layers) >= self.MAX_LAYERS:
+            raise ValueError(f"Maximum number of layers ({self.MAX_LAYERS}) exceeded")
+        
+        if self.total_neurons + size > self.MAX_NEURONS:
+            raise ValueError(f"Adding layer would exceed total neuron limit of {self.MAX_NEURONS}")
+        
+        # Validate neuron type
+        valid_types = ["adex", "lif", "hodgkin_huxley", "izhikevich"]
+        if neuron_type not in valid_types:
+            raise ValueError(f"Invalid neuron type '{neuron_type}'. Must be one of {valid_types}")
+        
         layer = NetworkLayer(name, size, neuron_type, **kwargs)
         self.layers[name] = layer
+        self.total_neurons += size
 
     def connect_layers(
         self,
@@ -164,7 +195,7 @@ class NeuromorphicNetwork:
         **kwargs,
     ):
         """
-        Connect two layers.
+        Connect two layers with validation.
 
         Args:
             pre_layer: Name of presynaptic layer
@@ -173,10 +204,28 @@ class NeuromorphicNetwork:
             connection_probability: Probability of connection between neurons
             **kwargs: Parameters for synapse models
         """
+        # Validate layer names
         if pre_layer not in self.layers:
             raise ValueError(f"Presynaptic layer '{pre_layer}' not found")
         if post_layer not in self.layers:
             raise ValueError(f"Postsynaptic layer '{post_layer}' not found")
+        
+        # Validate connection probability
+        if not 0.0 <= connection_probability <= 1.0:
+            raise ValueError(f"Connection probability must be between 0 and 1, got {connection_probability}")
+        
+        # Validate synapse type
+        valid_synapse_types = ["stdp", "stp", "neuromodulatory", "rstdp"]
+        if synapse_type not in valid_synapse_types:
+            raise ValueError(f"Invalid synapse type '{synapse_type}'. Must be one of {valid_synapse_types}")
+        
+        # Check if connection would exceed synapse limit
+        pre_size = self.layers[pre_layer].size
+        post_size = self.layers[post_layer].size
+        expected_synapses = int(pre_size * post_size * connection_probability)
+        
+        if self.total_synapses + expected_synapses > self.MAX_SYNAPSES:
+            raise ValueError(f"Adding connection would exceed total synapse limit of {self.MAX_SYNAPSES}")
 
         connection = NetworkConnection(
             pre_layer, post_layer, synapse_type, connection_probability, **kwargs
@@ -184,48 +233,55 @@ class NeuromorphicNetwork:
         self.connections[(pre_layer, post_layer)] = connection
 
         # Initialize synapse population
-        pre_size = self.layers[pre_layer].size
-        post_size = self.layers[post_layer].size
         connection.initialize(pre_size, post_size)
+        self.total_synapses += expected_synapses
 
     def step(self, dt: float):
         """Advance network by one time step."""
-        # Collect spike information from all layers
-        layer_spikes = {}
-        layer_currents = defaultdict(lambda: [0.0] * 1000)  # Default currents
-
-        # Step all layers
+        # Initialize layer currents properly for each layer
+        layer_currents = {}
         for layer_name, layer in self.layers.items():
-            # Get synaptic currents for this layer
+            layer_currents[layer_name] = [0.0] * layer.size
+        
+        # First, compute synaptic currents from previous timestep spikes
+        for (pre_name, post_name), connection in self.connections.items():
+            if connection.synapse_population is not None:
+                # Get previous spikes (we'll use a simple approach here)
+                pre_layer = self.layers[pre_name]
+                pre_spikes = [False] * pre_layer.size
+                # Check which neurons are above threshold (simplified spike detection)
+                for i, neuron in enumerate(pre_layer.neuron_population.neurons):
+                    if hasattr(neuron, 'is_spiking') and neuron.is_spiking:
+                        pre_spikes[i] = True
+                
+                # Compute synaptic currents
+                currents = connection.get_synaptic_currents(pre_spikes, self.current_time)
+                
+                # Add to postsynaptic layer currents
+                for i, current in enumerate(currents):
+                    if i < len(layer_currents[post_name]):
+                        layer_currents[post_name][i] += current
+        
+        # Step all layers with their synaptic currents
+        layer_spikes = {}
+        for layer_name, layer in self.layers.items():
             currents = layer_currents[layer_name]
-            if len(currents) != layer.size:
-                currents = [0.0] * layer.size
-
-            # Step layer
             spikes = layer.step(dt, currents)
             layer_spikes[layer_name] = spikes
-
-        # Update synaptic currents based on connections
+        
+        # Update synaptic weights based on current spikes
         for (pre_name, post_name), connection in self.connections.items():
-            pre_spikes = layer_spikes[pre_name]
-            post_spikes = layer_spikes[post_name]
-
-            # Compute synaptic currents
-            currents = connection.get_synaptic_currents(pre_spikes, self.current_time)
-
-            # Add to postsynaptic layer currents
-            for i, current in enumerate(currents):
-                layer_currents[post_name][i] += current
-
-            # Update synaptic weights
-            connection.update_weights(pre_spikes, post_spikes, self.current_time)
-
+            if pre_name in layer_spikes and post_name in layer_spikes:
+                pre_spikes = layer_spikes[pre_name]
+                post_spikes = layer_spikes[post_name]
+                connection.update_weights(pre_spikes, post_spikes, self.current_time)
+        
         # Step all connections
         for connection in self.connections.values():
             connection.step(dt)
-
+        
         self.current_time += dt
-
+        
         # Record simulation state
         self.simulation_history.append(
             {
@@ -240,7 +296,7 @@ class NeuromorphicNetwork:
 
     def run_simulation(self, duration: float, dt: float = 0.1) -> Dict[str, Any]:
         """
-        Run network simulation.
+        Run network simulation with validation.
 
         Args:
             duration: Simulation duration in milliseconds
@@ -249,9 +305,22 @@ class NeuromorphicNetwork:
         Returns:
             Simulation results
         """
+        # Validate inputs
+        if not isinstance(duration, (int, float)) or duration <= 0:
+            raise ValueError(f"Duration must be positive, got {duration}")
+        
+        if not isinstance(dt, (int, float)) or dt <= 0:
+            raise ValueError(f"Time step must be positive, got {dt}")
+        
+        if dt > duration:
+            raise ValueError(f"Time step {dt} cannot be larger than duration {duration}")
+        
+        num_steps = int(duration / dt)
+        if num_steps > self.MAX_SIMULATION_STEPS:
+            raise ValueError(f"Simulation would require {num_steps} steps, exceeding limit of {self.MAX_SIMULATION_STEPS}")
+        
         self.reset()
 
-        num_steps = int(duration / dt)
         for _ in range(num_steps):
             self.step(dt)
 
@@ -326,7 +395,29 @@ class EventDrivenSimulator:
     def add_external_input(
         self, layer_name: str, neuron_id: int, input_time: float, input_strength: float
     ):
-        """Add external input event."""
+        """Add external input event with validation."""
+        # Import security manager for validation
+        from .security_manager import SecurityManager
+        
+        # Validate inputs
+        if self.network and layer_name not in self.network.layers:
+            raise ValueError(f"Invalid layer: {layer_name}")
+        
+        if self.network and neuron_id >= self.network.layers[layer_name].size:
+            raise ValueError(f"Invalid neuron ID {neuron_id} for layer {layer_name}")
+        
+        # Validate input strength to prevent excessive values
+        input_strength = SecurityManager.validate_network_input(
+            input_strength, 
+            min_val=-NeuromorphicNetwork.MAX_INPUT_STRENGTH,
+            max_val=NeuromorphicNetwork.MAX_INPUT_STRENGTH,
+            dtype=float
+        )
+        
+        # Validate input time
+        if input_time < 0:
+            raise ValueError(f"Input time cannot be negative: {input_time}")
+        
         heapq.heappush(
             self.event_queue,
             (input_time, "input", neuron_id, layer_name, input_strength),

@@ -4,6 +4,9 @@ Core neuromorphic programming system components.
 
 from .encoding import (CochlearEncoder, MultiModalEncoder, RateEncoder,
                        RetinalEncoder, SomatosensoryEncoder)
+from .memory import (IntegratedMemorySystem, LongTermMemory, MemoryTrace,
+                     MemoryType, RecurrentMemoryNetwork, ShortTermMemory,
+                     WeightConsolidation)
 from .network import (EventDrivenSimulator, NetworkBuilder, NetworkConnection,
                       NetworkLayer, NeuromorphicNetwork)
 from .neuromodulation import (AdaptiveLearningController, CholinergicSystem,
@@ -36,6 +39,14 @@ __all__ = [
     "NeuromodulatorySynapse",
     "SynapseFactory",
     "SynapsePopulation",
+    # Memory
+    "MemoryType",
+    "MemoryTrace",
+    "RecurrentMemoryNetwork",
+    "WeightConsolidation",
+    "ShortTermMemory",
+    "LongTermMemory",
+    "IntegratedMemorySystem",
     # Network
     "NetworkLayer",
     "NetworkConnection",
