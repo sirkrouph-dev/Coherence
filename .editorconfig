@@ -1,0 +1,91 @@
+# EditorConfig helps maintain consistent coding styles across different editors and IDEs
+# https://editorconfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# Python files
+[*.py]
+indent_size = 4
+max_line_length = 88
+# Use Black's line length
+
+# YAML files
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON files
+[*.json]
+indent_size = 2
+
+# TOML files
+[*.toml]
+indent_size = 4
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+# Allow trailing whitespace in markdown for line breaks
+
+# Makefile
+[Makefile]
+indent_style = tab
+
+# Shell scripts
+[*.{sh,bash}]
+indent_size = 2
+
+# Batch files
+[*.{bat,cmd}]
+end_of_line = crlf
+indent_size = 2
+
+# PowerShell
+[*.{ps1,psm1,psd1}]
+end_of_line = crlf
+indent_size = 4
+
+# Configuration files
+[*.{ini,cfg}]
+indent_size = 4
+
+# reStructuredText
+[*.rst]
+indent_size = 3
+
+# Jupyter notebooks
+[*.ipynb]
+indent_size = 1
+
+# HTML/CSS/JavaScript (if any)
+[*.{html,htm,css,scss,sass,js,jsx,ts,tsx}]
+indent_size = 2
+
+# XML files
+[*.xml]
+indent_size = 2
+
+# C/C++ files (if any)
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+
+# Dockerfile
+[Dockerfile*]
+indent_size = 4
+
+# Git files
+[.git*]
+indent_size = 4
+
+# GitHub Actions
+[.github/workflows/*.{yml,yaml}]
+indent_size = 2

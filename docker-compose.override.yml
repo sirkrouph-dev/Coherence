@@ -1,0 +1,39 @@
+# Development overrides for docker-compose
+# This file is automatically loaded by docker-compose and overrides settings in docker-compose.yml
+# Use this for local development settings that shouldn't be committed
+
+version: '3.8'
+
+services:
+  jupyter:
+    # Mount local code for hot-reload during development
+    volumes:
+      - ./:/app:cached
+      - jupyter_data:/home/neuron/.jupyter
+      - /app/__pycache__
+      - /app/.pytest_cache
+      - /app/.mypy_cache
+      - /app/.ruff_cache
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=dev  # Simple token for local development
+      - PYTHONDONTWRITEBYTECODE=1
+
+  test:
+    # Enable watch mode for test-driven development
+    volumes:
+      - ./:/app:cached
+      - test_cache:/app/.pytest_cache
+      - /app/__pycache__
+    environment:
+      - PYTEST_WATCH=1
+      - PYTHONDONTWRITEBYTECODE=1
+
+  neuron:
+    # Mount source code for development
+    volumes:
+      - ./:/app:cached
+      - /app/__pycache__
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - DEBUG=1

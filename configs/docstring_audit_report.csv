@@ -1,0 +1,570 @@
+File,Line,Symbol,Type,Issue,Details
+D:\Development\neuron\api\neuromorphic_api.py,42,NeuromorphicAPI.create_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_api.py,112,NeuromorphicAPI.connect_layers,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\api\neuromorphic_api.py,412,NeuromorphicAPI.get_network_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_api.py,427,NeuromorphicAPI.visualize_network,method,outdated_params,Missing documentation for: results
+D:\Development\neuron\api\neuromorphic_api.py,431,NeuromorphicAPI.save_network,method,outdated_params,Missing documentation for: filename
+D:\Development\neuron\api\neuromorphic_api.py,436,NeuromorphicAPI.load_network,method,outdated_params,Missing documentation for: filename
+D:\Development\neuron\api\neuromorphic_api.py,449,NeuromorphicVisualizer.plot_spike_raster,method,outdated_params,"Missing documentation for: title, spike_data, figsize"
+D:\Development\neuron\api\neuromorphic_api.py,477,NeuromorphicVisualizer.plot_weight_evolution,method,outdated_params,"Missing documentation for: figsize, title, weight_history"
+D:\Development\neuron\api\neuromorphic_api.py,496,NeuromorphicVisualizer.plot_network_activity,method,outdated_params,"Missing documentation for: title, results, figsize"
+D:\Development\neuron\api\neuromorphic_api.py,545,NeuromorphicVisualizer.plot_neuromodulator_levels,method,outdated_params,"Missing documentation for: neuromodulator_data, title, figsize"
+D:\Development\neuron\api\neuromorphic_api.py,574,NeuromorphicVisualizer.plot_learning_curves,method,outdated_params,"Missing documentation for: training_history, title, figsize"
+D:\Development\neuron\api\neuromorphic_api.py,643,SensorimotorSystem.train,method,outdated_params,"Missing documentation for: epochs, training_data"
+D:\Development\neuron\api\neuromorphic_api.py,643,SensorimotorSystem.train,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_api.py,649,SensorimotorSystem.run_trial,method,outdated_params,"Missing documentation for: duration, sensory_inputs"
+D:\Development\neuron\api\neuromorphic_api.py,649,SensorimotorSystem.run_trial,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_api.py,655,SensorimotorSystem.get_network_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_system.py,35,NeuromorphicSystem.add_sensory_encoder,method,outdated_params,"Missing documentation for: modality, encoder"
+D:\Development\neuron\api\neuromorphic_system.py,39,NeuromorphicSystem.build_network,method,outdated_params,Missing documentation for: network_config
+D:\Development\neuron\api\neuromorphic_system.py,78,NeuromorphicSystem.encode_input,method,outdated_params,"Missing documentation for: inputs, time_window"
+D:\Development\neuron\api\neuromorphic_system.py,78,NeuromorphicSystem.encode_input,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_system.py,84,NeuromorphicSystem.run_simulation,method,outdated_params,"Missing documentation for: inputs, duration, dt"
+D:\Development\neuron\api\neuromorphic_system.py,84,NeuromorphicSystem.run_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_system.py,99,NeuromorphicSystem.update_learning,method,outdated_params,"Missing documentation for: threat_signals, task_difficulty, reward, negative_events, dt, positive_events, expected_reward"
+D:\Development\neuron\api\neuromorphic_system.py,129,NeuromorphicSystem.get_learning_rate,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\api\neuromorphic_system.py,135,NeuromorphicSystem.get_network_state,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\analyze_dependencies.py,6,analyze_imports,function,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\archive\prototypes\analyze_dependencies.py,6,analyze_imports,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\analyze_dependencies.py,27,main,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\analyze_type_hints_docs.py,17,TypeHintAndDocAnalyzer.visit_FunctionDef,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\archive\prototypes\analyze_type_hints_docs.py,48,TypeHintAndDocAnalyzer.visit_ClassDef,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\archive\prototypes\analyze_type_hints_docs.py,65,analyze_file,function,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\archive\prototypes\analyze_type_hints_docs.py,65,analyze_file,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\check_classes.py,4,get_classes,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_baseline.py,23,test_import,function,outdated_params,"Missing documentation for: class_name, module_path"
+D:\Development\neuron\archive\prototypes\test_baseline.py,23,test_import,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_baseline.py,48,run_test,function,outdated_params,"Missing documentation for: test_func, test_name"
+D:\Development\neuron\archive\prototypes\test_baseline.py,48,run_test,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_baseline.py,70,main,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_baseline.py,129,test_rate_encoder,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_baseline.py,150,test_network_creation,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_baseline.py,172,test_synapse,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_baseline.py,199,test_enhanced_features,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_enhanced_system.py,192,main,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,47,TestResult.add_error,method,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,51,TestResult.add_warning,method,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,54,TestResult.add_metric,method,missing,No docstring found
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,58,test_neuromodulation_implementation,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,242,test_encoders_correctness,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,419,test_encoder_performance,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,556,test_integration,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_neuromodulation_encoding.py,657,main,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,11,test_gpu_memory_leak,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,61,test_stdp_weight_boundaries,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,112,test_network_input_validation,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,194,test_security_manager,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,299,test_event_driven_input_validation,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\test_security_fixes.py,355,main,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\verify_environment.py,10,print_header,function,missing,No docstring found
+D:\Development\neuron\archive\prototypes\verify_environment.py,15,test_imports,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\archive\prototypes\verify_environment.py,129,main,function,missing,No docstring found
+D:\Development\neuron\benchmarks\generate_report.py,16,generate_markdown_report,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,96,NetworkBenchmark.build_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,135,NetworkBenchmark.inject_input,method,outdated_params,Missing documentation for: layer_idx
+D:\Development\neuron\benchmarks\performance_benchmarks.py,135,NetworkBenchmark.inject_input,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,144,NetworkBenchmark.run_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,214,GPUBenchmark.build_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,250,BenchmarkRunner.get_platform_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,274,BenchmarkRunner.run_single_benchmark,method,outdated_params,Missing documentation for: config
+D:\Development\neuron\benchmarks\performance_benchmarks.py,274,BenchmarkRunner.run_single_benchmark,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\performance_benchmarks.py,301,BenchmarkRunner.run_wrapper,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,35,network_size,function,outdated_params,Missing documentation for: request
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,35,network_size,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,41,neuron_model,function,outdated_params,Missing documentation for: request
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,41,neuron_model,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,47,small_network,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,61,large_network,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,83,TestStepThroughput.test_single_neuron_step,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,83,TestStepThroughput.test_single_neuron_step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,87,TestStepThroughput.step_neuron,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,96,TestStepThroughput.test_neuron_population_step,method,outdated_params,"Missing documentation for: network_size, benchmark"
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,96,TestStepThroughput.test_neuron_population_step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,101,TestStepThroughput.step_population,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,113,TestStepThroughput.test_network_step_throughput,method,outdated_params,"Missing documentation for: benchmark, dt, small_network"
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,118,TestStepThroughput.step_network,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,130,TestStepThroughput.test_scalability,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,130,TestStepThroughput.test_scalability,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,135,TestStepThroughput.measure_throughput,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,139,TestStepThroughput.step,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,164,TestMemoryFootprint.test_neuron_memory,method,outdated_params,"Missing documentation for: network_size, benchmark, neuron_model"
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,164,TestMemoryFootprint.test_neuron_memory,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,168,TestMemoryFootprint.create_neurons,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,186,TestMemoryFootprint.test_synapse_memory,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,186,TestMemoryFootprint.test_synapse_memory,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,194,TestMemoryFootprint.create_synapses,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,218,TestMemoryFootprint.test_network_memory_scaling,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,218,TestMemoryFootprint.test_network_memory_scaling,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,223,TestMemoryFootprint.measure_memory,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,261,TestConvergenceSpeed.test_pattern_learning_convergence,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,261,TestConvergenceSpeed.test_pattern_learning_convergence,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,271,TestConvergenceSpeed.train_epoch,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,296,TestConvergenceSpeed.train_until_convergence,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,316,TestConvergenceSpeed.test_sequence_learning_speed,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,316,TestConvergenceSpeed.test_sequence_learning_speed,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,330,TestConvergenceSpeed.train_sequence,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,354,TestConvergenceSpeed.measure_learning,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,375,TestConvergenceSpeed.test_homeostatic_adaptation_speed,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,375,TestConvergenceSpeed.test_homeostatic_adaptation_speed,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,382,TestConvergenceSpeed.adapt_network,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,436,TestSystemPerformance.test_full_simulation_benchmark,method,outdated_params,"Missing documentation for: benchmark, large_network"
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,436,TestSystemPerformance.test_full_simulation_benchmark,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,440,TestSystemPerformance.run_simulation,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,455,TestSystemPerformance.test_simulation_modes,method,outdated_params,"Missing documentation for: benchmark, mode, small_network"
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,455,TestSystemPerformance.test_simulation_modes,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,459,TestSystemPerformance.run_simulation,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,469,TestSystemPerformance.test_parallel_network_simulation,method,outdated_params,Missing documentation for: benchmark
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,469,TestSystemPerformance.test_parallel_network_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,477,TestSystemPerformance.simulate_all,method,missing,No docstring found
+D:\Development\neuron\benchmarks\pytest_benchmarks.py,495,pytest_configure,function,outdated_params,Missing documentation for: config
+D:\Development\neuron\benchmarks\quick_benchmark.py,23,run_network_benchmark,function,outdated_params,"Missing documentation for: num_neurons, sim_time_ms, dt"
+D:\Development\neuron\benchmarks\quick_benchmark.py,23,run_network_benchmark,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\run_benchmarks.py,21,run_pytest_benchmarks,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\run_benchmarks.py,59,run_quick_benchmarks,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\run_benchmarks.py,79,analyze_results,function,outdated_params,Missing documentation for: benchmark_data
+D:\Development\neuron\benchmarks\run_benchmarks.py,79,analyze_results,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\run_benchmarks.py,140,generate_badge,function,outdated_params,"Missing documentation for: label, color, value"
+D:\Development\neuron\benchmarks\run_benchmarks.py,140,generate_badge,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\run_benchmarks.py,149,generate_markdown_report,function,outdated_params,Missing documentation for: metrics
+D:\Development\neuron\benchmarks\run_benchmarks.py,149,generate_markdown_report,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\visualize_benchmarks.py,21,load_benchmark_results,function,outdated_params,Missing documentation for: results_dir
+D:\Development\neuron\benchmarks\visualize_benchmarks.py,21,load_benchmark_results,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\benchmarks\visualize_benchmarks.py,44,create_performance_plots,function,outdated_params,"Missing documentation for: output_dir, results"
+D:\Development\neuron\benchmarks\visualize_benchmarks.py,253,create_summary_table,function,outdated_params,"Missing documentation for: output_dir, results"
+D:\Development\neuron\core\enhanced_encoding.py,102,VisualEncoder.encode_image,method,outdated_params,Missing documentation for: image
+D:\Development\neuron\core\enhanced_encoding.py,102,VisualEncoder.encode_image,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_encoding.py,241,AuditoryEncoder.encode_audio,method,outdated_params,Missing documentation for: audio_data
+D:\Development\neuron\core\enhanced_encoding.py,241,AuditoryEncoder.encode_audio,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_encoding.py,348,TactileEncoder.encode_tactile,method,outdated_params,Missing documentation for: tactile_data
+D:\Development\neuron\core\enhanced_encoding.py,348,TactileEncoder.encode_tactile,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_encoding.py,460,MultiModalFusion.fuse_modalities,method,outdated_params,Missing documentation for: encoded_inputs
+D:\Development\neuron\core\enhanced_encoding.py,460,MultiModalFusion.fuse_modalities,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_encoding.py,589,EnhancedSensoryEncoder.encode_sensory_inputs,method,outdated_params,Missing documentation for: inputs
+D:\Development\neuron\core\enhanced_encoding.py,589,EnhancedSensoryEncoder.encode_sensory_inputs,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_encoding.py,623,EnhancedSensoryEncoder.get_encoding_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_logging.py,145,EnhancedNeuromorphicLogger.log_spike_event,method,outdated_params,"Missing documentation for: neuromodulator_levels, membrane_potential, neuron_id, layer_name, spike_time, synaptic_inputs"
+D:\Development\neuron\core\enhanced_logging.py,178,EnhancedNeuromorphicLogger.log_membrane_potential,method,outdated_params,"Missing documentation for: refractory_time, membrane_potential, neuron_id, layer_name, adaptation_current, synaptic_current, time_step"
+D:\Development\neuron\core\enhanced_logging.py,216,EnhancedNeuromorphicLogger.log_synaptic_weight_change,method,outdated_params,"Missing documentation for: old_weight, pre_neuron_id, synapse_id, new_weight, learning_rule, time_step, post_neuron_id"
+D:\Development\neuron\core\enhanced_logging.py,249,EnhancedNeuromorphicLogger.log_network_state,method,outdated_params,"Missing documentation for: active_neurons, layer_name, total_neurons, firing_rate, average_membrane_potential, spike_count, time_step"
+D:\Development\neuron\core\enhanced_logging.py,280,EnhancedNeuromorphicLogger.log_performance_metrics,method,outdated_params,Missing documentation for: metrics
+D:\Development\neuron\core\enhanced_logging.py,294,EnhancedNeuromorphicLogger.log_task_complexity,method,outdated_params,"Missing documentation for: task_level, missing_modalities, input_noise, task_description"
+D:\Development\neuron\core\enhanced_logging.py,308,EnhancedNeuromorphicLogger.log_sensory_encoding,method,outdated_params,"Missing documentation for: input_data, modality, encoded_spikes, encoding_time"
+D:\Development\neuron\core\enhanced_logging.py,323,EnhancedNeuromorphicLogger.log_robustness_test,method,outdated_params,"Missing documentation for: test_parameters, performance_after, test_type, performance_before"
+D:\Development\neuron\core\enhanced_logging.py,341,EnhancedNeuromorphicLogger.save_neural_data,method,outdated_params,Missing documentation for: filename
+D:\Development\neuron\core\enhanced_logging.py,375,EnhancedNeuromorphicLogger.generate_analysis_plots,method,outdated_params,Missing documentation for: save_dir
+D:\Development\neuron\core\enhanced_logging.py,592,EnhancedNeuromorphicLogger.get_summary_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\enhanced_logging.py,633,EnhancedNeuromorphicLogger.log_sensory_encoding,method,outdated_params,"Missing documentation for: sensory_data, modality, num_spikes, encoding_time"
+D:\Development\neuron\core\enhanced_logging.py,658,EnhancedNeuromorphicLogger.log_task_complexity,method,outdated_params,"Missing documentation for: noise_level, missing_modalities, level, description"
+D:\Development\neuron\core\error_handling.py,108,ErrorHandler.register_recovery_strategy,method,outdated_params,Missing documentation for: strategy
+D:\Development\neuron\core\error_handling.py,122,ErrorHandler.get_error_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,131,safe_execution,function,outdated_params,Missing documentation for: logger
+D:\Development\neuron\core\error_handling.py,131,safe_execution,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,149,decorator,function,missing,No docstring found
+D:\Development\neuron\core\error_handling.py,151,wrapper,function,missing,No docstring found
+D:\Development\neuron\core\error_handling.py,300,NumericalStabilizer.safe_exp,method,outdated_params,Missing documentation for: x
+D:\Development\neuron\core\error_handling.py,300,NumericalStabilizer.safe_exp,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,305,NumericalStabilizer.safe_log,method,outdated_params,Missing documentation for: x
+D:\Development\neuron\core\error_handling.py,305,NumericalStabilizer.safe_log,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,310,NumericalStabilizer.safe_divide,method,outdated_params,"Missing documentation for: numerator, denominator"
+D:\Development\neuron\core\error_handling.py,310,NumericalStabilizer.safe_divide,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,323,NumericalStabilizer.safe_sqrt,method,outdated_params,Missing documentation for: x
+D:\Development\neuron\core\error_handling.py,323,NumericalStabilizer.safe_sqrt,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,328,NumericalStabilizer.clip_gradients,method,outdated_params,"Missing documentation for: gradients, max_norm"
+D:\Development\neuron\core\error_handling.py,328,NumericalStabilizer.clip_gradients,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,343,RecoveryStrategies.reset_to_default,method,outdated_params,"Missing documentation for: error, context"
+D:\Development\neuron\core\error_handling.py,343,RecoveryStrategies.reset_to_default,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,354,RecoveryStrategies.retry_with_smaller_step,method,outdated_params,"Missing documentation for: error, context"
+D:\Development\neuron\core\error_handling.py,354,RecoveryStrategies.retry_with_smaller_step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,363,RecoveryStrategies.fallback_to_cpu,method,outdated_params,"Missing documentation for: error, context"
+D:\Development\neuron\core\error_handling.py,363,RecoveryStrategies.fallback_to_cpu,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,371,RecoveryStrategies.reduce_precision,method,outdated_params,"Missing documentation for: error, context"
+D:\Development\neuron\core\error_handling.py,371,RecoveryStrategies.reduce_precision,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\error_handling.py,387,setup_error_handling,function,outdated_params,Missing documentation for: log_file
+D:\Development\neuron\core\error_handling.py,417,exception_hook,function,missing,No docstring found
+D:\Development\neuron\core\gpu_neurons.py,351,GPUNeuronPool.get_spike_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\gpu_neurons.py,398,GPUNeuronPool.to_cpu,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\learning.py,77,PlasticityConfig.from_yaml,method,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\core\learning.py,77,PlasticityConfig.from_yaml,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\learning.py,84,PlasticityConfig.from_json,method,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\core\learning.py,84,PlasticityConfig.from_json,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\learning.py,90,PlasticityConfig.to_yaml,method,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\core\learning.py,96,PlasticityConfig.to_json,method,outdated_params,Missing documentation for: filepath
+D:\Development\neuron\core\learning.py,117,PlasticityRule.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,138,PlasticityRule.apply_weight_bounds,method,outdated_params,Missing documentation for: weight
+D:\Development\neuron\core\learning.py,138,PlasticityRule.apply_weight_bounds,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\learning.py,142,PlasticityRule.update_weight,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,180,STDPRule.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,233,HebbianRule.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,275,BCMRule.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,319,RewardModulatedSTDP.set_reward,method,outdated_params,Missing documentation for: reward
+D:\Development\neuron\core\learning.py,324,RewardModulatedSTDP.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,377,TripletSTDP.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,434,HomeostaticPlasticity.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,493,CustomPlasticityRule.set_update_function,method,outdated_params,Missing documentation for: func
+D:\Development\neuron\core\learning.py,502,CustomPlasticityRule.compute_weight_change,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,565,PlasticityManager.add_custom_rule,method,outdated_params,Missing documentation for: rule
+D:\Development\neuron\core\learning.py,580,PlasticityManager.activate_rule,method,outdated_params,Missing documentation for: name
+D:\Development\neuron\core\learning.py,587,PlasticityManager.deactivate_rule,method,outdated_params,Missing documentation for: name
+D:\Development\neuron\core\learning.py,592,PlasticityManager.update_weights,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\learning.py,639,PlasticityManager.set_reward,method,outdated_params,Missing documentation for: reward
+D:\Development\neuron\core\learning.py,644,PlasticityManager.load_config,method,outdated_params,Missing documentation for: format
+D:\Development\neuron\core\learning.py,662,PlasticityManager.save_config,method,outdated_params,Missing documentation for: format
+D:\Development\neuron\core\learning.py,677,PlasticityManager.get_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\learning.py,700,example_custom_rule,function,outdated_params,"Missing documentation for: pre_activity, kwargs, post_activity, state, current_weight, config"
+D:\Development\neuron\core\learning.py,700,example_custom_rule,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\logging_utils.py,58,NeuromorphicLogger.log_neuron_activity,method,outdated_params,Missing documentation for: adaptation_current
+D:\Development\neuron\core\logging_utils.py,87,NeuromorphicLogger.log_synapse_activity,method,outdated_params,Missing documentation for: weight_change
+D:\Development\neuron\core\logging_utils.py,116,NeuromorphicLogger.log_network_activity,method,outdated_params,Missing documentation for: average_firing_rate
+D:\Development\neuron\core\logging_utils.py,140,NeuromorphicLogger.log_learning_event,method,outdated_params,Missing documentation for: new_value
+D:\Development\neuron\core\logging_utils.py,163,NeuromorphicLogger.log_error,method,outdated_params,Missing documentation for: error_message
+D:\Development\neuron\core\logging_utils.py,173,NeuromorphicLogger.log_warning,method,outdated_params,Missing documentation for: warning_message
+D:\Development\neuron\core\logging_utils.py,183,NeuromorphicLogger.log_info,method,outdated_params,Missing documentation for: message
+D:\Development\neuron\core\logging_utils.py,192,NeuromorphicLogger.log_debug,method,outdated_params,Missing documentation for: message
+D:\Development\neuron\core\logging_utils.py,201,NeuromorphicLogger.log_system_event,method,outdated_params,Missing documentation for: metadata
+D:\Development\neuron\core\logging_utils.py,233,TrainingTracker.log_epoch,method,outdated_params,"Missing documentation for: loss, learning_rate, epoch, accuracy"
+D:\Development\neuron\core\logging_utils.py,255,TrainingTracker.get_summary,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\logging_utils.py,266,trace_function,function,outdated_params,Missing documentation for: func
+D:\Development\neuron\core\logging_utils.py,266,trace_function,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\logging_utils.py,269,wrapper,function,missing,No docstring found
+D:\Development\neuron\core\memory.py,197,WeightConsolidation.tag_for_consolidation,method,outdated_params,Missing documentation for: importance
+D:\Development\neuron\core\memory.py,248,WeightConsolidation.get_consolidation_status,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\memory.py,401,ShortTermMemory.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\memory.py,608,LongTermMemory.maintain,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\memory.py,729,IntegratedMemorySystem.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\memory.py,738,IntegratedMemorySystem.get_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,36,NetworkLayer.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\core\network.py,36,NetworkLayer.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,54,NetworkLayer.get_spike_times,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,58,NetworkLayer.get_membrane_potentials,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,91,NetworkConnection.initialize,method,outdated_params,"Missing documentation for: pre_size, post_size"
+D:\Development\neuron\core\network.py,101,NetworkConnection.get_synaptic_currents,method,outdated_params,"Missing documentation for: current_time, pre_spikes"
+D:\Development\neuron\core\network.py,101,NetworkConnection.get_synaptic_currents,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,109,NetworkConnection.update_weights,method,outdated_params,"Missing documentation for: post_spikes, current_time, pre_spikes"
+D:\Development\neuron\core\network.py,118,NetworkConnection.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\network.py,128,NetworkConnection.get_weight_matrix,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,154,NeuromorphicNetwork.add_layer,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\network.py,189,NeuromorphicNetwork.connect_layers,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\network.py,239,NeuromorphicNetwork.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\network.py,350,NeuromorphicNetwork.get_network_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,387,EventDrivenSimulator.set_network,method,outdated_params,Missing documentation for: network
+D:\Development\neuron\core\network.py,391,EventDrivenSimulator.add_spike_event,method,outdated_params,"Missing documentation for: neuron_id, spike_time, layer_name"
+D:\Development\neuron\core\network.py,395,EventDrivenSimulator.add_external_input,method,outdated_params,"Missing documentation for: input_strength, neuron_id, layer_name, input_time"
+D:\Development\neuron\core\network.py,532,NetworkBuilder.add_sensory_layer,method,outdated_params,"Missing documentation for: name, size, encoding_type"
+D:\Development\neuron\core\network.py,532,NetworkBuilder.add_sensory_layer,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,537,NetworkBuilder.add_processing_layer,method,outdated_params,"Missing documentation for: name, size, neuron_type"
+D:\Development\neuron\core\network.py,537,NetworkBuilder.add_processing_layer,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,542,NetworkBuilder.add_motor_layer,method,outdated_params,"Missing documentation for: name, size"
+D:\Development\neuron\core\network.py,542,NetworkBuilder.add_motor_layer,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,547,NetworkBuilder.connect_layers,method,outdated_params,"Missing documentation for: post_layer, connection_type, kwargs, pre_layer"
+D:\Development\neuron\core\network.py,547,NetworkBuilder.connect_layers,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\network.py,585,NetworkBuilder.build,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,37,NeuromodulatorySystem.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,56,NeuromodulatorySystem.get_level,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,102,DopaminergicSystem.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,131,DopaminergicSystem.get_learning_rate_modulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,156,SerotonergicSystem.update_mood,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,179,SerotonergicSystem.get_behavioral_flexibility,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,204,CholinergicSystem.update_attention,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,231,CholinergicSystem.get_attention_level,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,235,CholinergicSystem.get_learning_rate_modulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,260,NoradrenergicSystem.update_arousal,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,286,NoradrenergicSystem.get_vigilance_level,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,290,NoradrenergicSystem.get_processing_gain,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,309,NeuromodulatoryController.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,352,NeuromodulatoryController.get_learning_rate_modulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,364,NeuromodulatoryController.get_behavioral_flexibility,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,368,NeuromodulatoryController.get_attention_level,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,372,NeuromodulatoryController.get_vigilance_level,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,376,NeuromodulatoryController.get_processing_gain,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,380,NeuromodulatoryController.get_modulator_levels,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,408,HomeostaticRegulator.update_firing_rates,method,outdated_params,Missing documentation for: time_window
+D:\Development\neuron\core\neuromodulation.py,461,HomeostaticRegulator.apply_homeostasis,method,outdated_params,Missing documentation for: scaling_factors
+D:\Development\neuron\core\neuromodulation.py,525,RewardSystem.update,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\neuromodulation.py,546,RewardSystem.get_reward_prediction_error,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,564,AdaptiveLearningController.update_learning_rates,method,outdated_params,Missing documentation for: network_info
+D:\Development\neuron\core\neuromodulation.py,564,AdaptiveLearningController.update_learning_rates,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neuromodulation.py,579,AdaptiveLearningController.apply_learning,method,outdated_params,Missing documentation for: network
+D:\Development\neuron\core\neurons.py,40,NeuronModel.get_spike_times,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neurons.py,100,AdaptiveExponentialIntegrateAndFire.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\core\neurons.py,100,AdaptiveExponentialIntegrateAndFire.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neurons.py,220,HodgkinHuxleyNeuron.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\core\neurons.py,220,HodgkinHuxleyNeuron.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neurons.py,330,LeakyIntegrateAndFire.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\core\neurons.py,330,LeakyIntegrateAndFire.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neurons.py,369,NeuronFactory.create_neuron,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\core\neurons.py,434,NeuronPopulation.get_spike_times,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\neurons.py,438,NeuronPopulation.get_membrane_potentials,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,48,NoiseGenerator.gaussian_noise,method,outdated_params,"Missing documentation for: data, std"
+D:\Development\neuron\core\robustness_testing.py,48,NoiseGenerator.gaussian_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,54,NoiseGenerator.salt_pepper_noise,method,outdated_params,"Missing documentation for: data, prob"
+D:\Development\neuron\core\robustness_testing.py,54,NoiseGenerator.salt_pepper_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,62,NoiseGenerator.impulse_noise,method,outdated_params,"Missing documentation for: data, prob"
+D:\Development\neuron\core\robustness_testing.py,62,NoiseGenerator.impulse_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,70,NoiseGenerator.temporal_noise,method,outdated_params,"Missing documentation for: data, jitter_std"
+D:\Development\neuron\core\robustness_testing.py,70,NoiseGenerator.temporal_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,92,AdversarialAttacker.fgsm_attack,method,outdated_params,"Missing documentation for: target, data, epsilon"
+D:\Development\neuron\core\robustness_testing.py,92,AdversarialAttacker.fgsm_attack,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,107,AdversarialAttacker.pgd_attack,method,outdated_params,"Missing documentation for: alpha, iterations, target, data, epsilon"
+D:\Development\neuron\core\robustness_testing.py,107,AdversarialAttacker.pgd_attack,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,130,AdversarialAttacker.universal_perturbation,method,outdated_params,"Missing documentation for: data, epsilon"
+D:\Development\neuron\core\robustness_testing.py,130,AdversarialAttacker.universal_perturbation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,137,AdversarialAttacker.targeted_perturbation,method,outdated_params,"Missing documentation for: target_class, data, epsilon"
+D:\Development\neuron\core\robustness_testing.py,137,AdversarialAttacker.targeted_perturbation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,158,NetworkDamageSimulator.random_neuron_damage,method,outdated_params,"Missing documentation for: neuron_weights, damage_ratio"
+D:\Development\neuron\core\robustness_testing.py,158,NetworkDamageSimulator.random_neuron_damage,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,172,NetworkDamageSimulator.synaptic_damage,method,outdated_params,"Missing documentation for: damage_ratio, synaptic_weights"
+D:\Development\neuron\core\robustness_testing.py,172,NetworkDamageSimulator.synaptic_damage,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,186,NetworkDamageSimulator.layer_damage,method,outdated_params,"Missing documentation for: layer_weights, damage_ratio, layer_index"
+D:\Development\neuron\core\robustness_testing.py,186,NetworkDamageSimulator.layer_damage,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,216,RobustnessTester.run_comprehensive_test_suite,method,outdated_params,"Missing documentation for: baseline_performance, network, test_inputs"
+D:\Development\neuron\core\robustness_testing.py,216,RobustnessTester.run_comprehensive_test_suite,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,284,RobustnessTester.test_noise_robustness,method,outdated_params,"Missing documentation for: noise_level, network, baseline_performance, test_inputs"
+D:\Development\neuron\core\robustness_testing.py,284,RobustnessTester.test_noise_robustness,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,336,RobustnessTester.test_missing_modality,method,outdated_params,"Missing documentation for: missing_modality, network, baseline_performance, test_inputs"
+D:\Development\neuron\core\robustness_testing.py,336,RobustnessTester.test_missing_modality,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,380,RobustnessTester.test_adversarial_robustness,method,outdated_params,"Missing documentation for: network, baseline_performance, adversarial_strength, test_inputs"
+D:\Development\neuron\core\robustness_testing.py,380,RobustnessTester.test_adversarial_robustness,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,436,RobustnessTester.test_temporal_perturbation,method,outdated_params,"Missing documentation for: temporal_noise_level, baseline_performance, test_inputs, network"
+D:\Development\neuron\core\robustness_testing.py,436,RobustnessTester.test_temporal_perturbation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,480,RobustnessTester.test_network_damage,method,outdated_params,"Missing documentation for: network, baseline_performance, test_inputs, damage_ratio"
+D:\Development\neuron\core\robustness_testing.py,480,RobustnessTester.test_network_damage,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,527,RobustnessTester.test_sensory_degradation,method,outdated_params,"Missing documentation for: network, baseline_performance, degradation_level, test_inputs"
+D:\Development\neuron\core\robustness_testing.py,527,RobustnessTester.test_sensory_degradation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,575,RobustnessTester.test_system_stress,method,outdated_params,"Missing documentation for: network, baseline_performance, test_inputs, stress_level"
+D:\Development\neuron\core\robustness_testing.py,575,RobustnessTester.test_system_stress,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\robustness_testing.py,679,RobustnessTester.get_robustness_summary,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\security_manager.py,365,ResourceLimiter.update_memory_usage,method,outdated_params,Missing documentation for: delta_mb
+D:\Development\neuron\core\security_manager.py,390,ResourceLimiter.get_usage_stats,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,78,SynapseModel.update_weight,method,outdated_params,Missing documentation for: delta_w
+D:\Development\neuron\core\synapses.py,160,STDP_Synapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\core\synapses.py,177,STDP_Synapse.post_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\core\synapses.py,205,STDP_Synapse.compute_current,method,outdated_params,"Missing documentation for: current_time, pre_spike_time"
+D:\Development\neuron\core\synapses.py,205,STDP_Synapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,222,STDP_Synapse.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\synapses.py,287,ShortTermPlasticitySynapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\core\synapses.py,305,ShortTermPlasticitySynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, pre_spike_time"
+D:\Development\neuron\core\synapses.py,305,ShortTermPlasticitySynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,324,ShortTermPlasticitySynapse.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\synapses.py,382,NeuromodulatorySynapse.update_neuromodulator,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\core\synapses.py,386,NeuromodulatorySynapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\core\synapses.py,391,NeuromodulatorySynapse.post_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\core\synapses.py,402,NeuromodulatorySynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, pre_spike_time"
+D:\Development\neuron\core\synapses.py,402,NeuromodulatorySynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,418,NeuromodulatorySynapse.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\synapses.py,463,RSTDP_Synapse.update_neuromodulator,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\core\synapses.py,467,RSTDP_Synapse.update_reward,method,outdated_params,Missing documentation for: reward
+D:\Development\neuron\core\synapses.py,471,RSTDP_Synapse.pre_spike,method,outdated_params,Missing documentation for: t
+D:\Development\neuron\core\synapses.py,480,RSTDP_Synapse.post_spike,method,outdated_params,Missing documentation for: t
+D:\Development\neuron\core\synapses.py,494,SynapseFactory.create_synapse,method,outdated_params,"Missing documentation for: pre_neuron_id, kwargs, synapse_type, synapse_id, post_neuron_id"
+D:\Development\neuron\core\synapses.py,494,SynapseFactory.create_synapse,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,579,SynapsePopulation.update_weights,method,outdated_params,Missing documentation for: current_time
+D:\Development\neuron\core\synapses.py,596,SynapsePopulation.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\core\synapses.py,606,SynapsePopulation.get_weight_matrix,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\synapses.py,615,SynapsePopulation.get_weight_history,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,106,NoiseGenerator.add_gaussian_noise,method,outdated_params,"Missing documentation for: noise_level, data"
+D:\Development\neuron\core\task_complexity.py,106,NoiseGenerator.add_gaussian_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,113,NoiseGenerator.add_salt_pepper_noise,method,outdated_params,"Missing documentation for: noise_prob, data"
+D:\Development\neuron\core\task_complexity.py,113,NoiseGenerator.add_salt_pepper_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,121,NoiseGenerator.add_temporal_noise,method,outdated_params,"Missing documentation for: noise_level, data"
+D:\Development\neuron\core\task_complexity.py,121,NoiseGenerator.add_temporal_noise,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,138,AdversarialGenerator.fgsm_attack,method,outdated_params,"Missing documentation for: data, epsilon"
+D:\Development\neuron\core\task_complexity.py,138,AdversarialGenerator.fgsm_attack,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,146,AdversarialGenerator.targeted_attack,method,outdated_params,"Missing documentation for: target, data, epsilon"
+D:\Development\neuron\core\task_complexity.py,146,AdversarialGenerator.targeted_attack,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,155,AdversarialGenerator.universal_perturbation,method,outdated_params,"Missing documentation for: data, epsilon"
+D:\Development\neuron\core\task_complexity.py,155,AdversarialGenerator.universal_perturbation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,172,TaskComplexityManager.create_task,method,outdated_params,"Missing documentation for: parameters, level"
+D:\Development\neuron\core\task_complexity.py,172,TaskComplexityManager.create_task,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\core\task_complexity.py,564,TaskComplexityManager.get_task_statistics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\enhanced_comprehensive_demo.py,47,EnhancedNeuromorphicDemo.create_enhanced_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\enhanced_comprehensive_demo.py,334,EnhancedNeuromorphicDemo.execute_task,method,outdated_params,Missing documentation for: task
+D:\Development\neuron\demo\enhanced_comprehensive_demo.py,334,EnhancedNeuromorphicDemo.execute_task,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\enhanced_comprehensive_demo.py,371,EnhancedNeuromorphicDemo.save_comprehensive_report,method,outdated_params,Missing documentation for: summary_stats
+D:\Development\neuron\demo\gpu_analysis_demo.py,247,GPUPerformanceAnalyzer.test_precision_impact,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\gpu_analysis_demo.py,299,GPUPerformanceAnalyzer.test_neuron_types,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\gpu_analysis_demo.py,349,GPUPerformanceAnalyzer.test_massive_scale,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\gpu_analysis_demo.py,469,GPUPerformanceAnalyzer.save_results,method,outdated_params,Missing documentation for: filename
+D:\Development\neuron\demo\jetson_demo.py,29,demonstrate_jetson_system_info,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\jetson_demo.py,73,demonstrate_jetson_inference,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\jetson_demo.py,134,demonstrate_jetson_learning,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\jetson_demo.py,202,demonstrate_jetson_performance_monitoring,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\jetson_demo.py,254,plot_jetson_performance,function,outdated_params,Missing documentation for: monitoring_data
+D:\Development\neuron\demo\sensorimotor_demo.py,55,create_visual_input,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,77,create_auditory_input,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,100,create_tactile_input,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,120,demonstrate_basic_network,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,203,SensorimotorSystem.train,method,outdated_params,"Missing documentation for: epochs, training_data"
+D:\Development\neuron\demo\sensorimotor_demo.py,203,SensorimotorSystem.train,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,209,SensorimotorSystem.run_trial,method,outdated_params,"Missing documentation for: duration, sensory_inputs"
+D:\Development\neuron\demo\sensorimotor_demo.py,209,SensorimotorSystem.run_trial,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,215,SensorimotorSystem.get_network_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,220,demonstrate_sensorimotor_learning,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_demo.py,336,demonstrate_adaptive_behavior,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_training.py,17,create_sensorimotor_system,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_training.py,89,train_sensorimotor_system,function,outdated_params,"Missing documentation for: epochs, system, training_data"
+D:\Development\neuron\demo\sensorimotor_training.py,130,determine_action,function,outdated_params,Missing documentation for: motor_spikes
+D:\Development\neuron\demo\sensorimotor_training.py,130,determine_action,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_training.py,138,calculate_reward,function,outdated_params,"Missing documentation for: target, action"
+D:\Development\neuron\demo\sensorimotor_training.py,138,calculate_reward,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_training.py,143,create_training_data,function,outdated_params,Missing documentation for: num_trials
+D:\Development\neuron\demo\sensorimotor_training.py,143,create_training_data,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\demo\sensorimotor_training.py,175,demonstrate_adaptive_learning,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\network.py,40,Network.add_neuron_group,method,outdated_params,Missing documentation for: params
+D:\Development\neuron\engine\network.py,67,Network.add_synapse_group,method,outdated_params,Missing documentation for: params
+D:\Development\neuron\engine\network.py,119,Network.connect,method,outdated_params,Missing documentation for: kwargs
+D:\Development\neuron\engine\network.py,141,Network.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\engine\network.py,249,Network.set_input,method,outdated_params,Missing documentation for: input_current
+D:\Development\neuron\engine\network.py,268,Network.set_neuromodulator,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\engine\network.py,362,Network.save_state,method,outdated_params,Missing documentation for: filename
+D:\Development\neuron\engine\network.py,397,Network.summary,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_group.py,122,NeuronGroup.set_external_input,method,outdated_params,Missing documentation for: input_current
+D:\Development\neuron\engine\neuron_group.py,207,NeuronGroup.set_parameters,method,outdated_params,Missing documentation for: params
+D:\Development\neuron\engine\neuron_models.py,51,NeuronModel.get_spike_times,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,55,NeuronModel.get_state,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,103,LeakyIntegrateAndFire.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\engine\neuron_models.py,103,LeakyIntegrateAndFire.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,176,Izhikevich.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\engine\neuron_models.py,176,Izhikevich.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,283,AdaptiveExponential.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\engine\neuron_models.py,283,AdaptiveExponential.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,386,HodgkinHuxley.step,method,outdated_params,"Missing documentation for: I_syn, dt"
+D:\Development\neuron\engine\neuron_models.py,386,HodgkinHuxley.step,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\neuron_models.py,425,HodgkinHuxley.safe_exp,method,missing,No docstring found
+D:\Development\neuron\engine\simulator.py,293,Simulator.add_spike_event,method,outdated_params,Missing documentation for: neuron_id
+D:\Development\neuron\engine\simulator.py,313,Simulator.add_input_event,method,outdated_params,Missing documentation for: current
+D:\Development\neuron\engine\simulator.py,336,Simulator.add_neuromodulator_event,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\engine\simulator.py,353,Simulator.schedule_periodic_input,method,outdated_params,Missing documentation for: period
+D:\Development\neuron\engine\simulator.py,378,Simulator.set_recording_config,method,outdated_params,Missing documentation for: recording_interval
+D:\Development\neuron\engine\synapse_group.py,226,SynapseGroup.process_spikes,method,outdated_params,Missing documentation for: current_time
+D:\Development\neuron\engine\synapse_group.py,262,SynapseGroup.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\engine\synapse_group.py,274,SynapseGroup.set_neuromodulator,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\engine\synapse_models.py,68,SynapseModel.update_weight,method,outdated_params,Missing documentation for: delta_w
+D:\Development\neuron\engine\synapse_models.py,73,SynapseModel.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,77,SynapseModel.post_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,81,SynapseModel.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\engine\synapse_models.py,93,SynapseModel.get_state,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\synapse_models.py,137,StaticSynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, spike_time"
+D:\Development\neuron\engine\synapse_models.py,137,StaticSynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\synapse_models.py,200,STDPSynapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,211,STDPSynapse.post_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,222,STDPSynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, spike_time"
+D:\Development\neuron\engine\synapse_models.py,222,STDPSynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\synapse_models.py,285,STPSynapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,303,STPSynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, spike_time"
+D:\Development\neuron\engine\synapse_models.py,303,STPSynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\engine\synapse_models.py,374,NeuromodulatorySynapse.update_neuromodulator,method,outdated_params,Missing documentation for: level
+D:\Development\neuron\engine\synapse_models.py,383,NeuromodulatorySynapse.pre_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,393,NeuromodulatorySynapse.post_spike,method,outdated_params,Missing documentation for: spike_time
+D:\Development\neuron\engine\synapse_models.py,403,NeuromodulatorySynapse.step,method,outdated_params,Missing documentation for: dt
+D:\Development\neuron\engine\synapse_models.py,418,NeuromodulatorySynapse.compute_current,method,outdated_params,"Missing documentation for: current_time, spike_time"
+D:\Development\neuron\engine\synapse_models.py,418,NeuromodulatorySynapse.compute_current,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\engine_demo.py,20,demo_basic_network,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\engine_demo.py,68,demo_event_driven,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\engine_demo.py,119,demo_plasticity,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\engine_demo.py,179,demo_neuron_models,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\engine_demo.py,217,visualize_results,function,outdated_params,Missing documentation for: results
+D:\Development\neuron\examples\pattern_completion_demo.py,50,PatternCompletionTask.generate_patterns,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\pattern_completion_demo.py,167,PatternCompletionTask.visualize_pattern,method,outdated_params,"Missing documentation for: ax, title, pattern"
+D:\Development\neuron\examples\pattern_completion_demo.py,167,PatternCompletionTask.visualize_pattern,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\pattern_completion_demo.py,187,test_pattern_completion,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\sequence_learning_demo.py,62,SequenceLearningTask.generate_sequences,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\sequence_learning_demo.py,152,SequenceLearningTask.visualize_sequence,method,outdated_params,"Missing documentation for: title, sequence, fig"
+D:\Development\neuron\examples\sequence_learning_demo.py,152,SequenceLearningTask.visualize_sequence,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\sequence_learning_demo.py,493,test_temporal_learning_dynamics,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\test_learning.py,265,test_custom_plasticity,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\examples\test_learning.py,270,calcium_plasticity,function,outdated_params,"Missing documentation for: pre_activity, kwargs, post_activity, state, current_weight, config"
+D:\Development\neuron\examples\test_learning.py,270,calcium_plasticity,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,47,DocstringParser.parse_google_style,method,outdated_params,Missing documentation for: docstring
+D:\Development\neuron\scripts\audit_docstrings.py,47,DocstringParser.parse_google_style,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,76,DocstringParser.parse_numpy_style,method,outdated_params,Missing documentation for: docstring
+D:\Development\neuron\scripts\audit_docstrings.py,76,DocstringParser.parse_numpy_style,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,105,DocstringParser.parse_sphinx_style,method,outdated_params,Missing documentation for: docstring
+D:\Development\neuron\scripts\audit_docstrings.py,105,DocstringParser.parse_sphinx_style,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,124,DocstringParser.parse_docstring,method,outdated_params,Missing documentation for: docstring
+D:\Development\neuron\scripts\audit_docstrings.py,124,DocstringParser.parse_docstring,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,156,DocstringAuditor.is_public,method,outdated_params,Missing documentation for: name
+D:\Development\neuron\scripts\audit_docstrings.py,156,DocstringAuditor.is_public,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,160,DocstringAuditor.has_return_statement,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\scripts\audit_docstrings.py,160,DocstringAuditor.has_return_statement,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,169,DocstringAuditor.get_function_params,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\scripts\audit_docstrings.py,169,DocstringAuditor.get_function_params,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,191,DocstringAuditor.check_function_docstring,method,outdated_params,"Missing documentation for: node, symbol_type"
+D:\Development\neuron\scripts\audit_docstrings.py,263,DocstringAuditor.visit_ClassDef,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\scripts\audit_docstrings.py,283,DocstringAuditor.visit_FunctionDef,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\scripts\audit_docstrings.py,291,DocstringAuditor.visit_AsyncFunctionDef,method,outdated_params,Missing documentation for: node
+D:\Development\neuron\scripts\audit_docstrings.py,300,audit_file,function,outdated_params,Missing documentation for: file_path
+D:\Development\neuron\scripts\audit_docstrings.py,300,audit_file,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,315,find_python_files,function,outdated_params,"Missing documentation for: root_dir, exclude_dirs"
+D:\Development\neuron\scripts\audit_docstrings.py,315,find_python_files,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\audit_docstrings.py,330,generate_report,function,outdated_params,"Missing documentation for: issues, output_format"
+D:\Development\neuron\scripts\audit_docstrings.py,330,generate_report,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,21,run_command,function,outdated_params,"Missing documentation for: check, cmd"
+D:\Development\neuron\scripts\check_quality.py,21,run_command,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,37,print_section,function,outdated_params,Missing documentation for: title
+D:\Development\neuron\scripts\check_quality.py,44,print_result,function,outdated_params,"Missing documentation for: success, name, details"
+D:\Development\neuron\scripts\check_quality.py,52,check_ruff,function,outdated_params,Missing documentation for: fix
+D:\Development\neuron\scripts\check_quality.py,52,check_ruff,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,69,check_black,function,outdated_params,Missing documentation for: fix
+D:\Development\neuron\scripts\check_quality.py,69,check_black,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,87,check_isort,function,outdated_params,Missing documentation for: fix
+D:\Development\neuron\scripts\check_quality.py,87,check_isort,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,105,check_flake8,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,124,check_mypy,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,139,run_tests,function,outdated_params,Missing documentation for: coverage
+D:\Development\neuron\scripts\check_quality.py,139,run_tests,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\check_quality.py,171,check_all,function,outdated_params,Missing documentation for: args
+D:\Development\neuron\scripts\check_quality.py,171,check_all,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,82,GPUOptimizer.get_system_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,103,GPUOptimizer.calculate_network_capacity,method,outdated_params,Missing documentation for: target_neurons
+D:\Development\neuron\scripts\gpu_optimization.py,103,GPUOptimizer.calculate_network_capacity,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,150,GPUOptimizer.create_gpu_network,method,outdated_params,Missing documentation for: network_config
+D:\Development\neuron\scripts\gpu_optimization.py,150,GPUOptimizer.create_gpu_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,165,GPUOptimizer.adjust_network_config,method,outdated_params,"Missing documentation for: capacity, config"
+D:\Development\neuron\scripts\gpu_optimization.py,165,GPUOptimizer.adjust_network_config,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,209,GPUNeuromorphicNetwork.build_from_config,method,outdated_params,Missing documentation for: config
+D:\Development\neuron\scripts\gpu_optimization.py,257,GPUNeuromorphicNetwork.run_simulation,method,outdated_params,"Missing documentation for: duration, dt"
+D:\Development\neuron\scripts\gpu_optimization.py,257,GPUNeuromorphicNetwork.run_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,271,GPUNeuromorphicNetwork.run_large_scale_simulation,method,outdated_params,"Missing documentation for: duration, batch_size, dt"
+D:\Development\neuron\scripts\gpu_optimization.py,271,GPUNeuromorphicNetwork.run_large_scale_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,329,GPUPerformanceMonitor.get_metrics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,447,GPUSensorimotorSystem.run_inference,method,outdated_params,"Missing documentation for: duration, sensory_inputs"
+D:\Development\neuron\scripts\gpu_optimization.py,447,GPUSensorimotorSystem.run_inference,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\gpu_optimization.py,470,GPUSensorimotorSystem.get_performance_summary,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,69,JetsonOptimizer.get_system_info,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,82,JetsonOptimizer.get_temperature,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,91,JetsonOptimizer.get_power_consumption,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,103,JetsonOptimizer.optimize_network_size,method,outdated_params,"Missing documentation for: target_neurons, target_synapses"
+D:\Development\neuron\scripts\jetson_optimization.py,103,JetsonOptimizer.optimize_network_size,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,126,JetsonOptimizer.create_jetson_network,method,outdated_params,Missing documentation for: network_config
+D:\Development\neuron\scripts\jetson_optimization.py,126,JetsonOptimizer.create_jetson_network,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,145,JetsonOptimizer.adjust_network_config,method,outdated_params,"Missing documentation for: optimizer, config"
+D:\Development\neuron\scripts\jetson_optimization.py,145,JetsonOptimizer.adjust_network_config,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,186,JetsonNeuromorphicNetwork.build_from_config,method,outdated_params,Missing documentation for: config
+D:\Development\neuron\scripts\jetson_optimization.py,234,JetsonNeuromorphicNetwork.run_simulation,method,outdated_params,"Missing documentation for: duration, dt"
+D:\Development\neuron\scripts\jetson_optimization.py,234,JetsonNeuromorphicNetwork.run_simulation,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,273,JetsonPerformanceMonitor.get_metrics,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,392,JetsonSensorimotorSystem.run_inference,method,outdated_params,"Missing documentation for: duration, sensory_inputs"
+D:\Development\neuron\scripts\jetson_optimization.py,392,JetsonSensorimotorSystem.run_inference,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,413,JetsonSensorimotorSystem.get_performance_summary,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\jetson_optimization.py,435,create_jetson_deployment_script,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\run_tests.py,16,run_command,function,outdated_params,"Missing documentation for: cwd, cmd"
+D:\Development\neuron\scripts\run_tests.py,16,run_command,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\run_tests.py,34,run_tests,function,outdated_params,Missing documentation for: verbose
+D:\Development\neuron\scripts\run_tests.py,34,run_tests,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\run_tests.py,89,run_linting,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\run_tests.py,136,generate_coverage_report,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\scripts\run_tests.py,159,main,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\test_memory_subsystem.py,13,test_memory_subsystem,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_integration.py,51,TestPatternLearning.generate_pattern,method,outdated_params,Missing documentation for: pattern_id
+D:\Development\neuron\tests\test_integration.py,51,TestPatternLearning.generate_pattern,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_integration.py,214,TestSequenceLearning.create_sequence,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_learning.py,611,TestCustomPlasticityRule.test_custom_function_execution,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_learning.py,613,TestCustomPlasticityRule.custom_rule,method,missing,No docstring found
+D:\Development\neuron\tests\test_learning.py,627,TestCustomPlasticityRule.test_state_persistence,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_learning.py,629,TestCustomPlasticityRule.stateful_rule,method,missing,No docstring found
+D:\Development\neuron\tests\test_learning.py,692,TestPlasticityManager.test_add_custom_rule,method,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\tests\test_learning.py,695,TestPlasticityManager.my_rule,method,missing,No docstring found
+D:\Development\neuron\verify_installation.py,12,check_module,function,outdated_params,Missing documentation for: module_name
+D:\Development\neuron\verify_installation.py,12,check_module,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\verify_installation.py,23,check_data_files,function,missing_return,Function returns a value but no Returns section in docstring
+D:\Development\neuron\verify_installation.py,48,main,function,missing_return,Function returns a value but no Returns section in docstring

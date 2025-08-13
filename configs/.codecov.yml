@@ -1,0 +1,86 @@
+# Codecov configuration
+# https://docs.codecov.io/docs/codecov-yaml
+
+codecov:
+  require_ci_to_pass: yes
+  bot: "codecov-bot"
+  
+coverage:
+  precision: 2
+  round: down
+  range: "70...100"
+  
+  status:
+    project:
+      default:
+        target: 90%
+        threshold: 1%
+        base: auto
+        flags:
+          - unittests
+        paths:
+          - "core"
+          - "api"
+        if_not_found: success
+        if_ci_failed: error
+        informational: false
+        only_pulls: false
+        
+    patch:
+      default:
+        target: 80%
+        threshold: 10%
+        base: auto
+        if_not_found: success
+        if_ci_failed: error
+        informational: false
+        only_pulls: false
+        
+    changes: no
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+comment:
+  layout: "reach, diff, flags, files, footer"
+  behavior: default
+  require_changes: false
+  require_base: no
+  require_head: no
+  branches:
+    - "main"
+    - "develop"
+
+flags:
+  unittests:
+    paths:
+      - core/
+      - api/
+    carryforward: false
+    
+  integration:
+    paths:
+      - core/
+      - api/
+    carryforward: false
+
+ignore:
+  - "**/__pycache__"
+  - "**/tests"
+  - "**/test_*.py"
+  - "**/*_test.py"
+  - "**/conftest.py"
+  - "setup.py"
+  - "**/__init__.py"
+  - "venv*/**"
+  - "archive/**"
+  - "docs/**"
+  - "examples/**"
+  - "benchmarks/**"
+  - "scripts/**"
+  - "tools/**"

@@ -1,0 +1,119 @@
+# Git files
+.git
+.gitignore
+.github
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+eggs
+.eggs
+wheels
+*.wheel
+
+# Virtual environments
+venv
+venv_neuron
+env
+ENV
+.venv
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test and coverage reports
+.coverage
+.pytest_cache
+htmlcov
+.tox
+.mypy_cache
+.ruff_cache
+
+# Documentation
+docs/_build
+*.rst~
+
+# Notebooks checkpoints
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Local config files
+.env
+.env.local
+*.local
+
+# Docker files (avoid recursive copy)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Build artifacts
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.bak
+*.backup
+
+# Archive
+archive/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node modules (if any frontend exists)
+node_modules/
+
+# Large data files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.mat
+*.csv
+*.tsv
+*.parquet
+
+# Model checkpoints (keep small configs)
+checkpoints/
+*.ckpt
+*.pth
+*.pt
+*.onnx
+*.pb
+
+# Video and audio files
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.wav
+
+# Compressed files (except small ones)
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z

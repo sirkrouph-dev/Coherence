@@ -1,0 +1,198 @@
+version: '3.8'
+
+services:
+  # Main neuromorphic system service
+  neuron:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:latest
+    container_name: neuron-runtime
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./models:/app/models
+    command: python -m demo.sensorimotor_demo
+    networks:
+      - neuron-network
+
+  # Jupyter notebook service for interactive development
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:dev
+    container_name: neuron-jupyter
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN:-neuron2024}
+    ports:
+      - "${JUPYTER_PORT:-8888}:8888"
+    volumes:
+      - ./:/app
+      - jupyter_data:/home/neuron/.jupyter
+    command: >
+      jupyter lab
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --NotebookApp.token=${JUPYTER_TOKEN:-neuron2024}
+      --NotebookApp.allow_origin='*'
+    networks:
+      - neuron-network
+
+  # Service for running tests
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:dev
+    container_name: neuron-test
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - ./:/app
+      - test_cache:/app/.pytest_cache
+    command: pytest -v --cov=core --cov=api --cov-report=term-missing
+    networks:
+      - neuron-network
+
+  # Service for running sensorimotor demo
+  demo-sensorimotor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:latest
+    container_name: neuron-demo-sensorimotor
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    command: python -m demo.sensorimotor_demo
+    networks:
+      - neuron-network
+
+  # Service for running training
+  demo-training:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:latest
+    container_name: neuron-demo-training
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./models:/app/models
+    command: python -m demo.sensorimotor_training
+    networks:
+      - neuron-network
+
+  # Service for pattern completion demo
+  demo-pattern:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:latest
+    container_name: neuron-demo-pattern
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    command: python -m examples.pattern_completion_demo
+    networks:
+      - neuron-network
+
+  # Service for sequence learning demo
+  demo-sequence:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:latest
+    container_name: neuron-demo-sequence
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+    command: python -m examples.sequence_learning_demo
+    networks:
+      - neuron-network
+
+  # GPU-enabled service (requires nvidia-docker)
+  neuron-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: gpu
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:gpu
+    container_name: neuron-gpu
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./models:/app/models
+    command: python -m demo.gpu_analysis_demo
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - neuron-network
+
+  # Benchmarking service
+  benchmark:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:dev
+    container_name: neuron-benchmark
+    volumes:
+      - ./:/app
+      - ./benchmark_results:/app/benchmark_results
+    command: python -m pytest benchmarks/ -v --benchmark-only --benchmark-json=benchmark_results/results.json
+    networks:
+      - neuron-network
+
+  # Linting and formatting service
+  lint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: ghcr.io/${GITHUB_REPOSITORY:-neuromorphic-system}/neuron:dev
+    container_name: neuron-lint
+    volumes:
+      - ./:/app
+    command: >
+      sh -c "
+        echo 'Running Black formatter...' &&
+        black --check . &&
+        echo 'Running isort...' &&
+        isort --check-only . &&
+        echo 'Running Ruff linter...' &&
+        ruff check . &&
+        echo 'Running MyPy type checker...' &&
+        mypy core api
+      "
+    networks:
+      - neuron-network
+
+networks:
+  neuron-network:
+    driver: bridge
+
+volumes:
+  jupyter_data:
+  test_cache:

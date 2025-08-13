@@ -1,0 +1,30 @@
+# GPU-optimized requirements for desktop neuromorphic computing
+# Install with: pip install -r requirements_gpu.txt
+
+# Core dependencies
+numpy>=1.21.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+scipy>=1.7.0
+scikit-learn>=1.0.0
+pandas>=1.3.0
+typing-extensions>=4.0.0
+
+# GPU acceleration
+cupy-cuda11x>=10.0.0  # For CUDA 11.x (adjust version as needed)
+# Alternative: cupy-cuda12x>=12.0.0  # For CUDA 12.x
+# Alternative: cupy-cuda10x>=10.0.0  # For CUDA 10.x
+
+# PyTorch for additional GPU acceleration
+torch>=1.12.0
+torchvision>=0.13.0
+
+# System monitoring
+psutil>=5.8.0
+
+# Optional: For advanced GPU monitoring
+# nvidia-ml-py>=11.0.0
+
+# Development tools (optional)
+# jupyter>=1.0.0
+# ipython>=7.0.0 
