@@ -63,8 +63,8 @@ Traditional competitive learning suffers from fundamental failures:
 
 ### Basic Setup
 ```bash
-git clone https://github.com/sirkrouph-dev/Coherence.git
-cd Coherence
+git clone https://github.com/sirkrouph-dev/NeuroMorph.git
+cd NeuroMorph
 pip install -e .              # Basic installation
 ```
 
@@ -205,7 +205,7 @@ If you use this work in research, please cite:
   title={Coherence: Neuromorphic Binding Framework with Balanced Competitive Learning},
   author={Coherence Development Team},
   year={2025},
-  url={https://github.com/sirkrouph-dev/Coherence},
+  url={https://github.com/sirkrouph-dev/NeuroMorph},
   note={Research Framework v0.1 - Stable Concept Binding in Spiking Networks}
 }
 ```
