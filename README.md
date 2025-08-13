@@ -1,6 +1,6 @@
 ﻿# Coherence — Neuromorphic Binding Framework
 
-![Tests](https://img.shields.io/badge/tests-231%20passed%2C%202%20skipped-brightgreen) ![Framework](https://img.shields.io/badge/status-research%20v0.9-blue)
+![Tests](https://img.shields.io/badge/tests-231%20passed%2C%202%20skipped-brightgreen) ![Framework](https://img.shields.io/badge/status-research%20v0.1-blue)
 
 > **🧠 Experimental neuromorphic computing framework demonstrating stable concept representation through balanced competitive learning.**
 
@@ -11,7 +11,7 @@ Expect incomplete features, frequent updates, and possible breaking changes unti
 This is a **research experiment** designed to test whether biologically inspired competitive learning can solve the binding problem without catastrophic forgetting. See [PHILOSOPHY.md](PHILOSOPHY.md) for the scientific boundaries of what this framework computes vs. what we interpret.
 
 
-## 🎯 Project Status: **Research Framework v0.9**
+## 🎯 Project Status: **Research Framework v0.1**
 
 **DEMONSTRATED STABLE CONCEPT BINDING**: Achieved non-interfering concept representation in spiking neural architectures using balanced competitive learning algorithms.
 
@@ -179,7 +179,7 @@ This development methodology itself becomes part of the research question: Can h
 
 ## ⚠️ Research Context
 
-- **Experimental Status**: Research framework v0.9 — not optimized for production
+- **Experimental Status**: Research framework v0.1 — not optimized for production
 - **Biological Plausibility**: Approximate implementations, not exact neural modeling
 - **Reproducibility**: All results reproducible with provided code and configurations
 - **Scope**: Claims limited to test conditions and binding problem investigation
@@ -206,7 +206,7 @@ If you use this work in research, please cite:
   author={Coherence Development Team},
   year={2025},
   url={https://github.com/sirkrouph-dev/Coherence},
-  note={Research Framework v0.9 - Stable Concept Binding in Spiking Networks}
+  note={Research Framework v0.1 - Stable Concept Binding in Spiking Networks}
 }
 ```
 
