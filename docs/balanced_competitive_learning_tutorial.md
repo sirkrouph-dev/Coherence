@@ -1,8 +1,8 @@
 # Balanced Competitive Learning Tutorial
 
-## The Binding Problem Solution
+## The Binding Problem Approach
 
-The **Balanced Competitive Learning** algorithm represents a innovation in neuromorphic computing, solving the fundamental binding problem that has plagued neural networks for decades.
+The **Balanced Competitive Learning** algorithm represents an innovation in neuromorphic computing, investigating the fundamental binding problem that has challenged neural networks for decades.
 
 ### What is the Binding Problem?
 
@@ -388,7 +388,7 @@ system.run_sensorimotor_learning()
 
 ## Conclusion
 
-Balanced Competitive Learning represents a fundamental advance in neuromorphic computing, solving the binding problem that has limited neural networks for decades. The algorithm's ability to form stable, persistent concept representations while avoiding catastrophic forgetting makes it ideal for:
+Balanced Competitive Learning represents an advance in neuromorphic computing, investigating the binding problem that has limited neural networks for decades. The algorithm's ability to form stable, persistent concept representations while reducing catastrophic forgetting makes it promising for:
 
 - Lifelong learning systems
 - Real-time adaptation

@@ -4,7 +4,7 @@
 
 **Coherence** is a biologically-inspired neuromorphic computing framework that implements spiking neural networks with temporal dynamics, synaptic plasticity (STDP), and neuromodulation. The system bridges neuroscience research and edge computing with optimization for NVIDIA GPU acceleration.
 
-Novel competitive learning approach that achieves stable concept representations and makes significant progress toward solving the binding problem in neuromorphic systems, enabling stable concept learning without catastrophic forgetting.
+Competitive learning approach that explores stable concept representations and investigates the binding problem in neuromorphic systems, working toward stable concept learning without catastrophic forgetting.
 
 ## Current Architecture Overview
 
@@ -111,17 +111,17 @@ Input conversion to spike trains:
 - **SomatosensoryEncoder**: Touch/proprioception
 
 #### **SUCCESS: Balanced Competitive Learning** (`balanced_competitive_learning.py`)
-Revolutionary solution to the binding problem:
+Approach to the binding problem:
 - **Soft competition**: Gradual winner selection
 - **Activity homeostasis**: Prevents neural death
 - **Cooperative clusters**: Multiple neurons per concept
-- **Stable concept binding**: No catastrophic forgetting
+- **Stable concept binding**: Reduces catastrophic forgetting
 
-Key achievements:
+Key results:
 - ✅ 100% concept distinction without interference
 - ✅ Attractor Stability Index: 0.986 (vs. 0.738 baseline)
 - ✅ Neural team formation for robust representation
-- ✅ Solves decades-old binding problem in neural networks
+- ✅ Investigates decades-old binding problem in neural networks
 
 ### 2. High-Level API (`api/`)
 

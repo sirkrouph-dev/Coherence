@@ -54,7 +54,7 @@ Successfully implemented short-term (working) and long-term memory abstractions 
 - **Synaptic Tagging and Capture**: Consolidation mechanisms
 - **Sleep Consolidation**: STM to LTM transfer
 
-## Key Achievements
+## Key Results
 
 ### Technical Implementation
 ✅ Recurrent connectivity matrices for sustained activity

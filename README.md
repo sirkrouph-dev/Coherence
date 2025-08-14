@@ -8,7 +8,7 @@
 This repository is an **active experimental project**.  
 Expect incomplete features, frequent updates, and possible breaking changes until a stable release.
 
-This is a **research experiment** designed to test whether biologically inspired competitive learning can solve the binding problem without catastrophic forgetting. See [PHILOSOPHY.md](PHILOSOPHY.md) for the scientific boundaries of what this framework computes vs. what we interpret.
+This is a **research experiment** designed to test whether biologically inspired competitive learning can address the binding problem without catastrophic forgetting. See [PHILOSOPHY.md](PHILOSOPHY.md) for the scientific boundaries of what this framework computes vs. what we interpret.
 
 
 ## 🎯 Project Status: **Research Framework v0.1**
@@ -32,7 +32,7 @@ Traditional competitive learning suffers from fundamental failures:
 - **Neural death** — over-inhibition silences network activity
 - **Concept interference** — new learning overwrites old memories
 
-**Our Solution: Neuromorphic Efficiency + Balanced Competitive Learning**
+**Our Approach: Neuromorphic Efficiency + Balanced Competitive Learning**
 - ✅ **Event-Driven Processing** — Compute only when needed, not continuously
 - ✅ **Ultra-Sparse Connectivity** — 0.001% density vs 100% in conventional networks
 - ✅ **Soft competition** — gradual winner selection instead of hard cutoffs
@@ -41,7 +41,7 @@ Traditional competitive learning suffers from fundamental failures:
 - ✅ **Cooperative clusters** — small teams (4 neurons) per concept
 - ✅ **Energy Efficiency Goal** — <1W vs 1000W+ for conventional inference
 
-## 📊 Technical Achievements
+## 📊 Technical Progress
 
 | Capability | Traditional Competitive | Balanced Competitive |
 |-----------|------------------------|---------------------|
@@ -113,7 +113,7 @@ python experiments/learning_assessment.py  # Framework evaluation
 ##  Framework Architecture
 
 ### Core Components
-- **Balanced Competitive Learning** — See solution in "The Binding Problem" section above
+- **Balanced Competitive Learning** — See approach in "The Binding Problem" section above
 - **Neuron Models** — AdEx, Hodgkin-Huxley, LIF, Izhikevich with temporal dynamics
 - **Synaptic Plasticity** — STDP, STP, BCM with homeostatic regulation
 - **Neuromodulation** — Dopamine/serotonin systems affecting learning
@@ -189,7 +189,7 @@ This development methodology itself becomes part of the research question: Can h
 
 We welcome contributions to advance neuromorphic computing research:
 
-1. **Research Contributions**: Novel learning algorithms, evaluation metrics
+1. **Research Contributions**: Learning algorithms, evaluation metrics
 2. **Platform Extensions**: New hardware targets, optimization improvements
 3. **Documentation**: Technical papers, tutorials, case studies
 
