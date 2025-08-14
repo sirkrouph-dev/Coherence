@@ -1,0 +1,396 @@
+{
+  "timestamp": "2025-08-14T08:55:28.815920",
+  "curriculum_size": 16,
+  "items_learned": 16,
+  "overall_success_rate": 1.0,
+  "total_weight_changes": 39870,
+  "achievement": "\ud83c\udf1f EXCELLENT - Strong English learning foundation",
+  "detailed_results": [
+    {
+      "word": "a",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2160
+    },
+    {
+      "word": "e",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "i",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "o",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 1980
+    },
+    {
+      "word": "u",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2220
+    },
+    {
+      "word": "b",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "c",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2400
+    },
+    {
+      "word": "d",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2400
+    },
+    {
+      "word": "f",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "g",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "cat",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "dog",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "car",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "box",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "run",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    },
+    {
+      "word": "eat",
+      "learned": true,
+      "confidence": 1.0,
+      "success_rate": 1.0,
+      "weight_changes": 2610
+    }
+  ],
+  "word_memories": {
+    "a": {
+      "category": "vowel",
+      "target_output": 0,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2160,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "e": {
+      "category": "vowel",
+      "target_output": 0,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "i": {
+      "category": "vowel",
+      "target_output": 0,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "o": {
+      "category": "vowel",
+      "target_output": 0,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 1980,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "u": {
+      "category": "vowel",
+      "target_output": 0,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2220,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "b": {
+      "category": "consonant",
+      "target_output": 1,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "c": {
+      "category": "consonant",
+      "target_output": 1,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2400,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "d": {
+      "category": "consonant",
+      "target_output": 1,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2400,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "f": {
+      "category": "consonant",
+      "target_output": 1,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "g": {
+      "category": "consonant",
+      "target_output": 1,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "cat": {
+      "category": "animal",
+      "target_output": 2,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "dog": {
+      "category": "animal",
+      "target_output": 2,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "car": {
+      "category": "object",
+      "target_output": 3,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "box": {
+      "category": "object",
+      "target_output": 3,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "run": {
+      "category": "action",
+      "target_output": 4,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "eat": {
+      "category": "action",
+      "target_output": 4,
+      "final_success": true,
+      "confidence": 1.0,
+      "weight_changes": 2610,
+      "final_activity": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  }
+}
