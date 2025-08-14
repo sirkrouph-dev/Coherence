@@ -1,0 +1,379 @@
+{
+  "timestamp": "2025-08-14T09:04:37.299496",
+  "session_duration_minutes": 0.021166916666666664,
+  "curriculum_results": {
+    "total_sentences": 14,
+    "sentences_learned": 14,
+    "success_rate": 1.0,
+    "grammar_patterns_learned": 3,
+    "detailed_results": [
+      {
+        "sentence": "the cat runs",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='the cat runs', words=['the', 'cat', 'runs'], word_types=[<WordType.ARTICLE: 'article'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPLEX_SENTENCE: 'complex_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0], complexity_score=0.7000000000000001, dependencies=[(0, 1)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "dogs eat food",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='dogs eat food', words=['dogs', 'eat', 'food'], word_types=[<WordType.NOUN: 'noun'>, <WordType.VERB: 'verb'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.SIMPLE_SENTENCE: 'simple_sentence'>, semantic_meaning=[1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.0, 0.0], complexity_score=0.7000000000000001, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "i like books",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='i like books', words=['i', 'like', 'books'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.VERB: 'verb'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.SIMPLE_SENTENCE: 'simple_sentence'>, semantic_meaning=[1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0], complexity_score=0.9000000000000001, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "she walks slowly",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='she walks slowly', words=['she', 'walks', 'slowly'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>, <WordType.ADVERB: 'adverb'>], grammar_pattern=<GrammarType.COMPLEX_SENTENCE: 'complex_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0], complexity_score=0.9000000000000001, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "the big dog runs quickly",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='the big dog runs quickly', words=['the', 'big', 'dog', 'runs', 'quickly'], word_types=[<WordType.ARTICLE: 'article'>, <WordType.ADJECTIVE: 'adjective'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.ADVERB: 'adverb'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0], complexity_score=1.3, dependencies=[(1, 2)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "i really like the new book",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='i really like the new book', words=['i', 'really', 'like', 'the', 'new', 'book'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.ADVERB: 'adverb'>, <WordType.VERB: 'verb'>, <WordType.ARTICLE: 'article'>, <WordType.ADJECTIVE: 'adjective'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[0.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.5, 0.5, 0.5, 1.0, 0.0], complexity_score=1.8000000000000003, dependencies=[(1, 2), (4, 5)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "she walks to the old house",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='she walks to the old house', words=['she', 'walks', 'to', 'the', 'old', 'house'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>, <WordType.PREPOSITION: 'preposition'>, <WordType.ARTICLE: 'article'>, <WordType.ADJECTIVE: 'adjective'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[1.0, 0.0, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.5, 0.0, 1.0, 0.5, 0.5], complexity_score=1.6, dependencies=[(4, 5)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "the red car goes very fast",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='the red car goes very fast', words=['the', 'red', 'car', 'goes', 'very', 'fast'], word_types=[<WordType.ARTICLE: 'article'>, <WordType.ADJECTIVE: 'adjective'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.ADVERB: 'adverb'>, <WordType.ADJECTIVE: 'adjective'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[0.6666666666666666, 0.0, 0.6666666666666666, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.0, 0.0, 0.6666666666666666, 1.0, 0.0], complexity_score=1.4000000000000001, dependencies=[(1, 2)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "the cat runs and the dog walks",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='the cat runs and the dog walks', words=['the', 'cat', 'runs', 'and', 'the', 'dog', 'walks'], word_types=[<WordType.ARTICLE: 'article'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.CONJUNCTION: 'conjunction'>, <WordType.ARTICLE: 'article'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0], complexity_score=1.3000000000000003, dependencies=[(0, 1), (4, 5)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "i eat food but she drinks water",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='i eat food but she drinks water', words=['i', 'eat', 'food', 'but', 'she', 'drinks', 'water'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.VERB: 'verb'>, <WordType.NOUN: 'noun'>, <WordType.CONJUNCTION: 'conjunction'>, <WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[1.0, 0.3333333333333333, 0.0, 0.6666666666666666, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.3333333333333333, 0.3333333333333333, 1.0, 0.0, 0.0], complexity_score=1.5, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "he reads books because he likes them",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='he reads books because he likes them', words=['he', 'reads', 'books', 'because', 'he', 'likes', 'them'], word_types=[<WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.CONJUNCTION: 'conjunction'>, <WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>, <WordType.PRONOUN: 'pronoun'>], grammar_pattern=<GrammarType.COMPOUND_SENTENCE: 'compound_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.3333333333333333, 0.0, 1.0, 0.0, 0.0], complexity_score=1.3000000000000003, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "what do you like",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='what do you like', words=['what', 'do', 'you', 'like'], word_types=[<WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.PRONOUN: 'pronoun'>, <WordType.VERB: 'verb'>], grammar_pattern=<GrammarType.COMPLEX_SENTENCE: 'complex_sentence'>, semantic_meaning=[1.0, 0.5, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.0, 0.0], complexity_score=1.0, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "where is the house",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='where is the house', words=['where', 'is', 'the', 'house'], word_types=[<WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.ARTICLE: 'article'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPLEX_SENTENCE: 'complex_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.6666666666666666, 0.0, 0.0], complexity_score=0.8, dependencies=[(2, 3)])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      },
+      {
+        "sentence": "how are you today",
+        "learned": "True",
+        "success_rate": 1.0,
+        "grammar_rate": 1.0,
+        "semantic_rate": 1.0,
+        "structure": "SentenceStructure(text='how are you today', words=['how', 'are', 'you', 'today'], word_types=[<WordType.NOUN: 'noun'>, <WordType.NOUN: 'noun'>, <WordType.PRONOUN: 'pronoun'>, <WordType.NOUN: 'noun'>], grammar_pattern=<GrammarType.COMPLEX_SENTENCE: 'complex_sentence'>, semantic_meaning=[1.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.0, 0.3333333333333333, 0.0, 0.6666666666666666, 0.0, 0.0], complexity_score=0.8, dependencies=[])",
+        "final_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        }
+      }
+    ]
+  },
+  "memory_retention": {
+    "sentences_tested": 5,
+    "sentences_retained": 5,
+    "retention_rate": 1.0,
+    "detailed_results": [
+      {
+        "retained": "True",
+        "original_retention": 1.0,
+        "decayed_retention": 0.6983372960937497,
+        "current_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        },
+        "rehearsal_applied": "True"
+      },
+      {
+        "retained": "True",
+        "original_retention": 1.0,
+        "decayed_retention": 0.6983372960937497,
+        "current_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        },
+        "rehearsal_applied": "True"
+      },
+      {
+        "retained": "True",
+        "original_retention": 1.0,
+        "decayed_retention": 0.6983372960937497,
+        "current_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        },
+        "rehearsal_applied": "True"
+      },
+      {
+        "retained": "True",
+        "original_retention": 1.0,
+        "decayed_retention": 0.6983372960937497,
+        "current_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        },
+        "rehearsal_applied": "True"
+      },
+      {
+        "retained": "True",
+        "original_retention": 1.0,
+        "decayed_retention": 0.6983372960937497,
+        "current_understanding": {
+          "words": "True",
+          "grammar": "True",
+          "semantics": "True",
+          "context": "True",
+          "overall": "True",
+          "confidence": 1.0
+        },
+        "rehearsal_applied": "True"
+      }
+    ]
+  },
+  "conversation_capability": {
+    "tests_completed": 4,
+    "responses_generated": [
+      {
+        "input": "hello how are you",
+        "response": "I need to think about that."
+      },
+      {
+        "input": "what do you like to do",
+        "response": "I need to think about that."
+      },
+      {
+        "input": "i am happy today",
+        "response": "I understand how you feel."
+      },
+      {
+        "input": "the weather is nice",
+        "response": "Tell me more about the weather."
+      }
+    ]
+  },
+  "grammar_patterns": {
+    "complex_sentence": {
+      "examples": [
+        "the cat runs",
+        "she walks slowly",
+        "what do you like",
+        "where is the house",
+        "how are you today",
+        "hello how are you",
+        "i am happy today",
+        "the weather is nice"
+      ],
+      "confidence": 1.0,
+      "usage_count": 8
+    },
+    "simple_sentence": {
+      "examples": [
+        "dogs eat food",
+        "i like books"
+      ],
+      "confidence": 0.4,
+      "usage_count": 2
+    },
+    "compound_sentence": {
+      "examples": [
+        "the big dog runs quickly",
+        "i really like the new book",
+        "she walks to the old house",
+        "the red car goes very fast",
+        "the cat runs and the dog walks",
+        "i eat food but she drinks water",
+        "he reads books because he likes them",
+        "what do you like to do"
+      ],
+      "confidence": 1.0,
+      "usage_count": 8
+    }
+  },
+  "achievement": "\ud83c\udf1f EXCELLENT - Advanced language understanding achieved",
+  "learning_session": {
+    "start_time": "2025-08-14 09:04:36.029481",
+    "sentences_learned": 18,
+    "grammar_rules_acquired": 0,
+    "conversations_completed": 0
+  }
+}
