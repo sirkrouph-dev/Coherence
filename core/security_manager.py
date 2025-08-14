@@ -3,7 +3,6 @@ Security manager for the neuromorphic programming system.
 Provides input validation, sanitization, and secure operations.
 """
 
-import hashlib
 import os
 import re
 from pathlib import Path
@@ -57,7 +56,8 @@ class SecurityManager:
                 # Sanitize string input
                 if len(value) > SecurityManager.MAX_STRING_LENGTH:
                     raise ValueError(
-                        f"String too long: {len(value)} > {SecurityManager.MAX_STRING_LENGTH}"
+                        f"String too long: {len(value)} > "
+                        f"{SecurityManager.MAX_STRING_LENGTH}"
                     )
                 # Remove potentially dangerous characters
                 value = re.sub(r"[<>\"\'`]", "", value)
@@ -388,7 +388,7 @@ class ResourceLimiter:
         # Calculate size in bytes
         num_elements = np.prod(shape)
         bytes_per_element = np.dtype(dtype).itemsize
-        size_bytes = num_elements * bytes_per_element
+        size_bytes = int(num_elements * bytes_per_element)
 
         return self.check_memory_allocation(size_bytes)
 
@@ -413,7 +413,7 @@ class ResourceLimiter:
 
             mempool = cp.get_default_memory_pool()
             stats["gpu_memory_used_mb"] = mempool.used_bytes() / (1024 * 1024)
-        except:
+        except ImportError:
             stats["gpu_memory_used_mb"] = 0
 
         return stats
