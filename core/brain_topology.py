@@ -498,6 +498,31 @@ class ExcitatoryInhibitoryBalance:
             'martinotti': 0.15   # Martinotti cells (dendritic inhibition)
         }
         
+        # Inhibitory neuron properties
+        self.inhibitory_properties = {
+            'basket': {
+                'target_location': 'soma',  # Perisomatic inhibition
+                'time_constant': 10.0,      # Fast spiking
+                'threshold': -50.0,         # Low threshold
+                'adaptation': 0.0,          # Minimal adaptation
+                'connection_range': 50.0    # Local connections
+            },
+            'chandelier': {
+                'target_location': 'axon_initial_segment',  # AIS inhibition
+                'time_constant': 8.0,       # Very fast
+                'threshold': -48.0,         # Very low threshold
+                'adaptation': 0.0,          # No adaptation
+                'connection_range': 30.0    # Very local
+            },
+            'martinotti': {
+                'target_location': 'dendrites',  # Dendritic inhibition
+                'time_constant': 20.0,      # Slower dynamics
+                'threshold': -55.0,         # Higher threshold
+                'adaptation': 0.2,          # Some adaptation
+                'connection_range': 100.0   # Longer range connections
+            }
+        }
+        
     def calculate_population_sizes(self, total_neurons: int) -> Dict[str, int]:
         """
         Calculate population sizes maintaining E/I balance.
@@ -551,6 +576,125 @@ class ExcitatoryInhibitoryBalance:
             'connection_type': conn_type
         }
         
+    def get_inhibitory_neuron_parameters(self, inhibitory_type: str) -> Dict[str, Any]:
+        """
+        Get parameters for specific inhibitory neuron types.
+        
+        Args:
+            inhibitory_type: Type of inhibitory neuron ('basket', 'chandelier', 'martinotti')
+            
+        Returns:
+            Neuron parameters for the specified type
+        """
+        if inhibitory_type not in self.inhibitory_properties:
+            raise ValueError(f"Unknown inhibitory type: {inhibitory_type}")
+            
+        base_params = self.inhibitory_properties[inhibitory_type].copy()
+        
+        # Add common inhibitory neuron parameters (mapped to LIF parameter names)
+        base_params.update({
+            'neuron_type': 'lif',  # Use LIF for inhibitory neurons
+            'tau_m': base_params['time_constant'],  # Map time_constant to tau_m
+            'v_rest': -70.0,       # Resting potential
+            'v_thresh': base_params['threshold'],   # Map threshold to v_thresh
+            'v_reset': -70.0,      # Reset potential
+            'refractory_period': 2.0
+        })
+        
+        # Remove the original parameter names that don't match LIF constructor
+        base_params.pop('time_constant', None)
+        base_params.pop('threshold', None)
+        
+        return base_params
+        
+    def create_inhibitory_populations(
+        self, 
+        total_inhibitory: int,
+        spatial_layout: Optional['SpatialNetworkLayout'] = None
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Create populations of different inhibitory neuron types.
+        
+        Args:
+            total_inhibitory: Total number of inhibitory neurons
+            spatial_layout: Optional spatial layout for positioning
+            
+        Returns:
+            Dictionary with inhibitory populations
+        """
+        populations = {}
+        
+        # Calculate population sizes
+        pop_sizes = {
+            'basket': int(total_inhibitory * self.inhibitory_types['basket']),
+            'chandelier': int(total_inhibitory * self.inhibitory_types['chandelier']),
+            'martinotti': total_inhibitory - int(total_inhibitory * self.inhibitory_types['basket']) - int(total_inhibitory * self.inhibitory_types['chandelier'])
+        }
+        
+        neuron_id = 0
+        for inh_type, size in pop_sizes.items():
+            if size > 0:
+                # Get neuron parameters for this type
+                params = self.get_inhibitory_neuron_parameters(inh_type)
+                
+                # Create neuron IDs
+                neuron_ids = list(range(neuron_id, neuron_id + size))
+                neuron_id += size
+                
+                populations[inh_type] = {
+                    'size': size,
+                    'neuron_ids': neuron_ids,
+                    'parameters': params,
+                    'type': inh_type
+                }
+                
+        return populations
+        
+    def calculate_ei_activity_balance(
+        self, 
+        excitatory_activity: float, 
+        inhibitory_activity: float,
+        target_balance: float = 1.0
+    ) -> Dict[str, float]:
+        """
+        Calculate E/I activity balance and suggest adjustments.
+        
+        Args:
+            excitatory_activity: Average excitatory firing rate
+            inhibitory_activity: Average inhibitory firing rate
+            target_balance: Target E/I activity ratio
+            
+        Returns:
+            Balance analysis and adjustment suggestions
+        """
+        if inhibitory_activity == 0:
+            ei_ratio = float('inf') if excitatory_activity > 0 else 0
+        else:
+            ei_ratio = excitatory_activity / inhibitory_activity
+            
+        balance_error = abs(ei_ratio - target_balance)
+        
+        # Suggest adjustments
+        if ei_ratio > target_balance * 1.2:  # Too much excitation
+            suggestion = 'increase_inhibition'
+            adjustment_factor = ei_ratio / target_balance
+        elif ei_ratio < target_balance * 0.8:  # Too much inhibition
+            suggestion = 'increase_excitation'
+            adjustment_factor = target_balance / ei_ratio
+        else:
+            suggestion = 'balanced'
+            adjustment_factor = 1.0
+            
+        return {
+            'ei_ratio': ei_ratio,
+            'target_ratio': target_balance,
+            'balance_error': balance_error,
+            'balance_quality': max(0, 1.0 - balance_error / target_balance),
+            'suggestion': suggestion,
+            'adjustment_factor': adjustment_factor,
+            'is_balanced': balance_error < target_balance * 0.2
+        }
+        
     def validate_ei_balance(self, network_stats: Dict[str, Any]) -> Dict[str, float]:
         """
         Validate that network maintains proper E/I balance.
@@ -598,6 +742,501 @@ class ExcitatoryInhibitoryBalance:
         }
 
 
+class ModularNetworkArchitecture:
+    """
+    System for creating modular network architectures with hierarchical organization.
+    
+    Features:
+    - Dense intra-module connectivity (high clustering)
+    - Sparse inter-module connections (long-range)
+    - Hierarchical module organization
+    - Small-world network properties
+    """
+    
+    def __init__(self):
+        """Initialize modular network architecture system."""
+        # Modular connectivity parameters
+        self.intra_module_probability = 0.3  # High connectivity within modules
+        self.inter_module_probability = 0.02  # Sparse connectivity between modules
+        self.hub_probability = 0.1  # Probability of hub connections
+        
+        # Small-world parameters
+        self.rewiring_probability = 0.1  # For small-world rewiring
+        self.clustering_target = 0.6  # Target clustering coefficient
+        self.path_length_target = 3.0  # Target average path length
+        
+        # Hierarchical parameters
+        self.hierarchy_levels = 3  # Number of hierarchical levels
+        self.modules_per_level = [4, 2, 1]  # Modules at each level
+        
+        # Storage for created modules and connections
+        self.modules = {}
+        self.inter_module_connections = {}
+        self.hierarchy_levels_map = {}
+        
+    def create_modular_layout(
+        self, 
+        total_neurons: int, 
+        num_modules: int = 4,
+        module_separation: float = 100.0,
+        module_radius: float = 30.0
+    ) -> Tuple[Dict[int, SpatialPosition], Dict[str, NetworkModule]]:
+        """
+        Create spatial layout with modular organization.
+        
+        Args:
+            total_neurons: Total number of neurons
+            num_modules: Number of modules to create
+            module_separation: Distance between module centers
+            module_radius: Radius of each module
+            
+        Returns:
+            Tuple of (neuron_positions, modules)
+        """
+        neurons_per_module = total_neurons // num_modules
+        positions = {}
+        modules = {}
+        
+        # Create module centers in a grid or circular arrangement
+        if num_modules <= 4:
+            # Circular arrangement for small numbers
+            angles = np.linspace(0, 2*np.pi, num_modules, endpoint=False)
+            centers = [
+                SpatialPosition(
+                    x=module_separation * np.cos(angle),
+                    y=module_separation * np.sin(angle),
+                    z=0.0
+                )
+                for angle in angles
+            ]
+        else:
+            # Grid arrangement for larger numbers
+            grid_size = int(np.ceil(np.sqrt(num_modules)))
+            centers = []
+            for i in range(num_modules):
+                row = i // grid_size
+                col = i % grid_size
+                centers.append(SpatialPosition(
+                    x=col * module_separation,
+                    y=row * module_separation,
+                    z=0.0
+                ))
+        
+        # Distribute neurons within modules
+        neuron_id = 0
+        for module_idx, center in enumerate(centers):
+            if module_idx == num_modules - 1:
+                # Last module gets remaining neurons
+                module_neurons = total_neurons - neuron_id
+            else:
+                module_neurons = neurons_per_module
+                
+            module_neuron_ids = []
+            
+            # Position neurons within module using Gaussian distribution
+            for _ in range(module_neurons):
+                # Gaussian distribution around module center
+                angle = np.random.uniform(0, 2*np.pi)
+                radius = np.random.exponential(module_radius / 3)  # Exponential for realistic density
+                radius = min(radius, module_radius)  # Cap at module radius
+                
+                x = center.x + radius * np.cos(angle)
+                y = center.y + radius * np.sin(angle)
+                z = center.z + np.random.normal(0, 5.0)  # Small z variation
+                
+                positions[neuron_id] = SpatialPosition(x=x, y=y, z=z)
+                module_neuron_ids.append(neuron_id)
+                neuron_id += 1
+                
+            # Create module
+            module = NetworkModule(
+                name=f"module_{module_idx}",
+                center_position=center,
+                radius=module_radius,
+                neuron_ids=module_neuron_ids,
+                excitatory_fraction=0.8
+            )
+            modules[module.name] = module
+            
+        return positions, modules
+        
+    def compute_modular_connectivity(
+        self,
+        modules: Dict[str, NetworkModule],
+        neuron_positions: Dict[int, SpatialPosition]
+    ) -> Dict[Tuple[int, int], float]:
+        """
+        Compute modular connectivity matrix with intra/inter-module structure.
+        
+        Args:
+            modules: Dictionary of network modules
+            neuron_positions: Neuron position mapping
+            
+        Returns:
+            Dictionary mapping (pre_id, post_id) to connection strength
+        """
+        connections = {}
+        
+        # Create neuron-to-module mapping
+        neuron_to_module = {}
+        for module_name, module in modules.items():
+            for neuron_id in module.neuron_ids:
+                neuron_to_module[neuron_id] = module_name
+                
+        # Generate connections
+        all_neuron_ids = list(neuron_positions.keys())
+        
+        for pre_id in all_neuron_ids:
+            for post_id in all_neuron_ids:
+                if pre_id == post_id:
+                    continue
+                    
+                pre_module = neuron_to_module.get(pre_id)
+                post_module = neuron_to_module.get(post_id)
+                
+                if pre_module == post_module:
+                    # Intra-module connection
+                    base_prob = self.intra_module_probability
+                else:
+                    # Inter-module connection
+                    base_prob = self.inter_module_probability
+                    
+                # Distance-dependent modulation
+                distance = neuron_positions[pre_id].distance_to(neuron_positions[post_id])
+                distance_factor = np.exp(-distance / 50.0)  # 50μm spatial scale
+                
+                # Final connection probability
+                connection_prob = base_prob * distance_factor
+                
+                # Stochastic connection
+                if np.random.random() < connection_prob:
+                    # Weight based on connection type
+                    if pre_module == post_module:
+                        weight = np.random.normal(1.0, 0.2)  # Strong intra-module
+                    else:
+                        weight = np.random.normal(0.5, 0.1)  # Weaker inter-module
+                        
+                    connections[(pre_id, post_id)] = max(0.1, weight)
+                    
+        return connections
+        
+    def add_small_world_rewiring(
+        self,
+        connections: Dict[Tuple[int, int], float],
+        rewiring_prob: Optional[float] = None
+    ) -> Dict[Tuple[int, int], float]:
+        """
+        Add small-world rewiring to create shortcuts between distant modules.
+        
+        Args:
+            connections: Existing connection dictionary
+            rewiring_prob: Probability of rewiring each connection
+            
+        Returns:
+            Updated connections with small-world properties
+        """
+        if rewiring_prob is None:
+            rewiring_prob = self.rewiring_probability
+            
+        rewired_connections = connections.copy()
+        all_neuron_ids = list(set([pre for pre, post in connections.keys()] + 
+                                 [post for pre, post in connections.keys()]))
+        
+        # Rewire some connections to create shortcuts
+        connections_to_rewire = list(connections.keys())
+        np.random.shuffle(connections_to_rewire)
+        
+        num_to_rewire = int(len(connections_to_rewire) * rewiring_prob)
+        
+        for i in range(num_to_rewire):
+            old_connection = connections_to_rewire[i]
+            pre_id, old_post_id = old_connection
+            old_weight = connections[old_connection]
+            
+            # Remove old connection
+            if old_connection in rewired_connections:
+                del rewired_connections[old_connection]
+                
+            # Create new random connection (shortcut)
+            possible_targets = [nid for nid in all_neuron_ids if nid != pre_id]
+            if possible_targets:
+                new_post_id = np.random.choice(possible_targets)
+                
+                # Add new connection with similar weight
+                new_connection = (pre_id, new_post_id)
+                if new_connection not in rewired_connections:
+                    rewired_connections[new_connection] = old_weight
+                
+        return rewired_connections
+        
+    def analyze_network_properties(
+        self,
+        connections: Dict[Tuple[int, int], float],
+        modules: Dict[str, NetworkModule]
+    ) -> Dict[str, float]:
+        """
+        Analyze small-world and modular properties of the network.
+        
+        Args:
+            connections: Network connections
+            modules: Network modules
+            
+        Returns:
+            Dictionary with network analysis metrics
+        """
+        # Build adjacency list
+        adjacency = {}
+        all_neurons = set()
+        
+        for (pre, post), weight in connections.items():
+            all_neurons.add(pre)
+            all_neurons.add(post)
+            if pre not in adjacency:
+                adjacency[pre] = []
+            adjacency[pre].append(post)
+            
+        # Ensure all neurons are in adjacency list
+        for neuron in all_neurons:
+            if neuron not in adjacency:
+                adjacency[neuron] = []
+                
+        # Calculate clustering coefficient
+        clustering_coefficients = []
+        for neuron in all_neurons:
+            neighbors = adjacency[neuron]
+            if len(neighbors) < 2:
+                clustering_coefficients.append(0.0)
+                continue
+                
+            # Count triangles
+            triangles = 0
+            possible_triangles = len(neighbors) * (len(neighbors) - 1) // 2
+            
+            for i, neighbor1 in enumerate(neighbors):
+                for neighbor2 in neighbors[i+1:]:
+                    if neighbor2 in adjacency.get(neighbor1, []):
+                        triangles += 1
+                        
+            clustering = triangles / possible_triangles if possible_triangles > 0 else 0.0
+            clustering_coefficients.append(clustering)
+            
+        # Handle empty case
+        avg_clustering = np.mean(clustering_coefficients) if clustering_coefficients else 0.0
+        if np.isnan(avg_clustering):
+            avg_clustering = 0.0
+        
+        # Calculate average path length (simplified BFS)
+        path_lengths = []
+        sample_size = min(100, len(all_neurons))  # Sample for efficiency
+        sampled_neurons = np.random.choice(list(all_neurons), sample_size, replace=False)
+        
+        for start_neuron in sampled_neurons:
+            # BFS to find shortest paths
+            visited = {start_neuron}
+            queue = [(start_neuron, 0)]
+            distances = []
+            
+            while queue and len(distances) < 50:  # Limit for efficiency
+                current, distance = queue.pop(0)
+                
+                for neighbor in adjacency.get(current, []):
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        queue.append((neighbor, distance + 1))
+                        distances.append(distance + 1)
+                        
+            if distances:
+                path_lengths.extend(distances)
+                
+        avg_path_length = np.mean(path_lengths) if path_lengths else 0.0
+        if np.isnan(avg_path_length):
+            avg_path_length = 0.0
+        
+        # Calculate modularity
+        intra_module_connections = 0
+        inter_module_connections = 0
+        
+        neuron_to_module = {}
+        for module_name, module in modules.items():
+            for neuron_id in module.neuron_ids:
+                neuron_to_module[neuron_id] = module_name
+                
+        for (pre, post) in connections.keys():
+            if neuron_to_module.get(pre) == neuron_to_module.get(post):
+                intra_module_connections += 1
+            else:
+                inter_module_connections += 1
+                
+        total_connections = intra_module_connections + inter_module_connections
+        modularity = intra_module_connections / total_connections if total_connections > 0 else 0.0
+        
+        # Small-world index
+        small_world_index = avg_clustering / avg_path_length if avg_path_length > 0 else 0.0
+        
+        return {
+            'clustering_coefficient': avg_clustering,
+            'average_path_length': avg_path_length,
+            'modularity': modularity,
+            'small_world_index': small_world_index,
+            'total_connections': total_connections,
+            'intra_module_connections': intra_module_connections,
+            'inter_module_connections': inter_module_connections
+        }
+        
+    def create_hierarchical_modules(
+        self, 
+        total_neurons: int,
+        hierarchy_levels: int = 3,
+        modules_per_level: List[int] = None,
+        module_size_range: Tuple[int, int] = (50, 200)
+    ) -> Dict[str, NetworkModule]:
+        """
+        Create hierarchical module structure.
+        
+        Args:
+            total_neurons: Total number of neurons to distribute
+            hierarchy_levels: Number of hierarchical levels
+            modules_per_level: Number of modules at each level (if None, auto-calculate)
+            module_size_range: (min, max) neurons per module
+            
+        Returns:
+            Dictionary of created modules
+        """
+        if modules_per_level is None:
+            # Auto-calculate modules per level (more at lower levels)
+            modules_per_level = []
+            for level in range(hierarchy_levels):
+                # More modules at lower levels (sensory), fewer at higher levels (cognitive)
+                num_modules = max(1, int(8 / (level + 1)))
+                modules_per_level.append(num_modules)
+                
+        # Distribute neurons across hierarchy
+        total_modules = sum(modules_per_level)
+        neurons_per_module = total_neurons // total_modules
+        
+        modules = {}
+        neuron_id = 0
+        
+        for level in range(hierarchy_levels):
+            level_modules = modules_per_level[level]
+            
+            for module_idx in range(level_modules):
+                module_name = f"L{level}_M{module_idx}"
+                
+                # Calculate module size (vary within range)
+                if module_idx == level_modules - 1:  # Last module gets remaining
+                    remaining_neurons = total_neurons - neuron_id
+                    module_size = min(remaining_neurons, 
+                                    np.random.randint(module_size_range[0], module_size_range[1] + 1))
+                else:
+                    module_size = min(neurons_per_module,
+                                    np.random.randint(module_size_range[0], module_size_range[1] + 1))
+                    
+                # Create module neuron IDs
+                module_neuron_ids = list(range(neuron_id, neuron_id + module_size))
+                neuron_id += module_size
+                
+                # Create module with spatial position
+                # Higher levels are more centrally located
+                center_x = 50 + (level - hierarchy_levels/2) * 20
+                center_y = 50 + (module_idx - level_modules/2) * 30
+                center_z = level * 15  # Vertical hierarchy
+                
+                module = NetworkModule(
+                    name=module_name,
+                    center_position=SpatialPosition(center_x, center_y, center_z),
+                    radius=20.0 + level * 5,  # Larger modules at higher levels
+                    neuron_ids=module_neuron_ids
+                )
+                
+                modules[module_name] = module
+                self.hierarchy_levels_map[module_name] = level
+                
+        self.modules = modules
+        return modules
+        
+    def create_small_world_connections(
+        self,
+        modules: Dict[str, NetworkModule],
+        spatial_layout: SpatialNetworkLayout
+    ) -> Dict[Tuple[str, str], Dict[str, float]]:
+        """
+        Create small-world connections between modules.
+        
+        Args:
+            modules: Dictionary of network modules
+            spatial_layout: Spatial layout for distance calculations
+            
+        Returns:
+            Dictionary of inter-module connections with parameters
+        """
+        connections = {}
+        module_names = list(modules.keys())
+        
+        # 1. Create local clustering (nearby modules strongly connected)
+        for i, module1_name in enumerate(module_names):
+            module1 = modules[module1_name]
+            
+            for j, module2_name in enumerate(module_names[i+1:], i+1):
+                module2 = modules[module2_name]
+                
+                # Calculate distance between module centers
+                distance = module1.center_position.distance_to(module2.center_position)
+                
+                # Local clustering: high probability for nearby modules
+                if distance < 50.0:  # Local neighborhood
+                    connection_prob = 0.8 * np.exp(-distance / 30.0)
+                else:
+                    connection_prob = 0.05 * np.exp(-distance / 100.0)
+                    
+                # Hierarchical bias: same level modules connect more
+                level1 = self.hierarchy_levels_map[module1_name]
+                level2 = self.hierarchy_levels_map[module2_name]
+                
+                if level1 == level2:
+                    connection_prob *= 2.0  # Same level bonus
+                elif abs(level1 - level2) == 1:
+                    connection_prob *= 1.5  # Adjacent level bonus
+                    
+                # Stochastic connection
+                if np.random.random() < connection_prob:
+                    connections[(module1_name, module2_name)] = {
+                        'connection_probability': connection_prob,
+                        'distance': distance,
+                        'level_difference': abs(level1 - level2),
+                        'connection_type': 'local' if distance < 50.0 else 'long_range'
+                    }
+                    
+        # 2. Add long-range connections for small-world property
+        num_long_range = int(len(module_names) * self.rewiring_probability)
+        
+        for _ in range(num_long_range):
+            # Random long-range connection
+            module1_name = np.random.choice(module_names)
+            module2_name = np.random.choice(module_names)
+            
+            if module1_name != module2_name:
+                connection_key = tuple(sorted([module1_name, module2_name]))
+                
+                if connection_key not in connections:
+                    module1 = modules[module1_name]
+                    module2 = modules[module2_name]
+                    distance = module1.center_position.distance_to(module2.center_position)
+                    
+                    level1 = self.hierarchy_levels_map[module1_name]
+                    level2 = self.hierarchy_levels_map[module2_name]
+                    
+                    connections[connection_key] = {
+                        'connection_probability': 0.1,  # Weak long-range
+                        'distance': distance,
+                        'level_difference': abs(level1 - level2),
+                        'connection_type': 'long_range'
+                    }
+                    
+        self.inter_module_connections = connections
+        return connections
+
+
 class BrainInspiredNetworkBuilder:
     """
     Builder for creating brain-inspired network architectures.
@@ -612,6 +1251,7 @@ class BrainInspiredNetworkBuilder:
         self.connectivity_builder = None
         self.network = None
         self.ei_balance = ExcitatoryInhibitoryBalance()
+        self.modular_architecture = ModularNetworkArchitecture()
         
     def create_cortical_network(
         self,
@@ -963,3 +1603,526 @@ class BrainInspiredNetworkBuilder:
             validation['overall_quality'] = 'poor'
             
         return validation
+        
+    def create_modular_cortical_network(
+        self,
+        total_neurons: int = 1000,
+        hierarchy_levels: int = 3,
+        modules_per_level: Optional[List[int]] = None,
+        excitatory_fraction: Optional[float] = None,
+        spatial_bounds: Tuple[float, float, float] = (300.0, 300.0, 100.0),
+        create_small_world: bool = True,
+        **kwargs
+    ) -> NeuromorphicNetwork:
+        """
+        Create a modular cortical network with hierarchical organization and small-world properties.
+        
+        Args:
+            total_neurons: Total number of neurons
+            hierarchy_levels: Number of hierarchical levels
+            modules_per_level: Number of modules at each level
+            excitatory_fraction: Fraction of excitatory neurons
+            spatial_bounds: (width, height, depth) of spatial area
+            create_small_world: Whether to add small-world connections
+            **kwargs: Additional parameters
+            
+        Returns:
+            Modular neuromorphic network
+        """
+        # Use default E/I balance if not specified
+        if excitatory_fraction is not None:
+            self.ei_balance.excitatory_fraction = excitatory_fraction
+            self.ei_balance.inhibitory_fraction = 1.0 - excitatory_fraction
+            
+        # Create hierarchical modules
+        modules = self.modular_architecture.create_hierarchical_modules(
+            total_neurons, hierarchy_levels, modules_per_level
+        )
+        
+        # Create spatial layout for the entire network
+        self.spatial_layout = SpatialNetworkLayout(dimensions=3, bounds=spatial_bounds)
+        
+        # Position neurons based on their module assignments
+        positions = {}
+        for module in modules.values():
+            # Create clustered layout for each module
+            module_positions = self._create_module_spatial_layout(
+                module, self.spatial_layout
+            )
+            positions.update(module_positions)
+            
+        # Update spatial layout with all positions
+        self.spatial_layout.neuron_positions.update(positions)
+        
+        # Create connectivity builder
+        self.connectivity_builder = DistanceDependentConnectivity(self.spatial_layout)
+        self._configure_ei_connectivity_parameters()
+        
+        # Create network
+        self.network = NeuromorphicNetwork()
+        
+        # Create layers for each module
+        self._create_modular_layers(modules)
+        
+        # Create intra-module connections (standard E/I)
+        self._create_intra_module_connections(modules)
+        
+        # Create inter-module connections
+        if create_small_world:
+            inter_module_connections = self.modular_architecture.create_small_world_connections(
+                modules, self.spatial_layout
+            )
+            self._create_inter_module_connections(inter_module_connections, modules)
+            
+        return self.network
+        
+    def _create_module_spatial_layout(
+        self, 
+        module: NetworkModule, 
+        spatial_layout: SpatialNetworkLayout
+    ) -> Dict[int, SpatialPosition]:
+        """
+        Create spatial layout for neurons within a module.
+        
+        Args:
+            module: Network module
+            spatial_layout: Global spatial layout
+            
+        Returns:
+            Dictionary mapping neuron IDs to positions
+        """
+        positions = {}
+        center = module.center_position
+        radius = module.radius
+        
+        for i, neuron_id in enumerate(module.neuron_ids):
+            # Random position within module radius
+            angle = np.random.uniform(0, 2 * np.pi)
+            distance = np.random.uniform(0, radius)
+            
+            x = center.x + distance * np.cos(angle)
+            y = center.y + distance * np.sin(angle)
+            z = center.z + np.random.normal(0, radius * 0.1)  # Small z variation
+            
+            # Keep within global bounds
+            x = np.clip(x, 0, spatial_layout.bounds[0])
+            y = np.clip(y, 0, spatial_layout.bounds[1])
+            z = np.clip(z, 0, spatial_layout.bounds[2])
+            
+            positions[neuron_id] = SpatialPosition(x, y, z)
+            
+        return positions
+        
+    def _create_modular_layers(self, modules: Dict[str, NetworkModule]):
+        """Create network layers for each module with detailed E/I populations."""
+        for module_name, module in modules.items():
+            module_size = len(module.neuron_ids)
+            
+            # Calculate detailed E/I populations for this module
+            module_populations = self.ei_balance.calculate_population_sizes(module_size)
+            
+            # Create excitatory layer for this module
+            if module_populations['excitatory'] > 0:
+                self.network.add_layer(
+                    f"{module_name}_excitatory",
+                    module_populations['excitatory'],
+                    neuron_type="adex"
+                )
+                
+            # Create specific inhibitory neuron type layers
+            inhibitory_populations = self.ei_balance.create_inhibitory_populations(
+                module_populations['inhibitory_total'], self.spatial_layout
+            )
+            
+            for inh_type, pop_info in inhibitory_populations.items():
+                if pop_info['size'] > 0:
+                    layer_name = f"{module_name}_{inh_type}_cells"
+                    
+                    # Use parameters specific to inhibitory type
+                    params = pop_info['parameters']
+                    
+                    # Extract neuron parameters (only include LIF-compatible parameters)
+                    lif_compatible_params = ['tau_m', 'v_rest', 'v_thresh', 'v_reset', 'refractory_period']
+                    neuron_params = {k: v for k, v in params.items() 
+                                   if k in lif_compatible_params}
+                    
+                    self.network.add_layer(
+                        layer_name,
+                        pop_info['size'],
+                        neuron_type=params['neuron_type'],
+                        **neuron_params
+                    )
+                    
+    def _create_intra_module_connections(self, modules: Dict[str, NetworkModule]):
+        """Create connections within each module."""
+        for module_name, module in modules.items():
+            exc_layer = f"{module_name}_excitatory"
+            
+            # Get all inhibitory layers for this module
+            inhibitory_types = ['basket_cells', 'chandelier_cells', 'martinotti_cells']
+            inh_layers = {}
+            for inh_type in inhibitory_types:
+                layer_name = f"{module_name}_{inh_type}"
+                if layer_name in self.network.layers:
+                    inh_layers[inh_type] = layer_name
+            
+            # Intra-module connections (dense)
+            if exc_layer in self.network.layers:
+                # E→E connections
+                self._add_ei_connection(exc_layer, exc_layer, "E_to_E")
+                
+                # E→I connections (to all inhibitory types)
+                for inh_type, inh_layer in inh_layers.items():
+                    self._add_ei_connection(exc_layer, inh_layer, "E_to_I")
+                    
+                # I→E connections (from all inhibitory types)
+                for inh_type, inh_layer in inh_layers.items():
+                    self._add_ei_connection(inh_layer, exc_layer, "I_to_E")
+                    
+                # I→I connections (between inhibitory types)
+                inh_layer_names = list(inh_layers.values())
+                for i, inh_layer1 in enumerate(inh_layer_names):
+                    for j, inh_layer2 in enumerate(inh_layer_names):
+                        if i != j:  # Different inhibitory types
+                            self._add_ei_connection(inh_layer1, inh_layer2, "I_to_I")
+                            
+    def _create_inter_module_connections(
+        self, 
+        inter_connections: Dict[Tuple[str, str], Dict[str, float]], 
+        modules: Dict[str, NetworkModule]
+    ):
+        """Create connections between modules."""
+        for (module1_name, module2_name), conn_info in inter_connections.items():
+            # Get layer names
+            exc1_layer = f"{module1_name}_excitatory"
+            exc2_layer = f"{module2_name}_excitatory"
+            
+            # Check if layers exist
+            if (exc1_layer in self.network.layers and 
+                exc2_layer in self.network.layers):
+                
+                # Inter-module connections are typically excitatory
+                connection_prob = conn_info['connection_probability'] * 0.1  # Weaker than intra-module
+                
+                # Bidirectional excitatory connections
+                self.network.connect_layers(
+                    exc1_layer,
+                    exc2_layer,
+                    synapse_type="stdp",
+                    connection_probability=connection_prob,
+                    weight=0.5  # Weaker inter-module weights
+                )
+                
+                self.network.connect_layers(
+                    exc2_layer,
+                    exc1_layer,
+                    synapse_type="stdp",
+                    connection_probability=connection_prob,
+                    weight=0.5
+                )
+        
+    def create_ei_balanced_network(
+        self,
+        total_neurons: int = 1000,
+        spatial_bounds: Tuple[float, float, float] = (200.0, 200.0, 50.0),
+        excitatory_fraction: Optional[float] = None,
+        **kwargs
+    ) -> NeuromorphicNetwork:
+        """
+        Create a network with proper E/I balance and specific inhibitory neuron types.
+        
+        Args:
+            total_neurons: Total number of neurons
+            spatial_bounds: (width, height, depth) of spatial area
+            excitatory_fraction: Fraction of excitatory neurons (default: 0.8)
+            **kwargs: Additional parameters
+            
+        Returns:
+            E/I balanced neuromorphic network
+        """
+        # Set E/I balance if specified
+        if excitatory_fraction is not None:
+            self.ei_balance.excitatory_fraction = excitatory_fraction
+            self.ei_balance.inhibitory_fraction = 1.0 - excitatory_fraction
+            
+        # Calculate population sizes
+        population_sizes = self.ei_balance.calculate_population_sizes(total_neurons)
+        
+        # Create spatial layout
+        self.spatial_layout = SpatialNetworkLayout(dimensions=3, bounds=spatial_bounds)
+        
+        # Position neurons randomly in space
+        positions = {}
+        for neuron_id in range(total_neurons):
+            x = np.random.uniform(0, spatial_bounds[0])
+            y = np.random.uniform(0, spatial_bounds[1])
+            z = np.random.uniform(0, spatial_bounds[2])
+            positions[neuron_id] = SpatialPosition(x, y, z)
+            
+        self.spatial_layout.neuron_positions = positions
+        
+        # Create connectivity builder
+        self.connectivity_builder = DistanceDependentConnectivity(self.spatial_layout)
+        self._configure_ei_connectivity_parameters()
+        
+        # Create network
+        self.network = NeuromorphicNetwork()
+        
+        # Create excitatory layer
+        if population_sizes['excitatory'] > 0:
+            self.network.add_layer(
+                "excitatory",
+                population_sizes['excitatory'],
+                neuron_type="adex"
+            )
+            
+        # Create specific inhibitory layers
+        inhibitory_populations = self.ei_balance.create_inhibitory_populations(
+            population_sizes['inhibitory_total'], self.spatial_layout
+        )
+        
+        for inh_type, pop_info in inhibitory_populations.items():
+            if pop_info['size'] > 0:
+                layer_name = f"{inh_type}_cells"
+                params = pop_info['parameters']
+                
+                # Extract neuron parameters (only include LIF-compatible parameters)
+                lif_compatible_params = ['tau_m', 'v_rest', 'v_thresh', 'v_reset', 'refractory_period']
+                neuron_params = {k: v for k, v in params.items() 
+                               if k in lif_compatible_params}
+                
+                self.network.add_layer(
+                    layer_name,
+                    pop_info['size'],
+                    neuron_type=params['neuron_type'],
+                    **neuron_params
+                )
+                
+        # Create E/I connections
+        self._create_ei_balanced_connections(inhibitory_populations)
+        
+        return self.network
+        
+    def _create_ei_balanced_connections(self, inhibitory_populations: Dict[str, Dict[str, Any]]):
+        """Create E/I balanced connections with specific inhibitory types."""
+        exc_layer = "excitatory"
+        
+        if exc_layer in self.network.layers:
+            # E→E connections
+            self._add_ei_connection(exc_layer, exc_layer, "E_to_E")
+            
+            # E→I and I→E connections for each inhibitory type
+            for inh_type, pop_info in inhibitory_populations.items():
+                inh_layer = f"{inh_type}_cells"
+                
+                if inh_layer in self.network.layers:
+                    # E→I connections
+                    self._add_ei_connection(exc_layer, inh_layer, "E_to_I")
+                    
+                    # I→E connections
+                    self._add_ei_connection(inh_layer, exc_layer, "I_to_E")
+                    
+            # I→I connections between different inhibitory types
+            inh_layer_names = [f"{inh_type}_cells" for inh_type in inhibitory_populations.keys()]
+            for i, inh_layer1 in enumerate(inh_layer_names):
+                for j, inh_layer2 in enumerate(inh_layer_names):
+                    if i != j and inh_layer1 in self.network.layers and inh_layer2 in self.network.layers:
+                        self._add_ei_connection(inh_layer1, inh_layer2, "I_to_I")
+        
+    def _create_modular_ei_layers(self, modules: Dict[str, NetworkModule], population_sizes: Dict[str, int]):
+        """Create E/I balanced layers for each module with specific inhibitory types."""
+        total_neurons = sum(len(module.neuron_ids) for module in modules.values())
+        
+        for module_name, module in modules.items():
+            module_size = len(module.neuron_ids)
+            
+            # Calculate detailed E/I populations for this module
+            module_populations = self.ei_balance.calculate_population_sizes(module_size)
+            
+            # Create excitatory layer for this module
+            if module_populations['excitatory'] > 0:
+                self.network.add_layer(
+                    f"{module_name}_excitatory",
+                    module_populations['excitatory'],
+                    neuron_type="adex"
+                )
+                
+            # Create specific inhibitory neuron type layers
+            inhibitory_populations = self.ei_balance.create_inhibitory_populations(
+                module_populations['inhibitory_total'], self.spatial_layout
+            )
+            
+            for inh_type, pop_info in inhibitory_populations.items():
+                if pop_info['size'] > 0:
+                    layer_name = f"{module_name}_{inh_type}_cells"
+                    
+                    # Use parameters specific to inhibitory type
+                    params = pop_info['parameters']
+                    
+                    # Extract neuron parameters (only include LIF-compatible parameters)
+                    lif_compatible_params = ['tau_m', 'v_rest', 'v_thresh', 'v_reset', 'refractory_period']
+                    neuron_params = {k: v for k, v in params.items() 
+                                   if k in lif_compatible_params}
+                    
+                    self.network.add_layer(
+                        layer_name,
+                        pop_info['size'],
+                        neuron_type=params['neuron_type'],
+                        **neuron_params
+                    )
+                
+    def _create_modular_connections(self, modules: Dict[str, NetworkModule], enable_small_world: bool):
+        """Create modular connections with intra/inter-module structure."""
+        # Get modular connectivity
+        modular_connections = self.modular_architecture.compute_modular_connectivity(
+            modules, self.spatial_layout.neuron_positions
+        )
+        
+        # Add small-world rewiring if enabled
+        if enable_small_world:
+            modular_connections = self.modular_architecture.add_small_world_rewiring(
+                modular_connections
+            )
+            
+        # Create connections between module layers with specific inhibitory types
+        module_names = list(modules.keys())
+        inhibitory_types = ['basket_cells', 'chandelier_cells', 'martinotti_cells']
+        
+        for module_name in module_names:
+            exc_layer = f"{module_name}_excitatory"
+            
+            # Get all inhibitory layers for this module
+            inh_layers = {}
+            for inh_type in inhibitory_types:
+                layer_name = f"{module_name}_{inh_type}"
+                if layer_name in self.network.layers:
+                    inh_layers[inh_type] = layer_name
+            
+            # Intra-module connections (dense)
+            if exc_layer in self.network.layers:
+                # E→E connections
+                self._add_ei_connection(exc_layer, exc_layer, "E_to_E")
+                
+                # E→I connections (to all inhibitory types)
+                for inh_type, inh_layer in inh_layers.items():
+                    self._add_ei_connection(exc_layer, inh_layer, "E_to_I")
+                    
+                # I→E connections (from all inhibitory types)
+                for inh_type, inh_layer in inh_layers.items():
+                    self._add_ei_connection(inh_layer, exc_layer, "I_to_E")
+                    
+                # I→I connections (between inhibitory types)
+                inh_layer_names = list(inh_layers.values())
+                for i, inh_layer1 in enumerate(inh_layer_names):
+                    for j, inh_layer2 in enumerate(inh_layer_names):
+                        if i != j:  # Different inhibitory types
+                            self._add_ei_connection(inh_layer1, inh_layer2, "I_to_I")
+                            
+        # Inter-module connections (sparse, mainly excitatory)
+        for i, module1_name in enumerate(module_names):
+            for j, module2_name in enumerate(module_names[i+1:], i+1):
+                exc1_layer = f"{module1_name}_excitatory"
+                exc2_layer = f"{module2_name}_excitatory"
+                
+                if exc1_layer in self.network.layers and exc2_layer in self.network.layers:
+                    # Sparse bidirectional excitatory connections between modules
+                    inter_module_prob = self.modular_architecture.inter_module_probability
+                    
+                    self.network.connect_layers(
+                        exc1_layer, exc2_layer,
+                        synapse_type="stdp",
+                        connection_probability=inter_module_prob,
+                        weight=0.3  # Weaker inter-module connections
+                    )
+                    
+                    self.network.connect_layers(
+                        exc2_layer, exc1_layer,
+                        synapse_type="stdp", 
+                        connection_probability=inter_module_prob,
+                        weight=0.3
+                    )
+                
+            # Intra-module E→I
+            if exc_layer in self.network.layers and inh_layer in self.network.layers:
+                self._add_modular_connection(
+                    exc_layer, inh_layer, "E_to_I", 
+                    self.modular_architecture.intra_module_probability * 1.5
+                )
+                
+            # Intra-module I→E
+            if inh_layer in self.network.layers and exc_layer in self.network.layers:
+                self._add_modular_connection(
+                    inh_layer, exc_layer, "I_to_E", 
+                    self.modular_architecture.intra_module_probability * 1.2
+                )
+                
+            # Intra-module I→I
+            if inh_layer in self.network.layers:
+                self._add_modular_connection(
+                    inh_layer, inh_layer, "I_to_I", 
+                    self.modular_architecture.intra_module_probability * 0.8
+                )
+                    
+    def _add_modular_connection(self, pre_layer: str, post_layer: str, connection_type: str, probability: float):
+        """Add modular connection with appropriate parameters."""
+        params = self.ei_balance.get_connection_parameters(
+            'excitatory' if 'excitatory' in pre_layer else 'inhibitory',
+            'excitatory' if 'excitatory' in post_layer else 'inhibitory'
+        )
+        
+        # Use modular probability instead of default
+        effective_probability = min(probability, 0.5)  # Cap at 50%
+        
+        self.network.connect_layers(
+            pre_layer,
+            post_layer,
+            synapse_type="stdp",
+            connection_probability=effective_probability,
+            weight=abs(params['synaptic_strength'])
+        )
+        
+    def analyze_network_modularity(self) -> Dict[str, Any]:
+        """
+        Analyze the modularity and small-world properties of the created network.
+        
+        Returns:
+            Dictionary with network analysis results
+        """
+        if self.network is None or not hasattr(self.spatial_layout, 'modules'):
+            return {'error': 'No modular network created'}
+            
+        # Extract connections from network
+        connections = {}
+        neuron_offset = 0
+        layer_neuron_mapping = {}
+        
+        # Create mapping from layer neurons to global neuron IDs
+        for layer_name, layer in self.network.layers.items():
+            layer_neuron_mapping[layer_name] = list(range(neuron_offset, neuron_offset + layer.size))
+            neuron_offset += layer.size
+            
+        # Extract connections
+        for (pre_layer, post_layer), connection in self.network.connections.items():
+            if connection.synapse_population:
+                pre_neurons = layer_neuron_mapping[pre_layer]
+                post_neurons = layer_neuron_mapping[post_layer]
+                
+                for (pre_idx, post_idx), synapse in connection.synapse_population.synapses.items():
+                    if pre_idx < len(pre_neurons) and post_idx < len(post_neurons):
+                        global_pre = pre_neurons[pre_idx]
+                        global_post = post_neurons[post_idx]
+                        connections[(global_pre, global_post)] = synapse.weight
+                        
+        # Analyze network properties
+        analysis = self.modular_architecture.analyze_network_properties(
+            connections, self.spatial_layout.modules
+        )
+        
+        # Add additional modular metrics
+        analysis.update({
+            'num_modules': len(self.spatial_layout.modules),
+            'neurons_per_module': [len(module.neuron_ids) for module in self.spatial_layout.modules.values()],
+            'module_names': list(self.spatial_layout.modules.keys())
+        })
+        
+        return analysis
