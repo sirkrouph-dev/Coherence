@@ -116,9 +116,14 @@
   - Test connectivity shows realistic distance dependence
   - _Requirements: 3.1_
 
+
+
+
 - [ ] 3.2 Create Excitatory/Inhibitory Balance
   - Implement 80% excitatory, 20% inhibitory neuron populations
   - Set appropriate connection probabilities for E→E, E→I, I→E, I→I
+
+
   - Add inhibitory neuron types (basket, chandelier cells)
   - Test network maintains stable activity with E/I balance
   - _Requirements: 3.2_
