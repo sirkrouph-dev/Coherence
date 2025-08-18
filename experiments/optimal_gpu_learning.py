@@ -16,6 +16,7 @@ import time
 import psutil
 import os
 import gc
+import traceback
 
 # GPU acceleration
 try:
@@ -58,11 +59,11 @@ class OptimalLearningNetwork:
         
         # Generate sparse connections
         self.pre_indices = self.xp.random.randint(
-            0, self.num_neurons, self.num_synapses, dtype=self.xp.int32
-        )
+            0, self.num_neurons, self.num_synapses
+        ).astype(self.xp.int32)
         self.post_indices = self.xp.random.randint(
-            0, self.num_neurons, self.num_synapses, dtype=self.xp.int32
-        )
+            0, self.num_neurons, self.num_synapses
+        ).astype(self.xp.int32)
         
         # Initialize weights for learning
         self.weights = self.xp.random.random(self.num_synapses).astype(self.xp.float32) * 0.2
@@ -224,7 +225,11 @@ class OptimalLearningNetwork:
     def cleanup(self):
         """Clean up GPU memory"""
         if GPU_AVAILABLE:
-            cp.get_default_memory_pool().free_all_blocks()
+            try:
+                import cupy as real_cp
+                real_cp.get_default_memory_pool().free_all_blocks()
+            except (ImportError, AttributeError):
+                pass
         gc.collect()
 
 def main():
@@ -271,7 +276,11 @@ def main():
     finally:
         # Final cleanup
         if GPU_AVAILABLE:
-            cp.get_default_memory_pool().free_all_blocks()
+            try:
+                import cupy as real_cp
+                real_cp.get_default_memory_pool().free_all_blocks()
+            except (ImportError, AttributeError):
+                pass
         gc.collect()
 
 if __name__ == "__main__":
