@@ -1235,6 +1235,125 @@ class ModularNetworkArchitecture:
                     
         self.inter_module_connections = connections
         return connections
+        
+    def calculate_network_properties(self, connections: Dict) -> Dict[str, float]:
+        """
+        Calculate small-world network properties.
+        
+        Args:
+            connections: Dictionary of connections
+            
+        Returns:
+            Network property metrics
+        """
+        module_names = list(self.modules.keys())
+        n_modules = len(module_names)
+        
+        if n_modules < 2:
+            return {'clustering_coefficient': 0.0, 'average_path_length': 0.0}
+            
+        # Build adjacency matrix
+        adjacency = np.zeros((n_modules, n_modules))
+        name_to_idx = {name: i for i, name in enumerate(module_names)}
+        
+        for (mod1, mod2), conn_info in connections.items():
+            if mod1 in name_to_idx and mod2 in name_to_idx:
+                i, j = name_to_idx[mod1], name_to_idx[mod2]
+                adjacency[i, j] = adjacency[j, i] = 1
+                
+        # Calculate clustering coefficient
+        clustering_coeffs = []
+        for i in range(n_modules):
+            neighbors = np.where(adjacency[i] == 1)[0]
+            k = len(neighbors)
+            
+            if k < 2:
+                clustering_coeffs.append(0.0)
+            else:
+                # Count triangles
+                triangles = 0
+                for j in range(len(neighbors)):
+                    for l in range(j+1, len(neighbors)):
+                        if adjacency[neighbors[j], neighbors[l]] == 1:
+                            triangles += 1
+                            
+                clustering_coeff = 2 * triangles / (k * (k - 1))
+                clustering_coeffs.append(clustering_coeff)
+                
+        avg_clustering = np.mean(clustering_coeffs)
+        
+        # Calculate average path length (simplified BFS)
+        total_path_length = 0
+        path_count = 0
+        
+        for start in range(n_modules):
+            # BFS from start node
+            visited = set([start])
+            queue = [(start, 0)]
+            
+            while queue:
+                node, dist = queue.pop(0)
+                
+                for neighbor in range(n_modules):
+                    if adjacency[node, neighbor] == 1 and neighbor not in visited:
+                        visited.add(neighbor)
+                        queue.append((neighbor, dist + 1))
+                        total_path_length += dist + 1
+                        path_count += 1
+                        
+        avg_path_length = total_path_length / path_count if path_count > 0 else 0.0
+        
+        # Small-world coefficient
+        # Compare to random network with same degree
+        avg_degree = np.sum(adjacency) / n_modules
+        random_clustering = avg_degree / n_modules if n_modules > 0 else 0.0
+        random_path_length = np.log(n_modules) / np.log(avg_degree) if avg_degree > 1 else 1.0
+        
+        small_world_coeff = (avg_clustering / random_clustering) / (avg_path_length / random_path_length) if random_clustering > 0 and random_path_length > 0 else 0.0
+        
+        return {
+            'clustering_coefficient': avg_clustering,
+            'average_path_length': avg_path_length,
+            'small_world_coefficient': small_world_coeff,
+            'number_of_connections': len(connections),
+            'connection_density': len(connections) / (n_modules * (n_modules - 1) / 2) if n_modules > 1 else 0.0
+        }
+        
+    def get_module_statistics(self) -> Dict[str, Any]:
+        """
+        Get statistics about the modular architecture.
+        
+        Returns:
+            Dictionary with module statistics
+        """
+        if not self.modules:
+            return {}
+            
+        # Module size statistics
+        module_sizes = [len(module.neuron_ids) for module in self.modules.values()]
+        
+        # Hierarchy statistics
+        levels = list(self.hierarchy_levels_map.values())
+        modules_per_level = {}
+        for level in set(levels):
+            modules_per_level[f'level_{level}'] = levels.count(level)
+            
+        # Connection statistics
+        connection_types = {}
+        for conn_info in self.inter_module_connections.values():
+            conn_type = conn_info['connection_type']
+            connection_types[conn_type] = connection_types.get(conn_type, 0) + 1
+            
+        return {
+            'total_modules': len(self.modules),
+            'total_neurons': sum(module_sizes),
+            'average_module_size': np.mean(module_sizes),
+            'module_size_std': np.std(module_sizes),
+            'hierarchy_levels': len(set(levels)),
+            'modules_per_level': modules_per_level,
+            'total_inter_module_connections': len(self.inter_module_connections),
+            'connection_types': connection_types
+        }
 
 
 class BrainInspiredNetworkBuilder:
@@ -1820,6 +1939,210 @@ class BrainInspiredNetworkBuilder:
                     connection_probability=connection_prob,
                     weight=0.5
                 )
+                
+    def validate_small_world_properties(self) -> Dict[str, Any]:
+        """
+        Validate that the network exhibits small-world properties.
+        
+        Returns:
+            Dictionary with small-world validation results
+        """
+        if not hasattr(self, 'modular_architecture') or not self.modular_architecture.modules:
+            return {'error': 'No modular architecture found'}
+            
+        # Calculate network properties
+        if self.modular_architecture.inter_module_connections:
+            properties = self.modular_architecture.calculate_network_properties(
+                self.modular_architecture.inter_module_connections
+            )
+        else:
+            return {'error': 'No inter-module connections found'}
+            
+        # Small-world criteria
+        clustering = properties.get('clustering_coefficient', 0)
+        path_length = properties.get('average_path_length', 0)
+        small_world_coeff = properties.get('small_world_coefficient', 0)
+        
+        # Validation criteria
+        has_high_clustering = clustering > 0.2  # Higher than random
+        has_short_paths = path_length < 6.0     # Reasonable path length
+        has_small_world = small_world_coeff > 1.0  # Small-world index > 1
+        
+        # Overall assessment
+        small_world_quality = 0.0
+        if has_high_clustering:
+            small_world_quality += 0.4
+        if has_short_paths:
+            small_world_quality += 0.3
+        if has_small_world:
+            small_world_quality += 0.3
+            
+        return {
+            'clustering_coefficient': clustering,
+            'average_path_length': path_length,
+            'small_world_coefficient': small_world_coeff,
+            'has_high_clustering': has_high_clustering,
+            'has_short_paths': has_short_paths,
+            'has_small_world_properties': has_small_world,
+            'small_world_quality': small_world_quality,
+            'validation_passed': small_world_quality >= 0.7,
+            'network_type': self._classify_network_topology(clustering, path_length, small_world_coeff)
+        }
+        
+    def calculate_clustering_coefficient(self, adjacency_matrix: np.ndarray) -> float:
+        """
+        Calculate clustering coefficient for a network.
+        
+        Args:
+            adjacency_matrix: Binary adjacency matrix
+            
+        Returns:
+            Average clustering coefficient
+        """
+        n_nodes = adjacency_matrix.shape[0]
+        clustering_coeffs = []
+        
+        for i in range(n_nodes):
+            neighbors = np.where(adjacency_matrix[i] == 1)[0]
+            k = len(neighbors)
+            
+            if k < 2:
+                clustering_coeffs.append(0.0)
+                continue
+                
+            # Count triangles involving node i
+            triangles = 0
+            for j in range(len(neighbors)):
+                for l in range(j + 1, len(neighbors)):
+                    if adjacency_matrix[neighbors[j], neighbors[l]] == 1:
+                        triangles += 1
+                        
+            # Clustering coefficient for node i
+            possible_triangles = k * (k - 1) // 2
+            clustering = triangles / possible_triangles if possible_triangles > 0 else 0.0
+            clustering_coeffs.append(clustering)
+            
+        return np.mean(clustering_coeffs) if clustering_coeffs else 0.0
+        
+    def calculate_shortest_path_lengths(self, adjacency_matrix: np.ndarray) -> float:
+        """
+        Calculate average shortest path length using BFS.
+        
+        Args:
+            adjacency_matrix: Binary adjacency matrix
+            
+        Returns:
+            Average shortest path length
+        """
+        n_nodes = adjacency_matrix.shape[0]
+        all_path_lengths = []
+        
+        for start in range(n_nodes):
+            # BFS from start node
+            distances = [-1] * n_nodes
+            distances[start] = 0
+            queue = [start]
+            
+            while queue:
+                current = queue.pop(0)
+                current_dist = distances[current]
+                
+                # Check all neighbors
+                for neighbor in range(n_nodes):
+                    if adjacency_matrix[current, neighbor] == 1 and distances[neighbor] == -1:
+                        distances[neighbor] = current_dist + 1
+                        queue.append(neighbor)
+                        
+            # Collect path lengths (excluding unreachable nodes)
+            for dist in distances:
+                if dist > 0:  # Exclude self (distance 0) and unreachable (-1)
+                    all_path_lengths.append(dist)
+                    
+        return np.mean(all_path_lengths) if all_path_lengths else 0.0
+        
+    def calculate_small_world_index(
+        self, 
+        clustering: float, 
+        path_length: float, 
+        n_nodes: int, 
+        avg_degree: float
+    ) -> float:
+        """
+        Calculate small-world index (sigma).
+        
+        Args:
+            clustering: Actual clustering coefficient
+            path_length: Actual average path length
+            n_nodes: Number of nodes
+            avg_degree: Average degree
+            
+        Returns:
+            Small-world index
+        """
+        # Expected values for random network
+        random_clustering = avg_degree / n_nodes if n_nodes > 0 else 0.0
+        random_path_length = np.log(n_nodes) / np.log(avg_degree) if avg_degree > 1 else 1.0
+        
+        # Small-world index
+        if random_clustering > 0 and random_path_length > 0:
+            clustering_ratio = clustering / random_clustering
+            path_ratio = path_length / random_path_length
+            return clustering_ratio / path_ratio if path_ratio > 0 else 0.0
+        else:
+            return 0.0
+            
+    def get_modular_network_statistics(self) -> Dict[str, Any]:
+        """
+        Get comprehensive statistics including modular properties.
+        
+        Returns:
+            Statistics with modular network analysis
+        """
+        stats = self.get_network_statistics()
+        
+        # Add modular architecture statistics
+        if self.modular_architecture.modules:
+            module_stats = self.modular_architecture.get_module_statistics()
+            stats['modular_architecture'] = module_stats
+            
+            # Calculate small-world properties
+            if self.modular_architecture.inter_module_connections:
+                network_props = self.modular_architecture.calculate_network_properties(
+                    self.modular_architecture.inter_module_connections
+                )
+                stats['small_world_properties'] = network_props
+                
+                # Assess small-world quality
+                clustering = network_props.get('clustering_coefficient', 0)
+                path_length = network_props.get('average_path_length', 0)
+                small_world_coeff = network_props.get('small_world_coefficient', 0)
+                
+                stats['network_topology_assessment'] = {
+                    'has_small_world_properties': small_world_coeff > 1.0,
+                    'clustering_quality': 'high' if clustering > 0.2 else 'medium' if clustering > 0.1 else 'low',
+                    'path_length_efficiency': 'good' if path_length < 4.0 else 'moderate' if path_length < 6.0 else 'poor',
+                    'topology_type': self._classify_network_topology(clustering, path_length, small_world_coeff)
+                }
+                
+        return stats
+        
+    def _classify_network_topology(
+        self, 
+        clustering: float, 
+        path_length: float, 
+        small_world_coeff: float
+    ) -> str:
+        """Classify the network topology type."""
+        if small_world_coeff > 1.0 and clustering > 0.2:
+            return 'small_world'
+        elif clustering > 0.4:
+            return 'clustered'
+        elif path_length < 3.0:
+            return 'random'
+        elif clustering < 0.1 and path_length > 5.0:
+            return 'sparse'
+        else:
+            return 'intermediate'
         
     def create_ei_balanced_network(
         self,

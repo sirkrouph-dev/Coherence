@@ -131,6 +131,7 @@
   - Test network maintains stable activity with E/I balance
 
 
+
   - _Requirements: 3.2_
 
 - [ ] 3.3 Build Modular Network Architecture
