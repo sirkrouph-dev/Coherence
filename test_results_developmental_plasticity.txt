@@ -1,0 +1,51 @@
+=== Test Results for tests/test_developmental_plasticity.py ===
+Timestamp: 2025-08-22 23:05:08.588776
+
+Return Code: 0
+
+=== STDOUT ===
+[WARNING] CuPy not available - large networks (>50k neurons) will be slow
+          Install with: pip install cupy-cuda12x (for CUDA 12.x)
+          Or: pip install cupy-cuda11x (for CUDA 11.x)
+[WARNING] PyTorch not available - some GPU optimizations disabled
+
+=== Developmental Plasticity System Tests ===
+
+1. Testing Basic Component Functionality...
+  ✅ DevelopmentalTrajectory creation
+  ✅ CriticalPeriodManager creation
+
+2. Testing Developmental Plasticity System...
+DevelopmentalPlasticity system initialized
+  ✅ DevelopmentalPlasticity system creation
+  ✅ Development update and aging
+
+3. Testing Critical Period Dynamics...
+DevelopmentalPlasticity system initialized
+  ✅ Critical period modulation: 4 active periods
+  ✅ Plasticity enhancement detected during critical period
+
+4. Testing Plasticity Mechanisms...
+DevelopmentalPlasticity system initialized
+  ✅ Functional plasticity: 2 weight matrices
+
+5. Testing Developmental Phases...
+  ✅ Developmental phase transitions
+
+6. Testing State Information...
+  ✅ State info: Age 6.0w, Phase early_postnatal
+
+✅ All Developmental Plasticity tests passed!
+
+🎉 Task 9: Developmental Plasticity and Critical Periods
+All tests passed - developmental plasticity validated!
+
+Key features validated:
+  • Age-dependent plasticity with developmental phases
+  • Critical periods with enhanced plasticity windows
+  • Experience-expectant and experience-dependent plasticity
+  • Structural plasticity mechanisms
+  • Homeostatic plasticity for activity regulation
+
+
+=== STDERR ===

@@ -1,0 +1,10 @@
+=== Neuromorphic Framework Test Summary ===
+Timestamp: 2025-08-22 23:05:09.303427
+
+Total test files: 3
+Passed: 3
+Failed: 0
+
+tests/test_working_memory.py: PASSED
+tests/test_developmental_plasticity.py: PASSED
+tests/test_attention_mechanism.py: PASSED

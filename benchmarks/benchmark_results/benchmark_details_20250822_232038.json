@@ -1,0 +1,110 @@
+[
+  {
+    "config": {
+      "network_size": 1000,
+      "simulation_time": 100.0,
+      "dt": 1.0,
+      "connection_probability": 0.1,
+      "platform": "cpu",
+      "num_layers": 3,
+      "neurons_per_layer": 333,
+      "synapse_type": "stdp",
+      "neuron_type": "adex"
+    },
+    "wall_clock_time": 0.0,
+    "memory_peak": 0.0,
+    "memory_average": 0.0,
+    "cpu_utilization_avg": 0.0,
+    "total_spikes": 0,
+    "spike_rate": 0.0,
+    "spike_throughput": 0.0,
+    "simulation_steps": 0,
+    "step_time_mean": 0.0,
+    "step_time_std": 0.0,
+    "platform_info": {
+      "platform": "Windows-10-10.0.26100-SP0",
+      "processor": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+      "python_version": "3.10.11",
+      "cpu_count": 12,
+      "memory_total_gb": 15.923526763916016,
+      "numpy_version": "2.2.6"
+    },
+    "timestamp": "2025-08-22T23:20:38.116532",
+    "success": false,
+    "error_message": "invalid syntax (gpu_neurons.py, line 4)",
+    "gpu_utilization_avg": null,
+    "gpu_memory_avg": null
+  },
+  {
+    "config": {
+      "network_size": 10000,
+      "simulation_time": 50.0,
+      "dt": 1.0,
+      "connection_probability": 0.05,
+      "platform": "cpu",
+      "num_layers": 4,
+      "neurons_per_layer": 2500,
+      "synapse_type": "stdp",
+      "neuron_type": "adex"
+    },
+    "wall_clock_time": 0.0,
+    "memory_peak": 0.0,
+    "memory_average": 0.0,
+    "cpu_utilization_avg": 0.0,
+    "total_spikes": 0,
+    "spike_rate": 0.0,
+    "spike_throughput": 0.0,
+    "simulation_steps": 0,
+    "step_time_mean": 0.0,
+    "step_time_std": 0.0,
+    "platform_info": {
+      "platform": "Windows-10-10.0.26100-SP0",
+      "processor": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+      "python_version": "3.10.11",
+      "cpu_count": 12,
+      "memory_total_gb": 15.923526763916016,
+      "numpy_version": "2.2.6"
+    },
+    "timestamp": "2025-08-22T23:20:38.121040",
+    "success": false,
+    "error_message": "invalid syntax (gpu_neurons.py, line 4)",
+    "gpu_utilization_avg": null,
+    "gpu_memory_avg": null
+  },
+  {
+    "config": {
+      "network_size": 50000,
+      "simulation_time": 20.0,
+      "dt": 1.0,
+      "connection_probability": 0.02,
+      "platform": "cpu",
+      "num_layers": 5,
+      "neurons_per_layer": 10000,
+      "synapse_type": "stdp",
+      "neuron_type": "adex"
+    },
+    "wall_clock_time": 0.0,
+    "memory_peak": 0.0,
+    "memory_average": 0.0,
+    "cpu_utilization_avg": 0.0,
+    "total_spikes": 0,
+    "spike_rate": 0.0,
+    "spike_throughput": 0.0,
+    "simulation_steps": 0,
+    "step_time_mean": 0.0,
+    "step_time_std": 0.0,
+    "platform_info": {
+      "platform": "Windows-10-10.0.26100-SP0",
+      "processor": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+      "python_version": "3.10.11",
+      "cpu_count": 12,
+      "memory_total_gb": 15.923526763916016,
+      "numpy_version": "2.2.6"
+    },
+    "timestamp": "2025-08-22T23:20:38.124605",
+    "success": false,
+    "error_message": "invalid syntax (gpu_neurons.py, line 4)",
+    "gpu_utilization_avg": null,
+    "gpu_memory_avg": null
+  }
+]

@@ -1,0 +1,4 @@
+network_size,platform,simulation_time_ms,wall_clock_time_s,memory_peak_mb,memory_average_mb,cpu_utilization_avg,gpu_utilization_avg,gpu_memory_avg,total_spikes,spike_rate_hz,spike_throughput,simulation_steps,step_time_mean_ms,step_time_std_ms,success,error_message
+1000,cpu,100.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,"invalid syntax (gpu_neurons.py, line 4)"
+10000,cpu,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,"invalid syntax (gpu_neurons.py, line 4)"
+50000,cpu,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,"invalid syntax (gpu_neurons.py, line 4)"

@@ -35,6 +35,15 @@ try:
 except ImportError:
     CORE_IMPORTS_AVAILABLE = False
     warnings.warn("Core neuromorphic modules not available - using standalone implementation")
+    
+    # Fallback implementations
+    class SpatialNetworkLayout:
+        def __init__(self, dimensions=2, bounds=(100.0, 100.0, 1.0)):
+            self.dimensions = dimensions
+            self.bounds = bounds
+            
+        def create_grid_layout(self, size, spacing=10.0):
+            pass
 
 
 class SensoryModalityType(Enum):

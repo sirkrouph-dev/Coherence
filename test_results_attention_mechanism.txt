@@ -1,0 +1,57 @@
+=== Test Results for tests/test_attention_mechanism.py ===
+Timestamp: 2025-08-22 23:05:09.302562
+
+Return Code: 0
+
+=== STDOUT ===
+[WARNING] CuPy not available - large networks (>50k neurons) will be slow
+          Install with: pip install cupy-cuda12x (for CUDA 12.x)
+          Or: pip install cupy-cuda11x (for CUDA 11.x)
+[WARNING] PyTorch not available - some GPU optimizations disabled
+
+=== Attention Mechanism System Tests ===
+
+1. Testing Basic Component Functionality...
+SalienceDetector initialized for bottom-up attention
+  ✅ SalienceDetector creation and processing
+TopDownAttention initialized for goal-driven attention
+  ✅ TopDownAttention creation and goal setting
+
+2. Testing Attention Controller Integration...
+SalienceDetector initialized for bottom-up attention
+TopDownAttention initialized for goal-driven attention
+AttentionController initialized with integrated attention mechanisms
+  ✅ AttentionController initialization
+  ✅ Basic attention processing
+
+3. Testing Bottom-Up Attention...
+  ✅ Contrast detection: max salience = 0.945
+  ✅ Temporal change detection
+
+4. Testing Top-Down Attention...
+  ✅ Top-down bias generation: strength = 6.740
+  ✅ Goal management and clearing
+
+5. Testing Attention Dynamics...
+SalienceDetector initialized for bottom-up attention
+TopDownAttention initialized for goal-driven attention
+AttentionController initialized with integrated attention mechanisms
+  ✅ Attention switching: states = ['idle', 'focused']
+  ✅ Inhibition effects: 0 inhibited locations
+
+✅ All Attention Mechanism tests passed!
+
+🎉 Task 8: Attention Mechanism Implementation
+All tests passed - attention mechanism validated!
+
+Key features validated:
+  • Bottom-up salience detection with contrast and motion
+  • Top-down goal-driven attention with feature templates
+  • Integrated attention control with switching dynamics
+  • Inhibition of return preventing immediate re-attention
+  • Spatial and temporal attention mechanisms
+
+
+=== STDERR ===
+E:\Development\neuron\core\hierarchical_sensory_processing.py:37: UserWarning: Core neuromorphic modules not available - using standalone implementation
+  warnings.warn("Core neuromorphic modules not available - using standalone implementation")

@@ -1,4 +1,6 @@
 """
+#!/usr/bin/env python3
+"""
 GPU-Accelerated Neuron Models with Enhanced Scaling
 ====================================================
 

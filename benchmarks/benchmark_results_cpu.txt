@@ -1,0 +1,118 @@
+=== Benchmark Results for cpu_performance_benchmark.py ===
+Timestamp: 2025-08-22 23:20:37.808045
+Return Code: 0
+
+=== STDOUT ===
+[WARNING] CuPy not available - large networks (>50k neurons) will be slow
+          Install with: pip install cupy-cuda12x (for CUDA 12.x)
+          Or: pip install cupy-cuda11x (for CUDA 11.x)
+[WARNING] PyTorch not available - some GPU optimizations disabled
+======================================================================
+CPU NEUROMORPHIC PERFORMANCE TEST
+======================================================================
+Neurons    Time(ms)   Throughput      Memory(MB)   Efficiency
+---------------------------------------------------------------------------
+10000      6.0      166692.0    k/s 0.35       100.0   %
+50000      24.7     202643.0    k/s 0.64       121.6   %
+100000     45.8     218531.9    k/s 1.05       131.1   %
+250000     175.7    142295.2    k/s 0.60       85.4    %
+500000     351.6    142191.8    k/s 6.03       85.3    %
+750000     569.4    131707.0    k/s 7.39       79.0    %
+1000000    729.1    137146.6    k/s 9.06       82.3    %
+
+======================================================================
+NETWORK PERFORMANCE TEST
+======================================================================
+Network    Neurons  Creation     Step Time    Throughput     
+---------------------------------------------------------------------------
+23:20:28 | INFO | Initialized high-performance neuromorphic network
+23:20:28 | INFO | Added layer 'layer_0': 1000 lif neurons (total: 1000)
+23:20:28 | INFO | Added layer 'layer_1': 500 lif neurons (total: 1500)
+23:20:28 | INFO | Created vectorized synapse population: 24422 connections (5.0% density)
+23:20:28 | INFO | Connected layer_0 (1000) -> layer_1 (500) with 24422 static synapses
+23:20:28 | INFO | Connected layer_0 -> layer_1: ~25000 static synapses
+Small      1500     0.029     s 1.05      ms 1427.5      k/s
+23:20:28 | INFO | Initialized high-performance neuromorphic network
+23:20:28 | INFO | Added layer 'layer_0': 2000 lif neurons (total: 2000)
+23:20:28 | INFO | Added layer 'layer_1': 1000 lif neurons (total: 3000)
+23:20:28 | INFO | Created vectorized synapse population: 97540 connections (5.0% density)
+23:20:29 | INFO | Connected layer_0 (2000) -> layer_1 (1000) with 97540 static synapses
+23:20:29 | INFO | Connected layer_0 -> layer_1: ~100000 static synapses
+Medium     3000     0.124     s 3.43      ms 875.4       k/s
+23:20:29 | INFO | Initialized high-performance neuromorphic network
+23:20:29 | INFO | Added layer 'layer_0': 5000 lif neurons (total: 5000)
+23:20:29 | INFO | Added layer 'layer_1': 2000 lif neurons (total: 7000)
+23:20:29 | INFO | Created vectorized synapse population: 198098 connections (2.0% density)
+23:20:29 | INFO | Connected layer_0 (5000) -> layer_1 (2000) with 198098 static synapses
+23:20:29 | INFO | Connected layer_0 -> layer_1: ~200000 static synapses
+Large      7000     0.333     s 8.18      ms 855.9       k/s
+23:20:29 | INFO | Initialized high-performance neuromorphic network
+23:20:29 | INFO | Added layer 'layer_0': 10000 lif neurons (total: 10000)
+23:20:29 | INFO | Added layer 'layer_1': 5000 lif neurons (total: 15000)
+23:20:30 | INFO | Created vectorized synapse population: 497478 connections (1.0% density)
+23:20:30 | INFO | Connected layer_0 (10000) -> layer_1 (5000) with 497478 static synapses
+23:20:30 | INFO | Connected layer_0 -> layer_1: ~500000 static synapses
+X-Large    15000    1.054     s 20.23     ms 741.6       k/s
+23:20:30 | INFO | Initialized high-performance neuromorphic network
+23:20:30 | INFO | Added layer 'layer_0': 20000 lif neurons (total: 20000)
+23:20:30 | INFO | Added layer 'layer_1': 10000 lif neurons (total: 30000)
+23:20:35 | INFO | Created vectorized synapse population: 1990063 connections (1.0% density)
+23:20:36 | INFO | Connected layer_0 (20000) -> layer_1 (10000) with 1990063 static synapses
+23:20:36 | INFO | Connected layer_0 -> layer_1: ~2000000 static synapses
+XX-Large   30000    5.559     s 94.86     ms 316.2       k/s
+
+======================================================================
+LARGE-SCALE MEMORY ANALYSIS
+======================================================================
+Neurons    Memory(MB)   Per-Neuron(B)   System%   
+------------------------------------------------------------
+100000     3.92       41.1          0.0     %
+500000     11.94      25.0          0.1     %
+1000000    23.86      25.0          0.1     %
+2000000    45.80      24.0          0.3     %
+5000000    114.46     24.0          0.7     %
+
+======================================================================
+GPU ACCELERATION POTENTIAL
+======================================================================
+RTX 3060 Specifications:
+  â€¢ CUDA Cores: 3584
+  â€¢ Base Clock: 1320 MHz
+  â€¢ Memory: 8GB GDDR6
+  â€¢ Memory Bandwidth: 360 GB/s
+  â€¢ FP32 Performance: ~13 TFLOPS
+
+Estimated GPU Performance:
+  â€¢ Current CPU (500k neurons): 182149.4k neurons/s
+  â€¢ Estimated GPU (conservative): 1821493.6k neurons/s (10x)
+  â€¢ Estimated GPU (optimistic): 9107468.1k neurons/s (50x)
+
+Maximum Network Capacity:
+  â€¢ RTX 3060 (6GB usable): 263158k neurons
+  â€¢ System RAM (12GB usable): 526316k neurons
+
+======================================================================
+OPTIMIZATION RECOMMENDATIONS
+======================================================================
+For CPU Performance:
+  âœ“ Current vectorized implementation is excellent
+  âœ“ 182k neuron-steps/s for 500k neurons achieved
+  âœ“ Memory efficiency: ~23 bytes per neuron
+  âœ“ Can handle 1M+ neurons on your 16GB system
+
+For GPU Setup (CUDA issues to resolve):
+  â€¢ Install CUDA Toolkit 12.x from NVIDIA
+  â€¢ Set CUDA_PATH environment variable
+  â€¢ Verify nvcc compiler is in PATH
+  â€¢ Alternative: Use conda-forge cupy
+
+For Large-Scale Networks:
+  â€¢ Use sparse connectivity (<10%) to reduce memory
+  â€¢ Batch processing for >1M neurons
+  â€¢ Consider hybrid CPU/GPU approach
+  â€¢ Future: Akida AKD1000 for 80M neurons
+
+ðŸš€ NeuroMorph CPU performance excellent! GPU acceleration coming next...
+
+
+=== STDERR ===

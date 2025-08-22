@@ -1,0 +1,72 @@
+=== Benchmark Results for performance_benchmarks.py ===
+Timestamp: 2025-08-22 23:20:38.514055
+Return Code: 1
+
+=== STDOUT ===
+[WARNING] CuPy not available - large networks (>50k neurons) will be slow
+          Install with: pip install cupy-cuda12x (for CUDA 12.x)
+          Or: pip install cupy-cuda11x (for CUDA 11.x)
+[WARNING] PyTorch not available - some GPU optimizations disabled
+============================================================
+Starting Performance Benchmark Suite
+============================================================
+
+Running benchmark: 1000 neurons on cpu
+  Layers: 3, Connection probability: 0.1
+  [FAIL] Failed: invalid syntax (gpu_neurons.py, line 4)
+
+Running benchmark: 10000 neurons on cpu
+  Layers: 4, Connection probability: 0.05
+  [FAIL] Failed: invalid syntax (gpu_neurons.py, line 4)
+
+Running benchmark: 50000 neurons on cpu
+  Layers: 5, Connection probability: 0.02
+  [FAIL] Failed: invalid syntax (gpu_neurons.py, line 4)
+
+Results saved to: benchmark_results\benchmark_results_20250822_232038.csv
+Detailed results saved to: benchmark_results\benchmark_details_20250822_232038.json
+
+============================================================
+Benchmark Summary
+============================================================
+
+Network Size: 1,000 neurons
+----------------------------------------
+  cpu         : FAILED - invalid syntax (gpu_neurons.py, line 4)
+
+Network Size: 10,000 neurons
+----------------------------------------
+  cpu         : FAILED - invalid syntax (gpu_neurons.py, line 4)
+
+Network Size: 50,000 neurons
+----------------------------------------
+  cpu         : FAILED - invalid syntax (gpu_neurons.py, line 4)
+
+============================================================
+Micro-benchmarks (using timeit)
+============================================================
+Single neuron step: 15.01 us
+Population step (100 neurons): 0.19 ms
+
+
+=== STDERR ===
+Traceback (most recent call last):
+  File "E:\Development\neuron\benchmarks\performance_benchmarks.py", line 701, in <module>
+    main()
+  File "E:\Development\neuron\benchmarks\performance_benchmarks.py", line 693, in main
+    run_timeit_microbenchmarks()
+  File "E:\Development\neuron\benchmarks\performance_benchmarks.py", line 670, in run_timeit_microbenchmarks
+    time_construct = timeit.timeit(stmt, setup, number=10) / 10
+  File "C:\Users\J\AppData\Local\Programs\Python\Python310\lib\timeit.py", line 234, in timeit
+    return Timer(stmt, setup, timer, globals).timeit(number)
+  File "C:\Users\J\AppData\Local\Programs\Python\Python310\lib\timeit.py", line 178, in timeit
+    timing = self.inner(it, self.timer)
+  File "<timeit-src>", line 12, in inner
+  File "E:\Development\neuron\core\network.py", line 261, in __init__
+    self._initialize_gpu_scaling()
+  File "E:\Development\neuron\core\network.py", line 267, in _initialize_gpu_scaling
+    from .gpu_neurons import GPU_AVAILABLE
+  File "E:\Development\neuron\core\gpu_neurons.py", line 4
+    GPU-Accelerated Neuron Models with Enhanced Scaling
+                    ^^^^^^
+SyntaxError: invalid syntax

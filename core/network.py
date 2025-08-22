@@ -12,6 +12,53 @@ from .neurons import NeuronPopulation
 from .synapses import SynapsePopulation
 
 
+class NetworkLayer:
+    """A layer in the neuromorphic network."""
+
+    def __init__(self, name: str, size: int, neuron_type: str = "adex", **kwargs):
+        """
+        Initialize network layer.
+
+        Args:
+            name: Layer name
+            size: Number of neurons in the layer
+            neuron_type: Type of neurons to create
+            **kwargs: Parameters for neuron models
+        """
+        self.name = name
+        self.size = size
+        self.neuron_type = neuron_type
+        self.neuron_population = NeuronPopulation(size, neuron_type, **kwargs)
+        self.spike_times = [[] for _ in range(size)]
+        self.current_time = 0.0
+
+    def step(self, dt: float, I_syn: List[float]) -> List[bool]:
+        """Advance layer by one time step."""
+        spikes = self.neuron_population.step(dt, I_syn)
+
+        # Record spike times
+        for i, spiked in enumerate(spikes):
+            if spiked:
+                self.spike_times[i].append(self.current_time)
+
+        self.current_time += dt
+        return spikes
+
+    def reset(self):
+        """Reset layer to initial state."""
+        self.neuron_population.reset()
+        self.spike_times = [[] for _ in range(self.size)]
+        self.current_time = 0.0
+
+    def get_spike_times(self) -> List[List[float]]:
+        """Get spike times for all neurons in the layer."""
+        return self.spike_times.copy()
+
+    def get_membrane_potentials(self) -> List[float]:
+        """Get current membrane potentials for all neurons."""
+        return self.neuron_population.get_membrane_potentials()
+
+
 class GPUNetworkLayer(NetworkLayer):
     """GPU-accelerated network layer that interfaces with GPU neuron pools."""
     
@@ -98,53 +145,6 @@ class GPUNetworkLayer(NetworkLayer):
         """Clean up GPU memory used by this layer."""
         if hasattr(self.gpu_pool, 'clear_gpu_memory'):
             self.gpu_pool.clear_gpu_memory()
-
-
-class NetworkLayer:
-    """A layer in the neuromorphic network."""
-
-    def __init__(self, name: str, size: int, neuron_type: str = "adex", **kwargs):
-        """
-        Initialize network layer.
-
-        Args:
-            name: Layer name
-            size: Number of neurons in the layer
-            neuron_type: Type of neurons to create
-            **kwargs: Parameters for neuron models
-        """
-        self.name = name
-        self.size = size
-        self.neuron_type = neuron_type
-        self.neuron_population = NeuronPopulation(size, neuron_type, **kwargs)
-        self.spike_times = [[] for _ in range(size)]
-        self.current_time = 0.0
-
-    def step(self, dt: float, I_syn: List[float]) -> List[bool]:
-        """Advance layer by one time step."""
-        spikes = self.neuron_population.step(dt, I_syn)
-
-        # Record spike times
-        for i, spiked in enumerate(spikes):
-            if spiked:
-                self.spike_times[i].append(self.current_time)
-
-        self.current_time += dt
-        return spikes
-
-    def reset(self):
-        """Reset layer to initial state."""
-        self.neuron_population.reset()
-        self.spike_times = [[] for _ in range(self.size)]
-        self.current_time = 0.0
-
-    def get_spike_times(self) -> List[List[float]]:
-        """Get spike times for all neurons in the layer."""
-        return self.spike_times.copy()
-
-    def get_membrane_potentials(self) -> List[float]:
-        """Get current membrane potentials for all neurons."""
-        return self.neuron_population.get_membrane_potentials()
 
 
 class NetworkConnection:
