@@ -12,6 +12,94 @@ from .neurons import NeuronPopulation
 from .synapses import SynapsePopulation
 
 
+class GPUNetworkLayer(NetworkLayer):
+    """GPU-accelerated network layer that interfaces with GPU neuron pools."""
+    
+    def __init__(self, name: str, size: int, neuron_type: str, gpu_pool: Any):
+        """Initialize GPU network layer.
+        
+        Args:
+            name: Layer name
+            size: Number of neurons
+            neuron_type: Type of neurons
+            gpu_pool: GPU neuron pool instance
+        """
+        # Initialize parent without creating neuron population
+        self.name = name
+        self.size = size
+        self.neuron_type = neuron_type
+        self.gpu_pool = gpu_pool
+        self.current_time = 0.0
+        
+        # For compatibility, maintain spike time tracking
+        self.spike_times = [[] for _ in range(size)]
+        
+        # GPU-specific tracking
+        self.last_spikes = np.array([], dtype=int)
+        
+    def step(self, dt: float, I_syn: List[float]) -> List[bool]:
+        """Advance GPU layer by one time step."""
+        # Convert input current to numpy array
+        I_syn_array = np.array(I_syn, dtype=np.float32)
+        
+        # Ensure correct size
+        if len(I_syn_array) != self.size:
+            I_syn_array = np.resize(I_syn_array, self.size)
+            
+        # Step the GPU pool
+        if hasattr(self.gpu_pool, 'adaptive_step'):
+            spike_indices, metrics = self.gpu_pool.adaptive_step(dt, I_syn_array)
+        else:
+            spike_indices, metrics = self.gpu_pool.step(dt, I_syn_array)
+            
+        # Convert to boolean array for compatibility
+        spikes = np.zeros(self.size, dtype=bool)
+        
+        # Handle different spike index formats
+        if hasattr(spike_indices, '__len__') and len(spike_indices) > 0:
+            # Convert CuPy arrays to NumPy if needed
+            if hasattr(spike_indices, 'get'):  # CuPy array
+                spike_indices = spike_indices.get()
+            
+            # Ensure spike indices are within bounds
+            valid_indices = spike_indices[spike_indices < self.size]
+            spikes[valid_indices] = True
+            
+            # Record spike times for compatibility
+            for idx in valid_indices:
+                self.spike_times[idx].append(self.current_time)
+                
+            self.last_spikes = valid_indices
+            
+        self.current_time += dt
+        return spikes.tolist()  # Convert to list for compatibility
+        
+    def get_membrane_potentials(self) -> List[float]:
+        """Get membrane potentials from GPU pool."""
+        if hasattr(self.gpu_pool, 'get_membrane_potentials'):
+            potentials = self.gpu_pool.get_membrane_potentials()
+            # Convert CuPy to NumPy if needed
+            if hasattr(potentials, 'get'):
+                potentials = potentials.get()
+            return potentials.tolist()
+        else:
+            # Fallback - return default values
+            return [-65.0] * self.size
+            
+    def reset(self):
+        """Reset GPU layer to initial state."""
+        if hasattr(self.gpu_pool, 'reset'):
+            self.gpu_pool.reset()
+        self.spike_times = [[] for _ in range(self.size)]
+        self.current_time = 0.0
+        self.last_spikes = np.array([], dtype=int)
+        
+    def cleanup_gpu_memory(self):
+        """Clean up GPU memory used by this layer."""
+        if hasattr(self.gpu_pool, 'clear_gpu_memory'):
+            self.gpu_pool.clear_gpu_memory()
+
+
 class NetworkLayer:
     """A layer in the neuromorphic network."""
 
@@ -135,14 +223,19 @@ class NeuromorphicNetwork:
     """Complete neuromorphic network with layers and connections."""
 
     # Resource limits to prevent memory exhaustion
-    MAX_NEURONS = 1_000_000
-    MAX_SYNAPSES = 100_000_000
+    MAX_NEURONS = 10_000_000  # Increased for GPU scaling
+    MAX_SYNAPSES = 1_000_000_000  # Increased for GPU scaling
     MAX_LAYERS = 1000
     MAX_SIMULATION_STEPS = 1_000_000
     MAX_INPUT_STRENGTH = 1000.0
 
-    def __init__(self):
-        """Initialize neuromorphic network."""
+    def __init__(self, use_gpu_scaling: bool = True, target_hardware: str = "auto"):
+        """Initialize neuromorphic network with optional GPU scaling.
+        
+        Args:
+            use_gpu_scaling: Whether to use GPU scaling for large networks
+            target_hardware: Target hardware ('auto', 'cpu', 'gpu', 'multi_gpu')
+        """
         self.layers: Dict[str, NetworkLayer] = {}
         self.connections: Dict[Tuple[str, str], NetworkConnection] = {}
         self.current_time = 0.0
@@ -150,15 +243,52 @@ class NeuromorphicNetwork:
         self.total_neurons = 0
         self.total_synapses = 0
         
+        # GPU scaling configuration
+        self.use_gpu_scaling = use_gpu_scaling
+        self.target_hardware = target_hardware
+        self.gpu_memory_manager = None
+        self.gpu_neuron_pools: Dict[str, Any] = {}  # Will store GPU neuron pools
+        self.is_large_scale = False  # Will be set based on size
+        
         # OPTIMIZED: Pre-allocated arrays for vectorized operations
         self.layer_currents: Dict[str, np.ndarray] = {}
         self.layer_spikes: Dict[str, np.ndarray] = {}
         self.connections_sparse: Dict[Tuple[str, str], Any] = {}  # Will import scipy.sparse later
         self._initialized_vectorized = False
+        
+        # Initialize GPU scaling if requested
+        if self.use_gpu_scaling:
+            self._initialize_gpu_scaling()
+            
+    def _initialize_gpu_scaling(self):
+        """Initialize GPU scaling infrastructure."""
+        try:
+            from .gpu_scaling import GPUMemoryManager
+            from .gpu_neurons import GPU_AVAILABLE
+            
+            if GPU_AVAILABLE and self.target_hardware != "cpu":
+                self.gpu_memory_manager = GPUMemoryManager()
+                print(f"GPU scaling enabled: {self.gpu_memory_manager.gpu_config.device_name}")
+                print(f"  Max network capacity: {self.gpu_memory_manager.gpu_config.max_network_size:,} neurons")
+            else:
+                print("GPU scaling requested but GPU not available - using CPU")
+                self.use_gpu_scaling = False
+                
+        except ImportError:
+            print("GPU scaling modules not available - using standard implementation")
+            self.use_gpu_scaling = False
+            
+    def _should_use_gpu_acceleration(self) -> bool:
+        """Determine if GPU acceleration should be used based on network size."""
+        if not self.use_gpu_scaling or not self.gpu_memory_manager:
+            return False
+            
+        # Use GPU for networks > 5K neurons
+        return self.total_neurons >= 5000
 
     def add_layer(self, name: str, size: int, neuron_type: str = "adex", **kwargs):
         """
-        Add a layer to the network with validation.
+        Add a layer to the network with validation and optional GPU scaling.
 
         Args:
             name: Layer name
@@ -193,9 +323,52 @@ class NeuromorphicNetwork:
                 f"Invalid neuron type '{neuron_type}'. Must be one of {valid_types}"
             )
 
-        layer = NetworkLayer(name, size, neuron_type, **kwargs)
-        self.layers[name] = layer
+        # Check if we should use GPU scaling for this layer
+        use_gpu_for_layer = self._should_use_gpu_acceleration() and size >= 1000
+        
+        if use_gpu_for_layer:
+            # Create GPU-accelerated layer
+            self._add_gpu_layer(name, size, neuron_type, **kwargs)
+        else:
+            # Create standard CPU layer
+            layer = NetworkLayer(name, size, neuron_type, **kwargs)
+            self.layers[name] = layer
+            
         self.total_neurons += size
+        
+        # Update large-scale flag
+        if self.total_neurons >= 10000:
+            self.is_large_scale = True
+            
+    def _add_gpu_layer(self, name: str, size: int, neuron_type: str, **kwargs):
+        """Add a GPU-accelerated layer for large-scale simulation."""
+        try:
+            from .gpu_neurons import create_large_scale_gpu_network
+            
+            print(f"Creating GPU-accelerated layer '{name}' with {size:,} neurons")
+            
+            # Create GPU neuron pool
+            gpu_pool = create_large_scale_gpu_network(
+                target_neurons=size,
+                neuron_type=neuron_type,
+                use_adaptive=True,
+                **kwargs
+            )
+            
+            # Store GPU pool
+            self.gpu_neuron_pools[name] = gpu_pool
+            
+            # Create a wrapper layer that interfaces with GPU pool
+            layer = GPUNetworkLayer(name, size, neuron_type, gpu_pool)
+            self.layers[name] = layer
+            
+            print(f"GPU layer '{name}' created with {gpu_pool.num_neurons:,} neurons")
+            
+        except Exception as e:
+            print(f"Failed to create GPU layer, falling back to CPU: {str(e)}")
+            # Fallback to CPU implementation
+            layer = NetworkLayer(name, size, neuron_type, **kwargs)
+            self.layers[name] = layer
 
     def connect_layers(
         self,
@@ -869,3 +1042,238 @@ class NetworkBuilder:
     def build(self) -> NeuromorphicNetwork:
         """Build and return the network."""
         return self.network
+
+
+# Add enhanced methods to NeuromorphicNetwork class
+# These methods provide GPU-accelerated simulation and performance monitoring
+def _add_enhanced_simulation_methods():
+    """Add enhanced simulation methods to NeuromorphicNetwork class."""
+    
+    def run_simulation_enhanced(
+        self, 
+        duration: float, 
+        dt: float = 0.1, 
+        input_pattern: Optional[Dict[str, np.ndarray]] = None,
+        monitor_performance: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Run network simulation with optional GPU acceleration and performance monitoring.
+        
+        Args:
+            duration: Simulation duration in milliseconds
+            dt: Time step in milliseconds
+            input_pattern: Optional input patterns for each layer
+            monitor_performance: Whether to monitor performance metrics
+            
+        Returns:
+            Simulation results with performance metrics
+        """
+        import time
+        
+        steps = int(duration / dt)
+        start_time = time.time()
+        
+        # Initialize performance tracking
+        performance_metrics = {
+            'total_steps': steps,
+            'duration_ms': duration,
+            'dt': dt,
+            'step_times': [],
+            'memory_usage': [],
+            'spike_counts': [],
+            'layer_performance': {}
+        }
+        
+        # Pre-allocate for large-scale simulation
+        if self.is_large_scale:
+            self._prepare_large_scale_simulation()
+            
+        print(f"Running enhanced simulation: {duration}ms ({steps:,} steps) dt={dt}ms")
+        if self.is_large_scale:
+            print(f"Large-scale mode: {self.total_neurons:,} neurons")
+            
+        # Main simulation loop
+        for step in range(steps):
+            step_start = time.time()
+            
+            # Apply input patterns if provided
+            layer_inputs = {}
+            if input_pattern:
+                for layer_name, pattern in input_pattern.items():
+                    if layer_name in self.layers:
+                        # Ensure pattern matches layer size
+                        layer_size = self.layers[layer_name].size
+                        if len(pattern) != layer_size:
+                            pattern = np.resize(pattern, layer_size)
+                        layer_inputs[layer_name] = pattern
+                    
+            # Step the network
+            if self.is_large_scale:
+                layer_spikes = self._step_large_scale_enhanced(dt, layer_inputs)
+            else:
+                layer_spikes = self._step_standard_enhanced(dt, layer_inputs)
+                
+            step_time = time.time() - step_start
+            
+            # Performance monitoring
+            if monitor_performance and (step % 100 == 0 or step < 10):
+                performance_metrics['step_times'].append(step_time)
+                
+                # Count total spikes
+                total_spikes = sum(sum(spikes) for spikes in layer_spikes.values())
+                performance_metrics['spike_counts'].append(total_spikes)
+                
+                # Memory monitoring for GPU layers
+                if self.gpu_memory_manager:
+                    memory_usage = self.gpu_memory_manager.monitor_memory_usage()
+                    performance_metrics['memory_usage'].append(memory_usage)
+                    
+            # Progress reporting for long simulations
+            if steps > 1000 and step % (steps // 10) == 0:
+                progress = (step / steps) * 100
+                elapsed = time.time() - start_time
+                estimated_total = elapsed / (step + 1) * steps
+                remaining = estimated_total - elapsed
+                print(f"Progress: {progress:.1f}% ({step:,}/{steps:,} steps) - "
+                      f"ETA: {remaining:.1f}s")
+                      
+        total_time = time.time() - start_time
+        
+        # Calculate final performance metrics
+        performance_metrics['total_time_s'] = total_time
+        performance_metrics['steps_per_second'] = steps / total_time
+        performance_metrics['neurons_per_second'] = (self.total_neurons * steps) / total_time
+        performance_metrics['mean_step_time'] = np.mean(performance_metrics['step_times']) if performance_metrics['step_times'] else 0
+        performance_metrics['total_spikes'] = sum(performance_metrics['spike_counts'])
+        
+        # GPU-specific metrics
+        if self.gpu_neuron_pools:
+            gpu_metrics = {}
+            for layer_name, gpu_pool in self.gpu_neuron_pools.items():
+                if hasattr(gpu_pool, 'get_performance_summary'):
+                    gpu_metrics[layer_name] = gpu_pool.get_performance_summary()
+            performance_metrics['gpu_layer_metrics'] = gpu_metrics
+            
+        print(f"\nSimulation completed in {total_time:.2f}s")
+        print(f"Performance: {performance_metrics['steps_per_second']:.1f} steps/s, "
+              f"{performance_metrics['neurons_per_second']:.0f} neurons/s")
+              
+        return {
+            'simulation_time': self.current_time,
+            'layer_spikes': {name: layer.get_spike_times() for name, layer in self.layers.items()},
+            'performance_metrics': performance_metrics,
+            'network_info': {
+                'total_neurons': self.total_neurons,
+                'num_layers': len(self.layers),
+                'is_large_scale': self.is_large_scale,
+                'gpu_accelerated': bool(self.gpu_neuron_pools)
+            }
+        }
+    
+    def _prepare_large_scale_simulation(self):
+        """Prepare network for large-scale simulation."""
+        print("Preparing large-scale simulation...")
+        
+        # Pre-allocate arrays for efficiency
+        for layer_name, layer in self.layers.items():
+            if layer_name not in self.layer_currents:
+                self.layer_currents[layer_name] = np.zeros(layer.size, dtype=np.float32)
+                
+        # GPU memory optimization
+        if self.gpu_memory_manager:
+            self.gpu_memory_manager.cleanup_memory()
+            
+        print("Large-scale preparation complete")
+    
+    def _step_large_scale_enhanced(self, dt: float, layer_inputs: Dict[str, np.ndarray]) -> Dict[str, List[bool]]:
+        """Optimized stepping for large-scale networks."""
+        layer_spikes = {}
+        
+        # Reset currents
+        for layer_name in self.layer_currents:
+            self.layer_currents[layer_name].fill(0.0)
+            
+        # Add external inputs
+        for layer_name, input_current in layer_inputs.items():
+            if layer_name in self.layer_currents:
+                self.layer_currents[layer_name] += input_current
+                
+        # Step all layers (GPU accelerated where available)
+        for layer_name, layer in self.layers.items():
+            layer_current = self.layer_currents.get(layer_name, np.zeros(layer.size))
+            spikes = layer.step(dt, layer_current.tolist())
+            layer_spikes[layer_name] = spikes
+            
+        self.current_time += dt
+        return layer_spikes
+    
+    def _step_standard_enhanced(self, dt: float, layer_inputs: Dict[str, np.ndarray]) -> Dict[str, List[bool]]:
+        """Enhanced stepping for smaller networks."""
+        # Initialize layer currents
+        layer_currents = {name: [0.0] * layer.size for name, layer in self.layers.items()}
+        
+        # Add external inputs
+        for layer_name, input_current in layer_inputs.items():
+            if layer_name in layer_currents:
+                for i, current in enumerate(input_current):
+                    if i < len(layer_currents[layer_name]):
+                        layer_currents[layer_name][i] += current
+                        
+        # Step all layers
+        layer_spikes = {}
+        for layer_name, layer in self.layers.items():
+            spikes = layer.step(dt, layer_currents[layer_name])
+            layer_spikes[layer_name] = spikes
+            
+        self.current_time += dt
+        return layer_spikes
+    
+    def get_performance_summary_enhanced(self) -> Dict[str, Any]:
+        """Get comprehensive performance summary of the network."""
+        summary = {
+            'network_size': {
+                'total_neurons': self.total_neurons,
+                'total_layers': len(self.layers),
+                'layer_sizes': {name: layer.size for name, layer in self.layers.items()}
+            },
+            'gpu_acceleration': {
+                'enabled': self.use_gpu_scaling,
+                'gpu_layers': list(self.gpu_neuron_pools.keys()),
+                'is_large_scale': self.is_large_scale
+            }
+        }
+        
+        # Add GPU memory information
+        if self.gpu_memory_manager:
+            memory_usage = self.gpu_memory_manager.monitor_memory_usage()
+            summary['gpu_memory'] = memory_usage
+            summary['gpu_config'] = {
+                'device': self.gpu_memory_manager.gpu_config.device_name,
+                'total_memory_mb': self.gpu_memory_manager.gpu_config.total_memory_mb,
+                'max_network_size': self.gpu_memory_manager.gpu_config.max_network_size
+            }
+            
+        return summary
+    
+    def cleanup_gpu_resources_enhanced(self):
+        """Clean up all GPU resources used by the network."""
+        if self.gpu_memory_manager:
+            self.gpu_memory_manager.cleanup_memory()
+            
+        for layer_name, layer in self.layers.items():
+            if isinstance(layer, GPUNetworkLayer):
+                layer.cleanup_gpu_memory()
+                
+        print("GPU resources cleaned up")
+    
+    # Add methods to the class
+    NeuromorphicNetwork.run_simulation_enhanced = run_simulation_enhanced
+    NeuromorphicNetwork._prepare_large_scale_simulation = _prepare_large_scale_simulation
+    NeuromorphicNetwork._step_large_scale_enhanced = _step_large_scale_enhanced
+    NeuromorphicNetwork._step_standard_enhanced = _step_standard_enhanced
+    NeuromorphicNetwork.get_performance_summary_enhanced = get_performance_summary_enhanced
+    NeuromorphicNetwork.cleanup_gpu_resources_enhanced = cleanup_gpu_resources_enhanced
+
+
+# Apply the enhanced methods
+_add_enhanced_simulation_methods()

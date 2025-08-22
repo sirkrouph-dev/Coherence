@@ -1,0 +1,10 @@
+network_size,platform,simulation_time_ms,wall_clock_time_s,memory_peak_mb,memory_average_mb,cpu_utilization_avg,gpu_utilization_avg,gpu_memory_avg,total_spikes,spike_rate_hz,spike_throughput,simulation_steps,step_time_mean_ms,step_time_std_ms,success,error_message
+1000,cpu,100.0,14.013844700006302,807.81640625,709.6658854166667,79.68592592592591,,,33300,333.0,2376.221566090641,100,140.13728900055867,19.0838377015767,True,
+1000,gpu_torch,100.0,13.92031080002198,808.546875,717.6028645833334,80.05227272727274,,,33300,333.0,2392.1879675234995,100,139.20191599987447,18.945237757963564,True,
+1000,gpu_cupy,100.0,14.009662299999036,807.703125,718.9507279829545,79.625,,,33300,333.0,2376.9309557163483,100,140.09547400171869,18.99262240164825,True,
+10000,cpu,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'
+10000,gpu_torch,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'
+10000,gpu_cupy,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'
+50000,cpu,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'
+50000,gpu_torch,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'
+50000,gpu_cupy,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'SynapsePopulation' object has no attribute 'gpu_mandatory_threshold'

@@ -18,7 +18,7 @@ try:
     from cupy.cuda import MemoryPool, memory
 
     GPU_AVAILABLE = True
-    print("[OK] CuPy GPU acceleration available")
+    print("CuPy GPU acceleration available")
 except ImportError:
     cp = np  # Fallback to NumPy
     GPU_AVAILABLE = False
@@ -32,7 +32,7 @@ try:
     TORCH_GPU_AVAILABLE = torch.cuda.is_available()
     if TORCH_GPU_AVAILABLE:
         print(
-            f"[OK] PyTorch GPU acceleration available ({torch.cuda.get_device_name(0)})"
+            f"PyTorch GPU acceleration available ({torch.cuda.get_device_name(0)})"
         )
 except ImportError:
     TORCH_GPU_AVAILABLE = False
@@ -448,6 +448,285 @@ class GPUNeuronPool:
 
 class MultiGPUNeuronSystem:
     """
+    Multi-GPU system for scaling neuromorphic networks across multiple GPUs.
+    Enables networks beyond single GPU memory limits.
+    """
+    
+    def __init__(self, num_gpus: int = None, neuron_type: str = "adex"):
+        """
+        Initialize multi-GPU neuron system.
+        
+        Args:
+            num_gpus: Number of GPUs to use (None = auto-detect)
+            neuron_type: Type of neurons to simulate
+        """
+        self.neuron_type = neuron_type
+        self.gpu_pools = []
+        
+        # Detect available GPUs
+        if GPU_AVAILABLE:
+            self.num_gpus = min(num_gpus or cp.cuda.runtime.getDeviceCount(), cp.cuda.runtime.getDeviceCount())
+        else:
+            self.num_gpus = 0
+            
+        print(f"MultiGPU System: {self.num_gpus} GPUs available")
+        
+    def distribute_neurons(self, total_neurons: int, **kwargs) -> List[GPUNeuronPool]:
+        """
+        Distribute neurons across available GPUs.
+        
+        Args:
+            total_neurons: Total number of neurons to distribute
+            **kwargs: Neuron parameters
+            
+        Returns:
+            List of GPU neuron pools
+        """
+        if self.num_gpus == 0:
+            # Fallback to CPU
+            pool = GPUNeuronPool(total_neurons, self.neuron_type, use_gpu=False, **kwargs)
+            return [pool]
+        
+        neurons_per_gpu = total_neurons // self.num_gpus
+        remainder = total_neurons % self.num_gpus
+        
+        for gpu_id in range(self.num_gpus):
+            with cp.cuda.Device(gpu_id):
+                # Give remainder neurons to last GPU
+                gpu_neurons = neurons_per_gpu + (remainder if gpu_id == self.num_gpus - 1 else 0)
+                
+                pool = GPUNeuronPool(
+                    gpu_neurons, 
+                    self.neuron_type, 
+                    use_gpu=True,
+                    **kwargs
+                )
+                self.gpu_pools.append(pool)
+                
+                print(f"GPU {gpu_id}: {gpu_neurons:,} neurons")
+        
+        return self.gpu_pools
+    
+    def synchronize_all(self):
+        """Synchronize all GPU operations."""
+        if GPU_AVAILABLE:
+            for gpu_id in range(self.num_gpus):
+                with cp.cuda.Device(gpu_id):
+                    cp.cuda.Stream.null.synchronize()
+    
+    def get_total_memory_usage(self) -> float:
+        """Get total memory usage across all GPUs in MB."""
+        total_mb = 0.0
+        
+        if GPU_AVAILABLE:
+            for gpu_id in range(self.num_gpus):
+                with cp.cuda.Device(gpu_id):
+                    mempool = cp.get_default_memory_pool()
+                    total_mb += mempool.used_bytes() / (1024 ** 2)
+        
+        return total_mb
+    
+    def cleanup_all_memory(self):
+        """Clean up memory on all GPUs."""
+        for gpu_id in range(self.num_gpus):
+            if GPU_AVAILABLE:
+                with cp.cuda.Device(gpu_id):
+                    cp.get_default_memory_pool().free_all_blocks()
+                    cp.get_default_pinned_memory_pool().free_all_blocks()
+
+
+class AdaptiveGPUNeuronPool(GPUNeuronPool):
+    """
+    Adaptive GPU neuron pool with dynamic optimization for large-scale networks.
+    Integrates with GPUMemoryManager for optimal performance.
+    """
+    
+    def __init__(self, num_neurons: int, **kwargs):
+        """
+        Initialize adaptive GPU neuron pool with automatic optimization.
+        
+        Args:
+            num_neurons: Number of neurons
+            **kwargs: Additional neuron parameters
+        """
+        # Import here to avoid circular dependency
+        from .gpu_scaling import GPUMemoryManager
+        
+        self.memory_manager = GPUMemoryManager()
+        
+        # Get optimized configuration
+        config = self.memory_manager.optimize_network_configuration(
+            num_neurons, 
+            kwargs.get('connectivity', 0.05)
+        )
+        
+        # Use optimized parameters
+        optimized_neurons = config['num_neurons']
+        optimized_batch_size = config['batch_size']
+        
+        if config['optimization_applied']:
+            print(f"GPU Optimization: {optimized_neurons:,} neurons (from {num_neurons:,})")
+        
+        # Initialize with optimized parameters
+        super().__init__(
+            optimized_neurons,
+            batch_size=optimized_batch_size,
+            **kwargs
+        )
+        
+        self.optimization_config = config
+        self.performance_history = []
+        
+    def adaptive_step(self, dt: float, I_syn: Optional[np.ndarray] = None) -> Tuple[np.ndarray, Dict]:
+        """
+        Adaptive step with performance monitoring and optimization.
+        
+        Args:
+            dt: Time step
+            I_syn: Synaptic currents
+            
+        Returns:
+            Tuple of (spike_indices, enhanced_metrics)
+        """
+        # Monitor memory before step
+        memory_before = self.memory_manager.monitor_memory_usage()
+        
+        # Perform regular step
+        spike_indices, metrics = self.step(dt, I_syn)
+        
+        # Monitor memory after step
+        memory_after = self.memory_manager.monitor_memory_usage()
+        
+        # Enhanced metrics with memory tracking
+        enhanced_metrics = {
+            **metrics,
+            'memory_usage_mb': memory_after['used_mb'],
+            'memory_percent': memory_after['percent_used'],
+            'memory_delta_mb': memory_after['used_mb'] - memory_before['used_mb'],
+            'optimization_config': self.optimization_config
+        }
+        
+        # Track performance history
+        self.performance_history.append(enhanced_metrics)
+        
+        # Adaptive memory cleanup (every 1000 steps)
+        if len(self.performance_history) % 1000 == 0:
+            if memory_after['percent_used'] > 85:  # High memory usage
+                print(f"High GPU memory usage ({memory_after['percent_used']:.1f}%) - cleaning up")
+                self._compact_memory()
+        
+        return spike_indices, enhanced_metrics
+    
+    def get_performance_summary(self) -> Dict[str, Any]:
+        """Get comprehensive performance summary."""
+        if not self.performance_history:
+            return {}
+        
+        # Calculate statistics over performance history
+        compute_times = [m['compute_time'] for m in self.performance_history]
+        throughputs = [m['throughput'] for m in self.performance_history]
+        memory_usage = [m['memory_usage_mb'] for m in self.performance_history]
+        
+        return {
+            'total_steps': len(self.performance_history),
+            'mean_compute_time': np.mean(compute_times),
+            'std_compute_time': np.std(compute_times),
+            'mean_throughput': np.mean(throughputs),
+            'max_throughput': np.max(throughputs),
+            'mean_memory_mb': np.mean(memory_usage),
+            'peak_memory_mb': np.max(memory_usage),
+            'total_spikes': self.total_spikes,
+            'neurons': self.num_neurons,
+            'optimization_applied': self.optimization_config.get('optimization_applied', False)
+        }
+
+
+# Convenience functions for large-scale GPU networks
+def create_large_scale_gpu_network(
+    target_neurons: int,
+    neuron_type: str = "adex",
+    use_adaptive: bool = True,
+    **kwargs
+) -> Union[GPUNeuronPool, AdaptiveGPUNeuronPool]:
+    """
+    Create a large-scale GPU-optimized neuron network.
+    
+    Args:
+        target_neurons: Target number of neurons
+        neuron_type: Type of neurons
+        use_adaptive: Whether to use adaptive optimization
+        **kwargs: Additional parameters
+        
+    Returns:
+        GPU neuron pool instance
+    """
+    if not GPU_AVAILABLE:
+        print("WARNING: GPU not available, falling back to CPU (will be slow!)")
+        return GPUNeuronPool(min(target_neurons, 50000), neuron_type, use_gpu=False, **kwargs)
+    
+    if use_adaptive and target_neurons >= 10000:
+        return AdaptiveGPUNeuronPool(target_neurons, neuron_type=neuron_type, **kwargs)
+    else:
+        return GPUNeuronPool(target_neurons, neuron_type, **kwargs)
+
+
+def benchmark_gpu_scaling(max_neurons: int = 1000000) -> Dict[str, Any]:
+    """
+    Benchmark GPU scaling capabilities.
+    
+    Args:
+        max_neurons: Maximum neurons to test
+        
+    Returns:
+        Benchmark results
+    """
+    if not GPU_AVAILABLE:
+        return {'error': 'GPU not available for benchmarking'}
+    
+    from .gpu_scaling import LargeScaleNetworkBuilder
+    
+    builder = LargeScaleNetworkBuilder()
+    return builder.benchmark_network_size(max_neurons=max_neurons)
+
+
+# Test function to verify GPU scaling
+def test_gpu_scaling_limits():
+    """
+    Test GPU scaling limits with current hardware.
+    """
+    print("\n=== GPU Scaling Test ===")
+    
+    if not GPU_AVAILABLE:
+        print("GPU not available - cannot test scaling")
+        return
+    
+    # Test different network sizes
+    test_sizes = [10000, 50000, 100000, 250000, 500000, 1000000]
+    
+    for size in test_sizes:
+        try:
+            print(f"Testing {size:,} neurons...")
+            start_time = time.time()
+            
+            pool = create_large_scale_gpu_network(size, "adex")
+            creation_time = time.time() - start_time
+            
+            # Test a few simulation steps
+            for _ in range(10):
+                pool.step(0.1)
+            
+            step_time = time.time() - start_time - creation_time
+            
+            print(f"  ✓ Success: {creation_time:.2f}s creation, {step_time:.2f}s simulation")
+            
+            # Clean up
+            pool.clear_gpu_memory()
+            
+        except Exception as e:
+            print(f"  ✗ Failed at {size:,} neurons: {str(e)}")
+            break
+    
+    print("GPU scaling test completed.")
     Manages multiple GPU neuron pools for massive scale simulations.
     """
 
@@ -627,7 +906,7 @@ def analyze_gpu_performance(num_neurons_list: List[int]) -> Dict:
             }
 
             # Print summary
-            print(f"[OK] Success:")
+            print(f"Success:")
             print(
                 f"  Mean step time: {results[num_neurons]['mean_step_time']*1000:.2f}ms"
             )

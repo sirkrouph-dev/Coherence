@@ -13,7 +13,7 @@ import numpy as np
 try:
     import cupy as cp
     GPU_AVAILABLE = True
-    print("[OK] CuPy GPU acceleration available for neuromorphic computing")
+    print("CuPy GPU acceleration available for neuromorphic computing")
 except ImportError:
     GPU_AVAILABLE = False
     cp = None
@@ -24,7 +24,7 @@ except ImportError:
 try:
     import torch
     TORCH_AVAILABLE = True
-    print("[OK] PyTorch acceleration available")
+    print("PyTorch acceleration available")
 except ImportError:
     TORCH_AVAILABLE = False
     torch = None
@@ -641,7 +641,7 @@ class SynapsePopulation:
         elif total_neurons >= 5000:  # Medium networks benefit from GPU
             if not GPU_AVAILABLE:
                 print(f"\n{'='*60}")
-                print(f"⚠️  PERFORMANCE WARNING: {total_neurons:,} neurons without GPU!")
+                print(f"[PERFORMANCE WARNING]: {total_neurons:,} neurons without GPU!")
                 print(f"{'='*60}")
                 print("Large networks are EXTREMELY SLOW on CPU.")
                 print("Expected performance: 10-100x slower than GPU")
@@ -654,7 +654,7 @@ class SynapsePopulation:
                 # Give user a chance to abort for very large networks
                 if total_neurons >= 100000:
                     import time
-                    print(f"🐌 {total_neurons:,} neurons on CPU will take MINUTES...")
+                    print(f"{total_neurons:,} neurons on CPU will take MINUTES...")
                     print("   Waiting 3 seconds - press Ctrl+C to abort if needed")
                     try:
                         time.sleep(3)
@@ -1044,7 +1044,16 @@ class SynapsePopulation:
         self._vectorized_representation = True
         self._total_connections = n_connections
         
-        print(f"✓ Sparse connectivity built: {n_connections:,} synapses in {sample_size} objects")
+        # Initialize attributes for API compatibility, even if not used in vectorized mode
+        self.enable_synaptic_scaling: bool = bool(kwargs.pop("enable_synaptic_scaling", False))
+        self._scaling_every: int = int(kwargs.pop("scaling_every", 10))
+        self._scale_counter: int = 0
+        self.use_gpu: bool = bool(kwargs.pop("use_gpu", GPU_AVAILABLE)) and GPU_AVAILABLE
+        self.gpu_threshold: int = int(kwargs.pop("gpu_threshold", 10000))
+        self.gpu_mandatory_threshold: int = int(kwargs.pop("gpu_mandatory_threshold", 1000000))
+        self.neuromorphic_scale: bool = (pre_population_size + post_population_size) >= 50000000
+        
+        print(f"[OK] Sparse connectivity built: {n_connections:,} synapses in {sample_size} objects")
 
     @property
     def total_connections(self) -> int:

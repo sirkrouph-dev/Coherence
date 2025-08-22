@@ -1,4 +1,4 @@
 operation,time_seconds
-single_neuron_step,1.535663999384269e-05
-population_100_step,0.00019624750001821667
-network_construction,0.027501059998758137
+single_neuron_step,2.443294000113383e-05
+population_100_step,0.0004701020000502467
+network_construction,0.08865201000007801

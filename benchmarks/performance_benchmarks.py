@@ -20,10 +20,17 @@ import time
 import timeit
 import psutil
 import platform
+import threading
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, asdict
 import numpy as np
+
+try:
+    import nvidia_ml
+    NVIDIA_ML_AVAILABLE = True
+except ImportError:
+    NVIDIA_ML_AVAILABLE = False
 
 # Note: memory_profiler import removed as we use lightweight psutil monitoring
 
@@ -72,6 +79,7 @@ class BenchmarkResult:
     wall_clock_time: float  # seconds
     memory_peak: float  # MB
     memory_average: float  # MB
+    cpu_utilization_avg: float  # %
     total_spikes: int
     spike_rate: float  # Hz
     spike_throughput: float  # spikes/second
@@ -82,6 +90,67 @@ class BenchmarkResult:
     timestamp: str
     success: bool
     error_message: str = ""
+    gpu_utilization_avg: Optional[float] = None  # %
+    gpu_memory_avg: Optional[float] = None  # MB
+
+
+class PerformanceMonitor(threading.Thread):
+    """A thread that monitors CPU, memory, and GPU performance."""
+    def __init__(self, interval: float = 0.1):
+        super().__init__(daemon=True)
+        self.interval = interval
+        self.running = False
+        self.process = psutil.Process(os.getpid())
+        
+        self.cpu_history: List[float] = []
+        self.memory_history: List[float] = []
+        self.gpu_util_history: List[float] = []
+        self.gpu_mem_history: List[float] = []
+        
+        self.gpu_handle = None
+        if NVIDIA_ML_AVAILABLE and CUDA_AVAILABLE:
+            try:
+                nvidia_ml.nvmlInit()
+                # Assuming a single GPU device 0
+                self.gpu_handle = nvidia_ml.nvmlDeviceGetHandleByIndex(0)
+            except Exception:
+                self.gpu_handle = None
+
+    def run(self):
+        """Start monitoring."""
+        self.running = True
+        while self.running:
+            # CPU and Memory
+            self.cpu_history.append(self.process.cpu_percent())
+            self.memory_history.append(self.process.memory_info().rss / 1024 / 1024)
+            
+            # GPU
+            if self.gpu_handle:
+                try:
+                    gpu_util = nvidia_ml.nvmlDeviceGetUtilizationRates(self.gpu_handle)
+                    gpu_mem = nvidia_ml.nvmlDeviceGetMemoryInfo(self.gpu_handle)
+                    self.gpu_util_history.append(gpu_util.gpu)
+                    self.gpu_mem_history.append(gpu_mem.used / 1024 / 1024)
+                except Exception:
+                    # Handle cases where GPU monitoring might fail
+                    pass
+            
+            time.sleep(self.interval)
+
+    def stop(self) -> Dict[str, Any]:
+        """Stop monitoring and return aggregated results."""
+        self.running = False
+        if self.gpu_handle:
+            nvidia_ml.nvmlShutdown()
+            
+        return {
+            'cpu_utilization_avg': np.mean(self.cpu_history) if self.cpu_history else 0,
+            'memory_average': np.mean(self.memory_history) if self.memory_history else 0,
+            'memory_peak': np.max(self.memory_history) if self.memory_history else 0,
+            'gpu_utilization_avg': np.mean(self.gpu_util_history) if self.gpu_util_history else None,
+            'gpu_memory_avg': np.mean(self.gpu_mem_history) if self.gpu_mem_history else None,
+        }
+
 
 
 class NetworkBenchmark:
@@ -314,61 +383,53 @@ class BenchmarkRunner:
         
         try:
             # Select appropriate benchmark class
-            if config.platform == 'cpu':
-                benchmark = CPUBenchmark(config)
-            elif config.platform == 'gpu_torch':
+            if 'gpu' in config.platform:
                 if not CUDA_AVAILABLE:
                     print("  CUDA not available, falling back to CPU")
                     config.platform = 'cpu'
-                    benchmark = CPUBenchmark(config)
-                else:
-                    benchmark = GPUBenchmark(config, backend='torch')
-            elif config.platform == 'gpu_cupy':
-                if not CUPY_AVAILABLE:
+                elif config.platform == 'gpu_torch' and not TORCH_AVAILABLE:
+                    print("  PyTorch not available, falling back to CPU")
+                    config.platform = 'cpu'
+                elif config.platform == 'gpu_cupy' and not CUPY_AVAILABLE:
                     print("  CuPy not available, falling back to CPU")
                     config.platform = 'cpu'
-                    benchmark = CPUBenchmark(config)
-                else:
-                    benchmark = GPUBenchmark(config, backend='cupy')
+
+            if config.platform == 'cpu':
+                benchmark = CPUBenchmark(config)
+            elif config.platform == 'gpu_torch':
+                benchmark = GPUBenchmark(config, backend='torch')
+            elif config.platform == 'gpu_cupy':
+                benchmark = GPUBenchmark(config, backend='cupy')
             else:
                 raise ValueError(f"Unknown platform: {config.platform}")
+
+            # Start performance monitoring
+            monitor = PerformanceMonitor(interval=0.1)
+            monitor.start()
             
-            # Fast execution without heavy memory profiling for speed benchmarks
-            import psutil
-            import os
-            
-            # Get initial memory
-            process = psutil.Process(os.getpid())
-            memory_before = process.memory_info().rss / 1024 / 1024  # MB
-            
-            # Run benchmark with minimal overhead
-            start_time = time.perf_counter()
+            # Run benchmark
             wall_clock_time, total_spikes = benchmark.run_simulation()
-            end_time = time.perf_counter()
             
-            # Get final memory (lightweight monitoring)
-            memory_after = process.memory_info().rss / 1024 / 1024  # MB
+            # Stop monitoring and get results
+            perf_results = monitor.stop()
             
             # Calculate metrics
-            memory_peak = memory_after  # Simplified - peak ≈ final for short runs
-            memory_average = (memory_before + memory_after) / 2
-            simulation_steps = int(config.simulation_time / config.dt)
-            spike_rate = total_spikes / (config.simulation_time / 1000.0) / config.network_size  # Hz per neuron
-            spike_throughput = total_spikes / wall_clock_time  # Total spikes per second
+            simulation_steps = int(config.simulation_time / config.dt) 
+            spike_rate = total_spikes / (config.simulation_time / 1000.0) / config.network_size if config.network_size > 0 else 0
+            spike_throughput = total_spikes / wall_clock_time if wall_clock_time > 0 else 0
             
             # Step time statistics
-            if benchmark.step_times:
-                step_time_mean = float(np.mean(benchmark.step_times))
-                step_time_std = float(np.std(benchmark.step_times))
-            else:
-                step_time_mean = 0.0
-                step_time_std = 0.0
+            step_time_mean = float(np.mean(benchmark.step_times)) if benchmark.step_times else 0.0
+            step_time_std = float(np.std(benchmark.step_times)) if benchmark.step_times else 0.0
             
             result = BenchmarkResult(
                 config=config,
                 wall_clock_time=wall_clock_time,
-                memory_peak=memory_peak,
-                memory_average=memory_average,
+                memory_peak=perf_results['memory_peak'],
+                memory_average=perf_results['memory_average'],
+                cpu_utilization_avg=perf_results['cpu_utilization_avg'],
+                gpu_utilization_avg=perf_results['gpu_utilization_avg'],
+                gpu_memory_avg=perf_results['gpu_memory_avg'],
                 total_spikes=total_spikes,
                 spike_rate=spike_rate,
                 spike_throughput=spike_throughput,
@@ -380,18 +441,22 @@ class BenchmarkRunner:
                 success=True
             )
             
-            print(f"  ✓ Completed in {wall_clock_time:.2f}s")
-            print(f"    Memory: {memory_peak:.1f} MB (peak), {memory_average:.1f} MB (avg)")
+            print(f"  [OK] Completed in {wall_clock_time:.2f}s")
+            print(f"    CPU Usage: {result.cpu_utilization_avg:.1f}% avg")
+            if result.gpu_utilization_avg is not None:
+                print(f"    GPU Usage: {result.gpu_utilization_avg:.1f}% avg, {result.gpu_memory_avg:.1f} MB avg")
+            print(f"    Memory: {result.memory_peak:.1f} MB peak, {result.memory_average:.1f} MB avg")
             print(f"    Spikes: {total_spikes:,} total, {spike_rate:.1f} Hz/neuron")
             print(f"    Throughput: {spike_throughput:.0f} spikes/second")
             
         except Exception as e:
-            print(f"  ✗ Failed: {str(e)}")
+            print(f"  [FAIL] Failed: {str(e)}")
             result = BenchmarkResult(
                 config=config,
                 wall_clock_time=0.0,
                 memory_peak=0.0,
                 memory_average=0.0,
+                cpu_utilization_avg=0.0,
                 total_spikes=0,
                 spike_rate=0.0,
                 spike_throughput=0.0,
@@ -472,7 +537,8 @@ class BenchmarkRunner:
                 # Define CSV columns
                 fieldnames = [
                     'network_size', 'platform', 'simulation_time_ms', 'wall_clock_time_s',
-                    'memory_peak_mb', 'memory_average_mb', 'total_spikes', 
+                    'memory_peak_mb', 'memory_average_mb', 'cpu_utilization_avg',
+                    'gpu_utilization_avg', 'gpu_memory_avg', 'total_spikes', 
                     'spike_rate_hz', 'spike_throughput', 'simulation_steps',
                     'step_time_mean_ms', 'step_time_std_ms', 'success', 'error_message'
                 ]
@@ -488,6 +554,9 @@ class BenchmarkRunner:
                         'wall_clock_time_s': result.wall_clock_time,
                         'memory_peak_mb': result.memory_peak,
                         'memory_average_mb': result.memory_average,
+                        'cpu_utilization_avg': result.cpu_utilization_avg,
+                        'gpu_utilization_avg': result.gpu_utilization_avg,
+                        'gpu_memory_avg': result.gpu_memory_avg,
                         'total_spikes': result.total_spikes,
                         'spike_rate_hz': result.spike_rate,
                         'spike_throughput': result.spike_throughput,
@@ -534,7 +603,13 @@ class BenchmarkRunner:
             
             for result in by_size[size]:
                 if result.success:
+                    gpu_info = ""
+                    if result.gpu_utilization_avg is not None:
+                        gpu_info = f", {result.gpu_utilization_avg:.1f}% GPU"
+                    
                     print(f"  {result.config.platform:12s}: {result.wall_clock_time:6.2f}s, "
+                          f"{result.cpu_utilization_avg:5.1f}% CPU"
+                          f"{gpu_info}, "
                           f"{result.memory_peak:6.1f} MB, "
                           f"{result.spike_throughput:8.0f} spikes/s")
                 else:
@@ -559,7 +634,7 @@ neuron = AdaptiveExponentialIntegrateAndFire(0)
 """
     stmt = "neuron.step(1.0, 10.0)"
     time_single = timeit.timeit(stmt, setup, number=10000) / 10000
-    print(f"Single neuron step: {time_single*1e6:.2f} μs")
+    print(f"Single neuron step: {time_single*1e6:.2f} us")
     results.append(("single_neuron_step", time_single))
     
     # Benchmark 2: Population step (100 neurons)

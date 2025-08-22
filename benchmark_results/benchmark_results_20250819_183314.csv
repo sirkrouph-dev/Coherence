@@ -1,0 +1,10 @@
+network_size,platform,simulation_time_ms,wall_clock_time_s,memory_peak_mb,memory_average_mb,cpu_utilization_avg,gpu_utilization_avg,gpu_memory_avg,total_spikes,spike_rate_hz,spike_throughput,simulation_steps,step_time_mean_ms,step_time_std_ms,success,error_message
+1000,cpu,100.0,14.039813600014895,808.24609375,710.9129423253677,81.66617647058823,,,33300,333.0,2371.826360997034,100,140.39697400003206,19.93534345544158,True,
+1000,gpu_torch,100.0,13.962800899986178,810.3203125,719.2244910037879,76.84924242424243,,,33300,333.0,2384.9083173586587,100,139.62693399982527,19.652585980879657,True,
+1000,gpu_cupy,100.0,13.948705299990252,811.72265625,721.4528290719697,80.38712121212122,,,33300,333.0,2387.3183412960393,100,139.48596500093117,19.126787782349947,True,
+10000,cpu,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
+10000,gpu_torch,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
+10000,gpu_cupy,50.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
+50000,cpu,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
+50000,gpu_torch,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
+50000,gpu_cupy,20.0,0.0,0.0,0.0,0.0,,,0,0.0,0.0,0,0.0,0.0,False,'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
